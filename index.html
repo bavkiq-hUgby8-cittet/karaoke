@@ -356,6 +356,47 @@
             text-align: center;
         }
 
+        .url-config {
+            margin-bottom: 20px;
+        }
+
+        .url-config label {
+            display: block;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .url-config input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 0.95em;
+            text-align: center;
+        }
+
+        .qr-instructions {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .qr-instructions p {
+            margin: 5px 0;
+        }
+
+        .qr-url {
+            font-size: 0.7em;
+            opacity: 0.7;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+
         .qr-codes {
             display: flex;
             justify-content: center;
@@ -598,15 +639,30 @@
 
                 <div class="panel qr-section">
                     <h2>📱 Entre no Karaokê!</h2>
-                    <div class="qr-codes">
+                    
+                    <div class="url-config">
+                        <label>URL do site (GitHub Pages):</label>
+                        <input type="text" id="baseUrlInput" placeholder="https://seuusuario.github.io/karaoke" onchange="generateQRCodes()">
+                        <button onclick="generateQRCodes()" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;background:#667eea;color:white;cursor:pointer;">Gerar QR Codes</button>
+                    </div>
+
+                    <div class="qr-codes" id="qrCodesContainer" style="display:none;">
                         <div class="qr-box">
                             <canvas id="qrCantor"></canvas>
                             <div class="label">🎤 Cantor</div>
+                            <div class="qr-url" id="urlCantor"></div>
                         </div>
                         <div class="qr-box">
                             <canvas id="qrPlateia"></canvas>
                             <div class="label">👏 Plateia</div>
+                            <div class="qr-url" id="urlPlateia"></div>
                         </div>
+                    </div>
+                    
+                    <div class="qr-instructions">
+                        <p>1. Suba os arquivos no GitHub Pages</p>
+                        <p>2. Cole a URL acima e clique em "Gerar QR Codes"</p>
+                        <p>3. A galera escaneia pelo celular!</p>
                     </div>
                 </div>
             </div>
@@ -959,17 +1015,58 @@
 
         // ========== QR CODES ==========
         function generateQRCodes() {
-            const baseUrl = window.location.href.replace('index.html', '').replace(/\/$/, '');
+            const baseUrlInput = document.getElementById('baseUrlInput');
+            let baseUrl = baseUrlInput.value.trim();
             
+            if (!baseUrl) {
+                // Tenta usar a URL atual se estiver em um servidor
+                if (window.location.protocol !== 'file:') {
+                    baseUrl = window.location.href.replace('index.html', '').replace(/\/$/, '');
+                    baseUrlInput.value = baseUrl;
+                } else {
+                    alert('Digite a URL do seu site no GitHub Pages!');
+                    return;
+                }
+            }
+            
+            // Remove barra final se houver
+            baseUrl = baseUrl.replace(/\/$/, '');
+            
+            const urlCantor = `${baseUrl}/cantor.html`;
+            const urlPlateia = `${baseUrl}/plateia.html`;
+            
+            // Mostra o container dos QR codes
+            document.getElementById('qrCodesContainer').style.display = 'flex';
+            
+            // Limpa canvas anteriores
+            document.getElementById('qrCantor').getContext('2d').clearRect(0, 0, 120, 120);
+            document.getElementById('qrPlateia').getContext('2d').clearRect(0, 0, 120, 120);
+            
+            // Gera QR codes
             QRCode.toCanvas(document.getElementById('qrCantor'), 
-                `${baseUrl}/cantor.html`, 
+                urlCantor, 
                 { width: 120, margin: 1 }
             );
             
             QRCode.toCanvas(document.getElementById('qrPlateia'), 
-                `${baseUrl}/plateia.html`, 
+                urlPlateia, 
                 { width: 120, margin: 1 }
             );
+            
+            // Mostra URLs em texto
+            document.getElementById('urlCantor').textContent = urlCantor;
+            document.getElementById('urlPlateia').textContent = urlPlateia;
+            
+            // Salva no localStorage pra lembrar
+            localStorage.setItem('karaoke_base_url', baseUrl);
+        }
+        
+        function loadSavedUrl() {
+            const savedUrl = localStorage.getItem('karaoke_base_url');
+            if (savedUrl) {
+                document.getElementById('baseUrlInput').value = savedUrl;
+                generateQRCodes();
+            }
         }
 
         // ========== LISTENERS DO FIREBASE ==========
@@ -1008,7 +1105,7 @@
 
         // ========== INICIALIZAÇÃO ==========
         document.addEventListener('DOMContentLoaded', () => {
-            generateQRCodes();
+            loadSavedUrl();
             setupListeners();
         });
     </script>
