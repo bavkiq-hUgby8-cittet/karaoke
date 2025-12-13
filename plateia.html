@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>👏 Karaokê - Plateia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .panel {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Login da Plateia */
+        .login-screen {
+            text-align: center;
+        }
+
+        .login-screen input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .login-screen input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .login-screen button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Tela Principal da Plateia */
+        .audience-screen {
+            display: none;
+        }
+
+        /* Cantor Atual */
+        .current-singer {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+        }
+
+        .current-singer .label {
+            font-size: 1em;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .current-singer .name {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .current-singer .song {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .no-singer {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.6;
+        }
+
+        /* Barra de Energia */
+        .energy-section {
+            margin-top: 20px;
+        }
+
+        .energy-bar-container {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            height: 30px;
+            overflow: hidden;
+        }
+
+        .energy-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #00cec9, #0984e3, #6c5ce7, #fd79a8);
+            background-size: 200% 100%;
+            animation: energyGradient 2s ease infinite;
+            transition: width 0.1s ease;
+            border-radius: 15px;
+        }
+
+        @keyframes energyGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .energy-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* Sistema de Votação */
+        .voting-section {
+            display: none;
+        }
+
+        .voting-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .voting-title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .voting-singer {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #feca57, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .star {
+            font-size: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            filter: grayscale(100%);
+        }
+
+        .star:hover,
+        .star.active {
+            filter: grayscale(0%);
+            transform: scale(1.2);
+        }
+
+        .star.selected {
+            animation: starPop 0.3s ease;
+        }
+
+        @keyframes starPop {
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.4); }
+        }
+
+        .vote-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #feca57 0%, #ff6b6b 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .vote-btn:disabled {
+            background: rgba(255,255,255,0.2);
+            cursor: not-allowed;
+        }
+
+        .vote-btn:not(:disabled):hover {
+            transform: scale(1.02);
+        }
+
+        .vote-status {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        .vote-status.success {
+            color: #00b894;
+        }
+
+        .vote-timer {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 15px;
+            color: #feca57;
+        }
+
+        /* Placar */
+        .scoreboard {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .score-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            gap: 12px;
+        }
+
+        .score-item .rank {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .score-item:nth-child(1) .rank {
+            background: linear-gradient(135deg, #f5af19, #f12711);
+        }
+
+        .score-item:nth-child(2) .rank {
+            background: linear-gradient(135deg, #bdc3c7, #2c3e50);
+        }
+
+        .score-item:nth-child(3) .rank {
+            background: linear-gradient(135deg, #cd7f32, #8b4513);
+        }
+
+        .score-item .name {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .score-item .points {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #feca57;
+        }
+
+        /* Fila */
+        .queue-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .queue-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .queue-item .position {
+            width: 28px;
+            height: 28px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .queue-item .details {
+            flex: 1;
+        }
+
+        .queue-item .singer {
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .queue-item .song {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        /* Info do usuário */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .user-details h3 {
+            font-size: 1.2em;
+        }
+
+        .user-details p {
+            opacity: 0.7;
+            font-size: 0.85em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👏 Karaokê dos Veloso</h1>
+        </header>
+
+        <!-- Tela de Login -->
+        <div class="login-screen" id="loginScreen">
+            <div class="panel">
+                <h2>👤 Entre como Plateia!</h2>
+                <input type="text" id="userName" placeholder="Seu nome" maxlength="20">
+                <button onclick="joinAudience()">Entrar 🎉</button>
+            </div>
+        </div>
+
+        <!-- Tela Principal da Plateia -->
+        <div class="audience-screen" id="audienceScreen">
+            <!-- Info do Usuário -->
+            <div class="panel">
+                <div class="user-info">
+                    <div class="user-avatar">👏</div>
+                    <div class="user-details">
+                        <h3 id="displayName">-</h3>
+                        <p>Plateia</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cantor Atual -->
+            <div class="panel">
+                <h2>🎤 Cantando Agora</h2>
+                <div id="currentSingerSection">
+                    <div class="no-singer">
+                        <div style="font-size: 40px;">🎤</div>
+                        <p>Ninguém cantando</p>
+                    </div>
+                </div>
+                
+                <div class="energy-section" id="energySection" style="display: none;">
+                    <div class="energy-bar-container">
+                        <div class="energy-bar" id="energyBar" style="width: 0%"></div>
+                    </div>
+                    <div class="energy-label">
+                        <span>Energia do Cantor</span>
+                        <span id="energyPercent">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Votação -->
+            <div class="panel voting-section" id="votingSection">
+                <div class="voting-title">⭐ Hora de Votar! ⭐</div>
+                <div class="voting-singer" id="votingSingerName">-</div>
+                
+                <div class="star-rating" id="starRating">
+                    <span class="star" data-value="1" onclick="selectStar(1)">⭐</span>
+                    <span class="star" data-value="2" onclick="selectStar(2)">⭐</span>
+                    <span class="star" data-value="3" onclick="selectStar(3)">⭐</span>
+                    <span class="star" data-value="4" onclick="selectStar(4)">⭐</span>
+                    <span class="star" data-value="5" onclick="selectStar(5)">⭐</span>
+                </div>
+                
+                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>
+                    Selecione sua nota
+                </button>
+                
+                <div class="vote-status" id="voteStatus"></div>
+                <div class="vote-timer">Tempo: <span id="voteTimer">15</span>s</div>
+            </div>
+
+            <!-- Placar -->
+            <div class="panel">
+                <h2>🏆 Placar</h2>
+                <div class="scoreboard" id="scoreboard">
+                    <div class="no-singer">
+                        <div style="font-size: 30px;">🏆</div>
+                        <p>Nenhuma pontuação</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila -->
+            <div class="panel">
+                <h2>📋 Próximos Cantores</h2>
+                <div class="queue-list" id="queueList">
+                    <div class="no-singer">
+                        <div style="font-size: 30px;">📋</div>
+                        <p>Fila vazia</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // ========== CONFIGURAÇÃO FIREBASE ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
+            authDomain: "karaoke-46db0.firebaseapp.com",
+            databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
+            projectId: "karaoke-46db0",
+            storageBucket: "karaoke-46db0.firebasestorage.app",
+            messagingSenderId: "485060420642",
+            appId: "1:485060420642:web:70622aef371710f47cd67b"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const karaokeRef = db.ref('karaoke');
+
+        // ========== VARIÁVEIS ==========
+        let audienceId = null;
+        let audienceName = '';
+        let selectedVote = 0;
+        let hasVoted = false;
+        let currentVotingId = null;
+
+        // ========== ENTRAR COMO PLATEIA ==========
+        function joinAudience() {
+            const nameInput = document.getElementById('userName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Digite seu nome!');
+                return;
+            }
+
+            audienceName = name;
+            audienceId = 'audience_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+            // Salva no localStorage
+            localStorage.setItem('karaoke_audience_id', audienceId);
+            localStorage.setItem('karaoke_audience_name', audienceName);
+
+            // Mostra tela principal
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('audienceScreen').style.display = 'block';
+            document.getElementById('displayName').textContent = name;
+
+            // Inicia listeners
+            setupListeners();
+        }
+
+        // ========== SISTEMA DE VOTAÇÃO ==========
+        function selectStar(value) {
+            if (hasVoted) return;
+
+            selectedVote = value;
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach((star, index) => {
+                if (index < value) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            stars[value - 1].classList.add('selected');
+            setTimeout(() => stars[value - 1].classList.remove('selected'), 300);
+
+            document.getElementById('voteBtn').disabled = false;
+            document.getElementById('voteBtn').textContent = `Votar ${value} ⭐`;
+        }
+
+        function submitVote() {
+            if (selectedVote === 0 || hasVoted || !currentVotingId) return;
+
+            karaokeRef.child('voting/votes').child(audienceId).set(selectedVote);
+
+            hasVoted = true;
+            document.getElementById('voteBtn').disabled = true;
+            document.getElementById('voteBtn').textContent = '✓ Voto enviado!';
+            document.getElementById('voteStatus').textContent = `Você votou ${selectedVote} estrelas!`;
+            document.getElementById('voteStatus').className = 'vote-status success';
+
+            // Vibra o celular
+            if (navigator.vibrate) {
+                navigator.vibrate(100);
+            }
+        }
+
+        function resetVoting() {
+            selectedVote = 0;
+            hasVoted = false;
+            currentVotingId = null;
+
+            document.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('active');
+            });
+
+            document.getElementById('voteBtn').disabled = true;
+            document.getElementById('voteBtn').textContent = 'Selecione sua nota';
+            document.getElementById('voteStatus').textContent = '';
+            document.getElementById('votingSection').classList.remove('active');
+        }
+
+        // ========== ATUALIZAÇÃO DO CANTOR ATUAL ==========
+        function updateCurrentSinger(queue) {
+            const section = document.getElementById('currentSingerSection');
+            const energySection = document.getElementById('energySection');
+
+            if (!queue || Object.keys(queue).length === 0) {
+                section.innerHTML = `
+                    <div class="no-singer">
+                        <div style="font-size: 40px;">🎤</div>
+                        <p>Ninguém cantando</p>
+                    </div>
+                `;
+                energySection.style.display = 'none';
+                return;
+            }
+
+            const queueArray = Object.entries(queue)
+                .map(([key, value]) => ({ id: key, ...value }))
+                .sort((a, b) => a.timestamp - b.timestamp);
+
+            if (queueArray.length > 0) {
+                const current = queueArray[0];
+                section.innerHTML = `
+                    <div class="current-singer">
+                        <div class="label">🎙️ No palco</div>
+                        <div class="name">${current.singerName}</div>
+                        <div class="song">${current.songTitle || 'Escolhendo música...'}</div>
+                    </div>
+                `;
+                energySection.style.display = 'block';
+            }
+        }
+
+        // ========== ATUALIZAÇÃO DA FILA ==========
+        function updateQueue(queue) {
+            const queueList = document.getElementById('queueList');
+
+            if (!queue || Object.keys(queue).length <= 1) {
+                queueList.innerHTML = `
+                    <div class="no-singer">
+                        <div style="font-size: 30px;">📋</div>
+                        <p>Fila vazia</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const queueArray = Object.entries(queue)
+                .map(([key, value]) => ({ id: key, ...value }))
+                .sort((a, b) => a.timestamp - b.timestamp)
+                .slice(1); // Remove o primeiro (está cantando)
+
+            if (queueArray.length === 0) {
+                queueList.innerHTML = `
+                    <div class="no-singer">
+                        <div style="font-size: 30px;">📋</div>
+                        <p>Fila vazia</p>
+                    </div>
+                `;
+                return;
+            }
+
+            queueList.innerHTML = queueArray.map((item, index) => `
+                <div class="queue-item">
+                    <div class="position">${index + 2}</div>
+                    <div class="details">
+                        <div class="singer">${item.singerName}</div>
+                        <div class="song">${item.songTitle || 'Escolhendo...'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ========== ATUALIZAÇÃO DO PLACAR ==========
+        function updateScoreboard(scores) {
+            const scoreboard = document.getElementById('scoreboard');
+
+            if (!scores || Object.keys(scores).length === 0) {
+                scoreboard.innerHTML = `
+                    <div class="no-singer">
+                        <div style="font-size: 30px;">🏆</div>
+                        <p>Nenhuma pontuação</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sortedScores = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1]);
+
+            scoreboard.innerHTML = sortedScores.map(([name, score], index) => `
+                <div class="score-item">
+                    <div class="rank">${index + 1}</div>
+                    <div class="name">${name}</div>
+                    <div class="points">${score} pts</div>
+                </div>
+            `).join('');
+        }
+
+        // ========== ATUALIZAÇÃO DE ENERGIA ==========
+        function updateEnergy(energy) {
+            if (energy === null) return;
+            const percentage = Math.min(100, Math.max(0, energy));
+            document.getElementById('energyBar').style.width = percentage + '%';
+            document.getElementById('energyPercent').textContent = Math.round(percentage) + '%';
+        }
+
+        // ========== ATUALIZAÇÃO DA VOTAÇÃO ==========
+        function updateVoting(voting) {
+            const votingSection = document.getElementById('votingSection');
+
+            if (!voting || !voting.active) {
+                resetVoting();
+                return;
+            }
+
+            // Nova votação iniciada
+            if (voting.singerId !== currentVotingId) {
+                resetVoting();
+                currentVotingId = voting.singerId;
+            }
+
+            votingSection.classList.add('active');
+            document.getElementById('votingSingerName').textContent = voting.singerName;
+
+            // Calcula tempo restante
+            const elapsed = (Date.now() - voting.startTime) / 1000;
+            const remaining = Math.max(0, 15 - Math.floor(elapsed));
+            document.getElementById('voteTimer').textContent = remaining;
+
+            // Vibra quando votação abre
+            if (navigator.vibrate && !hasVoted) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+
+        // ========== LISTENERS ==========
+        function setupListeners() {
+            // Fila e cantor atual
+            karaokeRef.child('queue').on('value', snapshot => {
+                const queue = snapshot.val();
+                updateCurrentSinger(queue);
+                updateQueue(queue);
+            });
+
+            // Energia
+            karaokeRef.child('currentEnergy').on('value', snapshot => {
+                updateEnergy(snapshot.val());
+            });
+
+            // Placar
+            karaokeRef.child('scores').on('value', snapshot => {
+                updateScoreboard(snapshot.val());
+            });
+
+            // Votação
+            karaokeRef.child('voting').on('value', snapshot => {
+                updateVoting(snapshot.val());
+            });
+        }
+
+        // ========== RECONEXÃO ==========
+        function checkReconnection() {
+            const savedId = localStorage.getItem('karaoke_audience_id');
+            const savedName = localStorage.getItem('karaoke_audience_name');
+
+            if (savedId && savedName) {
+                audienceId = savedId;
+                audienceName = savedName;
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('audienceScreen').style.display = 'block';
+                document.getElementById('displayName').textContent = savedName;
+                setupListeners();
+            }
+        }
+
+        // ========== INICIALIZAÇÃO ==========
+        document.addEventListener('DOMContentLoaded', checkReconnection);
+    </script>
+</body>
+</html>

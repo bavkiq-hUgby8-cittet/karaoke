@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🎤 Karaokê - Cantor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .panel {
+            background: rgba(0,0,0,0.4);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tela de Login */
+        .login-screen {
+            text-align: center;
+        }
+
+        .login-screen input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .login-screen input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .login-screen button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Tela Principal do Cantor */
+        .singer-screen {
+            display: none;
+        }
+
+        .status-box {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #2d3436, #636e72);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-box.waiting {
+            background: linear-gradient(135deg, #636e72, #2d3436);
+        }
+
+        .status-box.your-turn {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            animation: pulseGreen 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.4); }
+            50% { box-shadow: 0 0 30px 10px rgba(0, 184, 148, 0.2); }
+        }
+
+        .status-box.singing {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            animation: pulseSing 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseSing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .status-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .status-text {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .status-subtext {
+            font-size: 1em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .queue-position {
+            font-size: 3em;
+            font-weight: bold;
+            color: #feca57;
+        }
+
+        /* Medidor de Energia */
+        .energy-meter {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .energy-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+            background: conic-gradient(
+                from 0deg,
+                #00b894 0%,
+                #00cec9 25%,
+                #0984e3 50%,
+                #6c5ce7 75%,
+                #fd79a8 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .energy-circle::before {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: #1a1a2e;
+            border-radius: 50%;
+        }
+
+        .energy-value {
+            position: relative;
+            z-index: 1;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .energy-label {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+
+        /* Visualização de Áudio */
+        .audio-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 80px;
+            gap: 4px;
+            margin: 20px 0;
+        }
+
+        .bar {
+            width: 8px;
+            background: linear-gradient(to top, #00b894, #00cec9, #0984e3);
+            border-radius: 4px;
+            transition: height 0.05s ease;
+        }
+
+        /* Botão do Microfone */
+        .mic-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #d63031, #e17055);
+            color: white;
+            font-size: 50px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(214, 48, 49, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .mic-button.active {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.4);
+            animation: micPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes micPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .mic-status {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        /* Busca de Música */
+        .song-search {
+            margin-top: 20px;
+        }
+
+        .search-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .search-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-results {
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .result-item:active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .result-item img {
+            width: 50px;
+            height: 38px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .result-item .title {
+            flex: 1;
+            font-size: 0.9em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Info do Cantor */
+        .singer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+
+        .singer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .singer-details h3 {
+            font-size: 1.3em;
+        }
+
+        .singer-details p {
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        .leave-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            background: transparent;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Mensagens */
+        .message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .message.success {
+            background: rgba(0, 184, 148, 0.3);
+            border: 1px solid #00b894;
+        }
+
+        .message.error {
+            background: rgba(214, 48, 49, 0.3);
+            border: 1px solid #d63031;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎤 Karaokê dos Veloso</h1>
+        </header>
+
+        <!-- Tela de Login -->
+        <div class="login-screen" id="loginScreen">
+            <div class="panel">
+                <h2>👤 Entre no Karaokê!</h2>
+                <input type="text" id="singerName" placeholder="Seu nome" maxlength="20">
+                <button onclick="joinKaraoke()">Entrar na Fila 🎵</button>
+            </div>
+        </div>
+
+        <!-- Tela Principal do Cantor -->
+        <div class="singer-screen" id="singerScreen">
+            <!-- Info do Cantor -->
+            <div class="panel">
+                <div class="singer-info">
+                    <div class="singer-avatar">🎤</div>
+                    <div class="singer-details">
+                        <h3 id="displayName">-</h3>
+                        <p>Cantor</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status na Fila -->
+            <div class="panel">
+                <div class="status-box waiting" id="statusBox">
+                    <div class="status-icon" id="statusIcon">⏳</div>
+                    <div class="status-text" id="statusText">Na fila</div>
+                    <div class="status-subtext" id="statusSubtext">Aguarde sua vez...</div>
+                    <div class="queue-position" id="queuePosition"></div>
+                </div>
+            </div>
+
+            <!-- Medidor de Energia (só aparece quando cantando) -->
+            <div class="panel hidden" id="energyPanel">
+                <h2>🔥 Sua Energia</h2>
+                <div class="energy-meter">
+                    <div class="energy-circle">
+                        <div class="energy-value" id="energyValue">0%</div>
+                    </div>
+                    <div class="energy-label">Cante com força!</div>
+                    
+                    <div class="audio-visualizer" id="visualizer">
+                        <!-- Barras serão geradas via JS -->
+                    </div>
+
+                    <button class="mic-button" id="micButton" onclick="toggleMicrophone()">
+                        🎤
+                    </button>
+                    <div class="mic-status" id="micStatus">Toque para ativar o microfone</div>
+                </div>
+            </div>
+
+            <!-- Escolher Música -->
+            <div class="panel" id="songPanel">
+                <h2>🎵 Escolher Música</h2>
+                <div class="song-search">
+                    <div class="search-input">
+                        <input type="text" id="songSearch" placeholder="Buscar música karaokê...">
+                        <button onclick="searchSong()">🔍</button>
+                    </div>
+                    <div class="search-results" id="songResults"></div>
+                </div>
+            </div>
+
+            <button class="leave-btn" onclick="leaveKaraoke()">Sair da Fila</button>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // ========== CONFIGURAÇÃO FIREBASE ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
+            authDomain: "karaoke-46db0.firebaseapp.com",
+            databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
+            projectId: "karaoke-46db0",
+            storageBucket: "karaoke-46db0.firebasestorage.app",
+            messagingSenderId: "485060420642",
+            appId: "1:485060420642:web:70622aef371710f47cd67b"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const karaokeRef = db.ref('karaoke');
+
+        // ========== VARIÁVEIS ==========
+        const YOUTUBE_API_KEY = 'SUA_YOUTUBE_API_KEY';
+        let singerId = null;
+        let singerName = '';
+        let audioContext = null;
+        let analyser = null;
+        let microphone = null;
+        let micActive = false;
+        let isMyTurn = false;
+        let energyInterval = null;
+
+        // ========== ENTRAR NA FILA ==========
+        function joinKaraoke() {
+            const nameInput = document.getElementById('singerName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Digite seu nome!');
+                return;
+            }
+
+            singerName = name;
+
+            // Adiciona na fila do Firebase
+            const newSingerRef = karaokeRef.child('queue').push();
+            singerId = newSingerRef.key;
+
+            newSingerRef.set({
+                singerName: name,
+                timestamp: Date.now(),
+                videoId: null,
+                songTitle: null,
+                energyTotal: 0,
+                energyCount: 0
+            });
+
+            // Salva no localStorage para reconexão
+            localStorage.setItem('karaoke_singer_id', singerId);
+            localStorage.setItem('karaoke_singer_name', singerName);
+
+            // Mostra tela principal
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('singerScreen').style.display = 'block';
+            document.getElementById('displayName').textContent = name;
+
+            // Inicia listeners
+            setupListeners();
+
+            // Gera barras do visualizador
+            generateVisualizerBars();
+        }
+
+        function leaveKaraoke() {
+            if (singerId) {
+                karaokeRef.child('queue').child(singerId).remove();
+            }
+            localStorage.removeItem('karaoke_singer_id');
+            localStorage.removeItem('karaoke_singer_name');
+            location.reload();
+        }
+
+        // ========== BUSCA DE MÚSICA ==========
+        async function searchSong() {
+            const query = document.getElementById('songSearch').value.trim();
+            if (!query) return;
+
+            const resultsDiv = document.getElementById('songResults');
+            resultsDiv.innerHTML = '<p style="text-align:center;opacity:0.7;">Buscando...</p>';
+
+            try {
+                const response = await fetch(
+                    `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${encodeURIComponent(query + ' karaoke')}&type=video&key=${YOUTUBE_API_KEY}`
+                );
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    resultsDiv.innerHTML = data.items.map(item => `
+                        <div class="result-item" onclick="selectSong('${item.id.videoId}', '${item.snippet.title.replace(/'/g, "\\'")}')">
+                            <img src="${item.snippet.thumbnails.default.url}" alt="">
+                            <div class="title">${item.snippet.title}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    resultsDiv.innerHTML = '<p style="text-align:center;opacity:0.7;">Nenhum resultado</p>';
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = '<p style="text-align:center;color:#ff6b6b;">Erro na busca</p>';
+            }
+        }
+
+        function selectSong(videoId, title) {
+            if (!singerId) return;
+
+            karaokeRef.child('queue').child(singerId).update({
+                videoId: videoId,
+                songTitle: title
+            });
+
+            document.getElementById('songResults').innerHTML = `
+                <div class="message success">
+                    ✓ Música selecionada: ${title}
+                </div>
+            `;
+            document.getElementById('songSearch').value = '';
+        }
+
+        // ========== MICROFONE E ENERGIA ==========
+        function generateVisualizerBars() {
+            const visualizer = document.getElementById('visualizer');
+            visualizer.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = '10px';
+                visualizer.appendChild(bar);
+            }
+        }
+
+        async function toggleMicrophone() {
+            const micButton = document.getElementById('micButton');
+            const micStatus = document.getElementById('micStatus');
+
+            if (!micActive) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    analyser = audioContext.createAnalyser();
+                    microphone = audioContext.createMediaStreamSource(stream);
+                    
+                    analyser.fftSize = 256;
+                    microphone.connect(analyser);
+
+                    micActive = true;
+                    micButton.classList.add('active');
+                    micStatus.textContent = 'Microfone ativo! Cante!';
+
+                    // Inicia análise de áudio
+                    startEnergyAnalysis();
+                } catch (error) {
+                    alert('Não foi possível acessar o microfone. Verifique as permissões.');
+                    console.error(error);
+                }
+            } else {
+                stopMicrophone();
+            }
+        }
+
+        function stopMicrophone() {
+            micActive = false;
+            document.getElementById('micButton').classList.remove('active');
+            document.getElementById('micStatus').textContent = 'Toque para ativar o microfone';
+            
+            if (energyInterval) {
+                clearInterval(energyInterval);
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
+        }
+
+        function startEnergyAnalysis() {
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            const bars = document.querySelectorAll('#visualizer .bar');
+
+            energyInterval = setInterval(() => {
+                if (!micActive) return;
+
+                analyser.getByteFrequencyData(dataArray);
+
+                // Calcula energia média
+                let sum = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    sum += dataArray[i];
+                }
+                const average = sum / bufferLength;
+                const energyPercent = Math.min(100, (average / 128) * 100);
+
+                // Atualiza display
+                document.getElementById('energyValue').textContent = Math.round(energyPercent) + '%';
+
+                // Atualiza visualizador
+                bars.forEach((bar, index) => {
+                    const value = dataArray[index * 6] || 0;
+                    bar.style.height = Math.max(5, value / 3) + 'px';
+                });
+
+                // Envia para Firebase se for a vez do cantor
+                if (isMyTurn && singerId) {
+                    karaokeRef.child('currentEnergy').set(energyPercent);
+                    
+                    // Acumula energia
+                    karaokeRef.child('queue').child(singerId).child('energyTotal')
+                        .transaction(current => (current || 0) + energyPercent);
+                    karaokeRef.child('queue').child(singerId).child('energyCount')
+                        .transaction(current => (current || 0) + 1);
+                }
+            }, 100);
+        }
+
+        // ========== ATUALIZAÇÃO DE STATUS ==========
+        function updateStatus(queue) {
+            if (!queue || !singerId) return;
+
+            const queueArray = Object.entries(queue)
+                .map(([key, value]) => ({ id: key, ...value }))
+                .sort((a, b) => a.timestamp - b.timestamp);
+
+            const myIndex = queueArray.findIndex(item => item.id === singerId);
+
+            if (myIndex === -1) {
+                // Não está mais na fila
+                document.getElementById('statusBox').className = 'status-box waiting';
+                document.getElementById('statusIcon').textContent = '❌';
+                document.getElementById('statusText').textContent = 'Você saiu da fila';
+                document.getElementById('statusSubtext').textContent = '';
+                document.getElementById('queuePosition').textContent = '';
+                isMyTurn = false;
+                return;
+            }
+
+            const statusBox = document.getElementById('statusBox');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusText = document.getElementById('statusText');
+            const statusSubtext = document.getElementById('statusSubtext');
+            const queuePosition = document.getElementById('queuePosition');
+            const energyPanel = document.getElementById('energyPanel');
+            const songPanel = document.getElementById('songPanel');
+
+            if (myIndex === 0) {
+                // É a vez do cantor!
+                isMyTurn = true;
+                statusBox.className = 'status-box your-turn';
+                statusIcon.textContent = '🎤';
+                statusText.textContent = 'É SUA VEZ!';
+                statusSubtext.textContent = 'Ative o microfone e cante!';
+                queuePosition.textContent = '';
+                energyPanel.classList.remove('hidden');
+                songPanel.classList.add('hidden');
+                
+                // Vibra o celular
+                if (navigator.vibrate) {
+                    navigator.vibrate([200, 100, 200, 100, 200]);
+                }
+            } else {
+                // Aguardando na fila
+                isMyTurn = false;
+                statusBox.className = 'status-box waiting';
+                statusIcon.textContent = '⏳';
+                statusText.textContent = 'Na fila';
+                statusSubtext.textContent = `Você é o ${myIndex + 1}º`;
+                queuePosition.textContent = '#' + (myIndex + 1);
+                energyPanel.classList.add('hidden');
+                songPanel.classList.remove('hidden');
+            }
+        }
+
+        // ========== LISTENERS ==========
+        function setupListeners() {
+            karaokeRef.child('queue').on('value', snapshot => {
+                updateStatus(snapshot.val());
+            });
+
+            karaokeRef.child('status').on('value', snapshot => {
+                const status = snapshot.val();
+                if (status === 'playing' && isMyTurn) {
+                    document.getElementById('statusBox').className = 'status-box singing';
+                    document.getElementById('statusText').textContent = 'CANTANDO!';
+                }
+            });
+        }
+
+        // ========== RECONEXÃO ==========
+        function checkReconnection() {
+            const savedId = localStorage.getItem('karaoke_singer_id');
+            const savedName = localStorage.getItem('karaoke_singer_name');
+
+            if (savedId && savedName) {
+                karaokeRef.child('queue').child(savedId).once('value', snapshot => {
+                    if (snapshot.exists()) {
+                        singerId = savedId;
+                        singerName = savedName;
+                        document.getElementById('loginScreen').style.display = 'none';
+                        document.getElementById('singerScreen').style.display = 'block';
+                        document.getElementById('displayName').textContent = savedName;
+                        generateVisualizerBars();
+                        setupListeners();
+                    } else {
+                        localStorage.removeItem('karaoke_singer_id');
+                        localStorage.removeItem('karaoke_singer_name');
+                    }
+                });
+            }
+        }
+
+        // ========== INICIALIZAÇÃO ==========
+        document.addEventListener('DOMContentLoaded', checkReconnection);
+    </script>
+</body>
+</html>
