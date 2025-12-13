@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎤 Karaokê dos Veloso - TV</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -18,7 +13,6 @@
             color: white;
             overflow: hidden;
         }
-
         .container {
             display: grid;
             grid-template-columns: 1fr 320px;
@@ -27,7 +21,6 @@
             gap: 15px;
             padding: 15px;
         }
-
         header {
             grid-column: 1 / -1;
             text-align: center;
@@ -35,7 +28,6 @@
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
         }
-
         header h1 {
             font-size: 2.2em;
             background: linear-gradient(45deg, #f857a6, #ff5858, #ffb347, #ffed47);
@@ -44,18 +36,11 @@
             animation: rainbow 3s ease infinite;
             background-size: 200% 200%;
         }
-
         @keyframes rainbow {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-
-        .video-area {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        .video-area { display: flex; flex-direction: column; gap: 15px; }
         .video-container {
             flex: 1;
             background: #000;
@@ -64,21 +49,15 @@
             position: relative;
             min-height: 300px;
         }
-
         .video-container iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
         }
-
         .video-placeholder {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -87,12 +66,7 @@
             font-size: 1.2em;
             opacity: 0.7;
         }
-
-        .video-placeholder .icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
+        .video-placeholder .icon { font-size: 80px; margin-bottom: 20px; }
         .current-singer {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 15px;
@@ -101,37 +75,17 @@
             align-items: center;
             gap: 20px;
         }
-
-        .singer-info {
-            flex: 1;
-        }
-
-        .singer-info .label {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        .singer-info .name {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        .singer-info .song {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-
-        .energy-display {
-            width: 200px;
-        }
-
+        .singer-info { flex: 1; }
+        .singer-info .label { font-size: 0.9em; opacity: 0.8; }
+        .singer-info .name { font-size: 1.8em; font-weight: bold; }
+        .singer-info .song { font-size: 1.1em; opacity: 0.9; }
+        .energy-display { width: 200px; }
         .energy-bar {
             height: 25px;
             background: rgba(0,0,0,0.3);
             border-radius: 12px;
             overflow: hidden;
         }
-
         .energy-fill {
             height: 100%;
             width: 0%;
@@ -141,18 +95,11 @@
             border-radius: 12px;
             transition: width 0.1s;
         }
-
         @keyframes energyMove {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-
-        .energy-label {
-            text-align: center;
-            margin-top: 5px;
-            font-size: 0.9em;
-        }
-
+        .energy-label { text-align: center; margin-top: 5px; font-size: 0.9em; }
         .no-singer {
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
@@ -160,48 +107,89 @@
             text-align: center;
             opacity: 0.6;
         }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        .sidebar { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
         .panel {
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
             padding: 15px;
         }
-
         .panel h2 {
             font-size: 1.1em;
             margin-bottom: 12px;
             padding-bottom: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.2);
         }
-
-        .qr-panel {
-            text-align: center;
-        }
-
+        .qr-panel { text-align: center; }
         .qr-panel canvas {
             background: white;
             padding: 10px;
             border-radius: 10px;
         }
-
         .qr-panel .url {
             margin-top: 10px;
-            font-size: 0.75em;
+            font-size: 0.7em;
             opacity: 0.7;
             word-break: break-all;
         }
-
-        .queue-list {
-            max-height: 180px;
-            overflow-y: auto;
+        .mic-option {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
         }
-
+        .mic-option label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+        .mic-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        .mic-section {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            display: none;
+        }
+        .mic-section.active { display: block; }
+        .mic-btn-operator {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            background: linear-gradient(135deg, #d63031, #e74c3c);
+            color: white;
+            transition: all 0.3s;
+        }
+        .mic-btn-operator.active {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            animation: pulse 1s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .visualizer-operator {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 40px;
+            gap: 3px;
+            margin-top: 10px;
+        }
+        .visualizer-operator .bar {
+            width: 6px;
+            background: linear-gradient(to top, #00b894, #00cec9);
+            border-radius: 3px;
+            transition: height 0.05s;
+        }
+        .queue-list { max-height: 150px; overflow-y: auto; }
         .queue-item {
             display: flex;
             align-items: center;
@@ -211,14 +199,9 @@
             border-radius: 10px;
             margin-bottom: 8px;
         }
-
-        .queue-item.current {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
+        .queue-item.current { background: linear-gradient(135deg, #667eea, #764ba2); }
         .queue-item .pos {
-            width: 28px;
-            height: 28px;
+            width: 28px; height: 28px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
             display: flex;
@@ -227,17 +210,8 @@
             font-weight: bold;
             font-size: 0.9em;
         }
-
-        .queue-item .info {
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .queue-item .name {
-            font-weight: bold;
-            font-size: 0.95em;
-        }
-
+        .queue-item .info { flex: 1; overflow: hidden; }
+        .queue-item .name { font-weight: bold; font-size: 0.95em; }
         .queue-item .song {
             font-size: 0.8em;
             opacity: 0.7;
@@ -245,18 +219,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .empty-list {
-            text-align: center;
-            padding: 20px;
-            opacity: 0.5;
-        }
-
-        .scoreboard {
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
+        .empty-list { text-align: center; padding: 20px; opacity: 0.5; }
+        .scoreboard { max-height: 120px; overflow-y: auto; }
         .score-item {
             display: flex;
             align-items: center;
@@ -266,10 +230,8 @@
             border-radius: 8px;
             margin-bottom: 6px;
         }
-
         .score-item .rank {
-            width: 26px;
-            height: 26px;
+            width: 26px; height: 26px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -278,14 +240,11 @@
             font-size: 0.85em;
             background: rgba(255,255,255,0.2);
         }
-
         .score-item:nth-child(1) .rank { background: linear-gradient(135deg, #f5af19, #f12711); }
         .score-item:nth-child(2) .rank { background: linear-gradient(135deg, #bdc3c7, #606c88); }
         .score-item:nth-child(3) .rank { background: linear-gradient(135deg, #cd7f32, #8b4513); }
-
         .score-item .name { flex: 1; font-size: 0.9em; }
         .score-item .pts { font-weight: bold; color: #feca57; }
-
         .controls {
             grid-column: 1 / -1;
             display: flex;
@@ -294,8 +253,8 @@
             padding: 10px;
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
+            flex-wrap: wrap;
         }
-
         .ctrl-btn {
             padding: 15px 30px;
             border: none;
@@ -308,49 +267,31 @@
             gap: 8px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
         .ctrl-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
-
         .btn-play { background: linear-gradient(135deg, #00b894, #00cec9); color: white; }
         .btn-next { background: linear-gradient(135deg, #fdcb6e, #e17055); color: white; }
         .btn-stop { background: linear-gradient(135deg, #d63031, #e74c3c); color: white; }
         .btn-reset { background: linear-gradient(135deg, #636e72, #2d3436); color: white; }
-
         .voting-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.95);
             z-index: 1000;
             align-items: center;
             justify-content: center;
         }
-
-        .voting-overlay.active {
-            display: flex;
-        }
-
-        .voting-content {
-            text-align: center;
-            animation: zoomIn 0.5s ease;
-        }
-
+        .voting-overlay.active { display: flex; }
+        .voting-content { text-align: center; animation: zoomIn 0.5s ease; }
         @keyframes zoomIn {
             from { transform: scale(0.5); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-
-        .voting-content h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
+        .voting-content h2 { font-size: 2em; margin-bottom: 10px; }
         .voting-singer {
             font-size: 3.5em;
             font-weight: bold;
@@ -359,34 +300,27 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 30px;
         }
-
-        .voting-stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 30px;
+        .voting-stats { display: flex; justify-content: center; gap: 60px; margin-bottom: 30px; }
+        .stat-box .value { font-size: 4em; font-weight: bold; color: #feca57; }
+        .stat-box .label { font-size: 1.2em; opacity: 0.7; }
+        .vote-timer { font-size: 1.5em; }
+        .vote-timer span { font-size: 2em; color: #ff5858; }
+        .debug-panel {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            max-width: 300px;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 999;
         }
-
-        .stat-box .value {
-            font-size: 4em;
-            font-weight: bold;
-            color: #feca57;
-        }
-
-        .stat-box .label {
-            font-size: 1.2em;
-            opacity: 0.7;
-        }
-
-        .vote-timer {
-            font-size: 1.5em;
-        }
-
-        .vote-timer span {
-            font-size: 2em;
-            color: #ff5858;
-        }
-
+        .debug-panel .log { margin: 3px 0; }
+        .debug-panel .error { color: #ff6b6b; }
+        .debug-panel .success { color: #00b894; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 3px; }
@@ -419,7 +353,26 @@
             <div class="panel qr-panel">
                 <h2>📱 Participar</h2>
                 <canvas id="qrCode"></canvas>
-                <div class="url" id="urlText">Carregando...</div>
+                <div class="url" id="urlText"></div>
+                
+                <div class="mic-option">
+                    <div style="font-size:0.9em;margin-bottom:8px;opacity:0.8;">🎤 Microfone:</div>
+                    <label>
+                        <input type="radio" name="micMode" value="celular" checked onchange="setMicMode('celular')">
+                        No celular do cantor
+                    </label>
+                    <label>
+                        <input type="radio" name="micMode" value="operador" onchange="setMicMode('operador')">
+                        Aqui no operador
+                    </label>
+                </div>
+                
+                <div class="mic-section" id="micSectionOperator">
+                    <button class="mic-btn-operator" id="micBtnOperator" onclick="toggleMicOperator()">
+                        🎤 Ativar Microfone
+                    </button>
+                    <div class="visualizer-operator" id="visualizerOperator"></div>
+                </div>
             </div>
 
             <div class="panel">
@@ -467,12 +420,28 @@
         </div>
     </div>
 
+    <div class="debug-panel" id="debugPanel">
+        <div style="font-weight:bold;margin-bottom:5px;">📋 Log:</div>
+        <div id="debugLogs"></div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
+        // Debug
+        function log(msg, type = 'info') {
+            const logs = document.getElementById('debugLogs');
+            const div = document.createElement('div');
+            div.className = 'log ' + type;
+            div.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
+            logs.appendChild(div);
+            logs.scrollTop = logs.scrollHeight;
+            console.log(msg);
+        }
+
         // Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
@@ -484,31 +453,149 @@
             appId: "1:485060420642:web:70622aef371710f47cd67b"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        const gameRef = db.ref('karaoke');
+        let db, gameRef;
+        
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            gameRef = db.ref('karaoke');
+            log('Firebase inicializado', 'success');
+        } catch (e) {
+            log('Erro Firebase: ' + e.message, 'error');
+        }
 
         let player = null;
         let currentSingerId = null;
         let votingTimer = null;
+        let micMode = 'celular';
+        
+        // Microfone do operador
+        let audioContext = null;
+        let analyser = null;
+        let micStream = null;
+        let micActive = false;
+        let energyInterval = null;
+
+        // URL fixa do GitHub Pages
+        const GITHUB_URL = 'https://bavkiq-hugby8-cittet.github.io/karaoke';
 
         // QR Code
         function generateQR() {
-            const baseUrl = window.location.href.replace('index.html', '').replace(/\/$/, '');
-            const playerUrl = baseUrl + '/jogador.html';
-            
+            const playerUrl = GITHUB_URL + '/jogador.html';
             document.getElementById('urlText').textContent = playerUrl;
             
             QRCode.toCanvas(document.getElementById('qrCode'), playerUrl, {
                 width: 140,
                 margin: 2,
                 color: { dark: '#000', light: '#fff' }
+            }, function(error) {
+                if (error) {
+                    log('Erro QR: ' + error, 'error');
+                } else {
+                    log('QR Code gerado', 'success');
+                }
             });
+        }
+
+        // Modo do microfone
+        function setMicMode(mode) {
+            micMode = mode;
+            gameRef.child('micMode').set(mode);
+            
+            const micSection = document.getElementById('micSectionOperator');
+            if (mode === 'operador') {
+                micSection.classList.add('active');
+                generateVisualizerBars();
+            } else {
+                micSection.classList.remove('active');
+                if (micActive) stopMicOperator();
+            }
+            log('Modo microfone: ' + mode);
+        }
+
+        // Microfone no operador
+        function generateVisualizerBars() {
+            const vis = document.getElementById('visualizerOperator');
+            vis.innerHTML = '';
+            for (let i = 0; i < 25; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = '5px';
+                vis.appendChild(bar);
+            }
+        }
+
+        async function toggleMicOperator() {
+            if (!micActive) {
+                try {
+                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    analyser = audioContext.createAnalyser();
+                    const source = audioContext.createMediaStreamSource(micStream);
+                    analyser.fftSize = 256;
+                    source.connect(analyser);
+
+                    micActive = true;
+                    document.getElementById('micBtnOperator').classList.add('active');
+                    document.getElementById('micBtnOperator').textContent = '🎤 Microfone Ativo';
+                    log('Microfone ativado', 'success');
+
+                    startEnergyAnalysisOperator();
+                } catch (e) {
+                    log('Erro microfone: ' + e.message, 'error');
+                    alert('Não foi possível acessar o microfone');
+                }
+            } else {
+                stopMicOperator();
+            }
+        }
+
+        function stopMicOperator() {
+            micActive = false;
+            document.getElementById('micBtnOperator').classList.remove('active');
+            document.getElementById('micBtnOperator').textContent = '🎤 Ativar Microfone';
+            
+            if (energyInterval) clearInterval(energyInterval);
+            if (audioContext) audioContext.close();
+            if (micStream) micStream.getTracks().forEach(t => t.stop());
+            log('Microfone desativado');
+        }
+
+        function startEnergyAnalysisOperator() {
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            const bars = document.querySelectorAll('#visualizerOperator .bar');
+
+            energyInterval = setInterval(() => {
+                if (!micActive) return;
+
+                analyser.getByteFrequencyData(dataArray);
+
+                let sum = 0;
+                for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+                const avg = sum / bufferLength;
+                const energy = Math.min(100, (avg / 128) * 100);
+
+                // Atualiza visualizador
+                bars.forEach((bar, i) => {
+                    const val = dataArray[i * 5] || 0;
+                    bar.style.height = Math.max(5, val / 4) + 'px';
+                });
+
+                // Envia pro Firebase
+                if (currentSingerId) {
+                    gameRef.child('energy').set(energy);
+                    gameRef.child('queue/' + currentSingerId).update({
+                        energyTotal: firebase.database.ServerValue.increment(energy),
+                        energyCount: firebase.database.ServerValue.increment(1)
+                    });
+                }
+            }, 100);
         }
 
         // YouTube
         function onYouTubeIframeAPIReady() {
-            console.log('YouTube pronto');
+            log('YouTube API pronta', 'success');
         }
 
         function loadVideo(videoId) {
@@ -525,13 +612,13 @@
                     events: { onStateChange: onPlayerStateChange }
                 });
             }
+            log('Vídeo carregado: ' + videoId);
         }
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
                 startVoting();
             }
-            gameRef.child('playerState').set(event.data);
         }
 
         function playVideo() {
@@ -595,6 +682,8 @@
                     </div>
                 </div>
             `).join('');
+
+            log('Fila atualizada: ' + arr.length + ' cantores');
         }
 
         // Energia
@@ -687,6 +776,8 @@
                 gameRef.child('queue/' + voting.singerId).remove();
                 gameRef.child('voting').set({ active: false });
 
+                log('Votação encerrada. Pontos: ' + finalScore);
+
                 setTimeout(() => {
                     document.getElementById('votingOverlay').classList.remove('active');
                 }, 2000);
@@ -711,22 +802,52 @@
 
         function resetGame() {
             if (confirm('Resetar tudo? Fila e placar serão apagados!')) {
-                gameRef.set(null);
-                location.reload();
+                gameRef.set(null).then(() => {
+                    log('Jogo resetado', 'success');
+                    location.reload();
+                });
             }
         }
 
         // Listeners
         function setupListeners() {
-            gameRef.child('queue').on('value', snap => updateQueue(snap.val()));
+            gameRef.child('queue').on('value', snap => {
+                log('Dados fila recebidos');
+                updateQueue(snap.val());
+            }, err => {
+                log('Erro ao ler fila: ' + err.message, 'error');
+            });
+
             gameRef.child('energy').on('value', snap => updateEnergy(snap.val()));
             gameRef.child('scores').on('value', snap => updateScoreboard(snap.val()));
             gameRef.child('voting').on('value', snap => updateVotingDisplay(snap.val()));
+            
+            gameRef.child('micMode').on('value', snap => {
+                const mode = snap.val();
+                if (mode) {
+                    document.querySelector(`input[value="${mode}"]`).checked = true;
+                }
+            });
+
+            log('Listeners configurados', 'success');
+        }
+
+        // Testar conexão
+        function testConnection() {
+            gameRef.child('test').set(Date.now())
+                .then(() => {
+                    log('Conexão Firebase OK', 'success');
+                    gameRef.child('test').remove();
+                })
+                .catch(err => {
+                    log('Erro conexão: ' + err.message, 'error');
+                });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             generateQR();
             setupListeners();
+            testConnection();
         });
     </script>
 </body>
