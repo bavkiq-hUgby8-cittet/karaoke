@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎤 Karaokê dos Veloso</title>
+    <title>🎤 Karaokê dos Veloso - TV</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -16,6 +16,8 @@
             --cyan: #00f5d4;
             --yellow: #ffbe0b;
             --orange: #fb5607;
+            --green: #06d6a0;
+            --red: #ef476f;
             --dark: #10002b;
             --darker: #0a0015;
         }
@@ -25,53 +27,191 @@
             background: var(--darker);
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         
+        /* ==================== TUTORIAL ==================== */
+        .tutorial-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .tutorial-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .tutorial-box {
+            max-width: 700px;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .tutorial-box h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+        
+        .tutorial-box .subtitle {
+            font-size: 1.3em;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .tutorial-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        .tutorial-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--cyan);
+        }
+        
+        .tutorial-step .icon {
+            font-size: 2.5em;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .tutorial-step .text h3 {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .tutorial-step .text p {
+            font-size: 0.95em;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        .tutorial-start-btn {
+            padding: 20px 60px;
+            font-size: 1.3em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--cyan), var(--green));
+            color: var(--darker);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,245,212,0.3);
+        }
+        
+        .tutorial-start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0,245,212,0.4);
+        }
+        
+        /* ==================== APP LAYOUT ==================== */
         .app {
-            display: grid;
-            grid-template-columns: 1fr 320px;
+            display: none;
+            grid-template-columns: 1fr 350px;
             grid-template-rows: auto 1fr auto;
             height: 100vh;
-            gap: 15px;
-            padding: 15px;
+            gap: 20px;
+            padding: 20px;
         }
         
+        .app.active { display: grid; }
+        
+        /* Header */
         .header {
             grid-column: 1 / -1;
-            text-align: center;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3));
-            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
+            border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1);
         }
         
         .header h1 {
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 800;
-            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink), var(--purple));
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .header .status { font-size: 0.85em; margin-top: 3px; }
-        .header .status.online { color: var(--cyan); }
-        .header .status.offline { color: var(--orange); }
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
         
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 30px;
+            font-size: 0.9em;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+        
+        .status-dot.online { background: var(--green); }
+        
+        .participants-count {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border-radius: 30px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        
+        /* Main Area */
         .main-area {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            min-height: 0;
+            gap: 20px;
         }
         
+        /* Video */
         .video-section {
             flex: 1;
             background: #000;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
-            min-height: 300px;
+            min-height: 350px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
         
         .video-section iframe {
@@ -79,8 +219,7 @@
             height: 100%;
             border: none;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
         }
         
         .video-placeholder {
@@ -91,46 +230,61 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             z-index: 5;
         }
         
         .video-placeholder.hidden { display: none; }
         
-        .video-placeholder .icon {
-            font-size: 80px;
-            margin-bottom: 15px;
-            animation: bounce 2s ease-in-out infinite;
+        .video-placeholder .waiting-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
         }
         
-        @keyframes bounce {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
         }
         
+        .video-placeholder h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .video-placeholder p {
+            font-size: 1em;
+            opacity: 0.6;
+        }
+        
+        /* Singer Card */
         .singer-card {
+            padding: 25px 30px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
+            box-shadow: 0 10px 40px rgba(131,56,236,0.3);
         }
         
         .singer-card.empty {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
             justify-content: center;
-            padding: 25px;
+            box-shadow: none;
+            border: 2px dashed rgba(255,255,255,0.2);
         }
         
         .singer-avatar {
-            width: 60px; height: 60px;
+            width: 70px; height: 70px;
             background: rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 35px;
             animation: pulse 2s ease-in-out infinite;
         }
         
@@ -140,480 +294,669 @@
         }
         
         .singer-info { flex: 1; }
-        .singer-info .label { font-size: 0.85em; opacity: 0.8; }
-        .singer-info .name { font-size: 1.5em; font-weight: 700; }
-        .singer-info .song { font-size: 0.95em; opacity: 0.9; }
+        .singer-info .label { 
+            font-size: 0.85em; 
+            opacity: 0.8; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .singer-info .name { font-size: 1.8em; font-weight: 800; }
+        .singer-info .song { 
+            font-size: 1em; 
+            opacity: 0.9;
+            margin-top: 2px;
+        }
         
+        /* Sidebar */
         .sidebar {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            overflow-y: auto;
+            gap: 15px;
         }
         
         .card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         
-        .card h3 {
-            font-size: 1em;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
-        .qr-card { text-align: center; }
+        .card-header h3 {
+            font-size: 1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-header .badge {
+            padding: 4px 10px;
+            background: var(--purple);
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        
+        /* QR Code */
+        .qr-section { text-align: center; }
         
         .qr-wrapper {
             background: white;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 15px;
             display: inline-block;
+            margin-bottom: 12px;
+        }
+        
+        #qrcode { display: block; }
+        
+        .qr-instruction {
+            font-size: 0.85em;
+            opacity: 0.7;
+            margin-bottom: 8px;
         }
         
         .qr-url {
-            font-size: 0.65em;
-            opacity: 0.6;
-            margin-top: 8px;
+            font-size: 0.7em;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
             word-break: break-all;
+            opacity: 0.6;
         }
         
-        .queue-list { max-height: 200px; overflow-y: auto; }
+        /* Queue */
+        .queue-list {
+            max-height: 180px;
+            overflow-y: auto;
+        }
         
         .queue-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
         }
         
         .queue-item:first-child {
-            background: linear-gradient(135deg, rgba(131,56,236,0.4), rgba(255,0,110,0.4));
+            background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3));
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
-        .queue-item .pos {
-            width: 26px; height: 26px;
+        .queue-item .position {
+            width: 28px; height: 28px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.8em;
+            font-size: 0.85em;
+        }
+        
+        .queue-item:first-child .position {
+            background: var(--cyan);
+            color: var(--darker);
         }
         
         .queue-item .info { flex: 1; overflow: hidden; }
-        .queue-item .name { font-weight: 600; font-size: 0.9em; }
+        .queue-item .name { font-weight: 600; font-size: 0.95em; }
         .queue-item .song {
-            font-size: 0.75em;
-            opacity: 0.7;
+            font-size: 0.8em;
+            opacity: 0.6;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         
-        .empty-state { text-align: center; padding: 20px; opacity: 0.5; }
+        .queue-item .remove-btn {
+            width: 28px; height: 28px;
+            background: rgba(239,71,111,0.3);
+            border: none;
+            border-radius: 50%;
+            color: var(--red);
+            cursor: pointer;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: all 0.2s;
+        }
         
-        .scoreboard { max-height: 180px; overflow-y: auto; }
+        .queue-item:hover .remove-btn { opacity: 1; }
+        .queue-item .remove-btn:hover { background: var(--red); color: white; }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            opacity: 0.5;
+        }
+        
+        .empty-state .icon { font-size: 40px; margin-bottom: 10px; }
+        .empty-state p { font-size: 0.9em; }
+        
+        /* Scoreboard */
+        .scoreboard { max-height: 150px; overflow-y: auto; }
         
         .score-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            margin-bottom: 5px;
+            gap: 12px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            margin-bottom: 6px;
         }
         
-        .score-item .medal { font-size: 1.1em; }
+        .score-item .medal { font-size: 1.3em; }
         .score-item .rank {
-            width: 24px; height: 24px;
-            background: rgba(255,255,255,0.2);
+            width: 26px; height: 26px;
+            background: rgba(255,255,255,0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75em;
+            font-size: 0.8em;
             font-weight: 700;
         }
-        .score-item .name { flex: 1; font-size: 0.85em; }
-        .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.9em; }
+        .score-item .name { flex: 1; font-size: 0.9em; }
+        .score-item .pts { 
+            font-weight: 700; 
+            color: var(--yellow);
+            font-size: 0.95em;
+        }
         
+        /* Controls */
         .controls {
             grid-column: 1 / -1;
             display: flex;
             justify-content: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         
         .ctrl-btn {
-            padding: 12px 28px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             font-family: 'Poppins', sans-serif;
             font-size: 1em;
             font-weight: 600;
             cursor: pointer;
             color: white;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .ctrl-btn:hover { transform: translateY(-2px); }
         .ctrl-btn:active { transform: translateY(0); }
         
-        .btn-next { background: linear-gradient(135deg, var(--yellow), var(--orange)); }
-        .btn-reset { background: linear-gradient(135deg, #666, #444); }
+        .btn-vote { 
+            background: linear-gradient(135deg, var(--yellow), var(--orange)); 
+            color: var(--darker);
+        }
+        .btn-skip { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+        .btn-reset { background: rgba(255,255,255,0.1); }
+        .btn-reset:hover { background: rgba(255,255,255,0.15); }
         
+        /* ==================== VOTING OVERLAY ==================== */
         .voting-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(10,0,21,0.95);
-            z-index: 1000;
+            background: rgba(10,0,21,0.97);
+            z-index: 1500;
             align-items: center;
             justify-content: center;
         }
         
         .voting-overlay.show { display: flex; }
         
-        .voting-content { text-align: center; animation: zoomIn 0.5s ease; }
+        .voting-content {
+            text-align: center;
+            animation: zoomIn 0.5s ease;
+            padding: 40px;
+        }
         
         @keyframes zoomIn {
-            from { transform: scale(0.5); opacity: 0; }
+            from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
         
-        .voting-content h2 { font-size: 2em; margin-bottom: 15px; color: var(--yellow); }
-        
-        .voting-singer {
-            font-size: 3.5em;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--pink), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
+        .voting-content .vote-label {
+            font-size: 1.5em;
+            color: var(--yellow);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
         
-        .voting-song {
+        .voting-singer-name {
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .voting-song-name {
             font-size: 1.3em;
-            opacity: 0.8;
-            margin-bottom: 30px;
+            opacity: 0.7;
+            margin-bottom: 40px;
         }
         
         .voting-stats {
             display: flex;
             justify-content: center;
-            gap: 50px;
-            margin-bottom: 30px;
+            gap: 60px;
+            margin-bottom: 40px;
         }
         
-        .stat-box .value { font-size: 4em; font-weight: 800; color: var(--yellow); }
-        .stat-box .label { font-size: 1.1em; opacity: 0.7; }
+        .vote-stat .value {
+            font-size: 5em;
+            font-weight: 900;
+            color: var(--yellow);
+            line-height: 1;
+        }
         
-        .voting-timer { font-size: 1.5em; }
-        .voting-timer span { font-size: 1.3em; color: var(--orange); font-weight: 800; }
+        .vote-stat .label {
+            font-size: 1.1em;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
         
-        .debug {
+        .voting-timer {
+            font-size: 1.4em;
+            padding: 15px 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .voting-timer span {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--orange);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+        
+        /* Toast notifications */
+        .toast {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.9);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.7em;
-            max-width: 350px;
-            max-height: 120px;
-            overflow-y: auto;
-            z-index: 999;
-            font-family: monospace;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 15px 30px;
+            background: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 0.95em;
+            z-index: 1600;
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
-        .debug .log { margin: 2px 0; }
-        .debug .error { color: #e74c3c; }
-        .debug .success { color: #2ecc71; }
-        .debug .info { color: #3498db; }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .toast.success { border-color: var(--green); }
+        .toast.error { border-color: var(--red); }
     </style>
 </head>
 <body>
-    <div class="app">
+    <!-- TUTORIAL -->
+    <div class="tutorial-overlay" id="tutorial">
+        <div class="tutorial-box">
+            <h1>🎤 Karaokê dos Veloso</h1>
+            <p class="subtitle">Prepare-se para a diversão!</p>
+            
+            <div class="tutorial-steps">
+                <div class="tutorial-step">
+                    <div class="icon">🔊</div>
+                    <div class="text">
+                        <h3>Conecte o som</h3>
+                        <p>Ligue um microfone na caixa de som para o cantor usar. O vídeo com a letra aparecerá na TV!</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <h3>Participantes escaneiam o QR Code</h3>
+                        <p>Todos usam o celular para entrar na fila, escolher músicas e votar nas apresentações.</p>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="icon">⭐</div>
+                    <div class="text">
+                        <h3>Votação pelos participantes</h3>
+                        <p>Após cada música, todos votam de 1 a 5 estrelas pelo celular. A média vira a pontuação!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="tutorial-start-btn" onclick="startApp()">
+                Começar! 🎉
+            </button>
+        </div>
+    </div>
+    
+    <!-- APP -->
+    <div class="app" id="app">
         <header class="header">
-            <h1>🎤 Karaokê dos Veloso 🎶</h1>
-            <div class="status" id="status">Conectando...</div>
+            <h1>🎤 Karaokê dos Veloso</h1>
+            <div class="header-status">
+                <div class="status-badge">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span id="statusText">Conectando...</span>
+                </div>
+                <div class="participants-count" id="participantsCount">
+                    👥 0 online
+                </div>
+            </div>
         </header>
         
         <main class="main-area">
             <div class="video-section" id="videoSection">
                 <div class="video-placeholder" id="placeholder">
-                    <div class="icon">🎤</div>
-                    <p>Aguardando música...</p>
+                    <div class="waiting-icon">🎤</div>
+                    <h2>Aguardando cantor...</h2>
+                    <p>Peça para alguém escanear o QR Code e escolher uma música!</p>
                 </div>
-                <!-- iframe será inserido aqui -->
             </div>
             
             <div class="singer-card empty" id="singerCard">
-                <p>🎤 Escaneie o QR Code para entrar!</p>
+                <span style="font-size: 1.1em; opacity: 0.7;">🎤 Nenhum cantor na fila ainda</span>
             </div>
         </main>
         
         <aside class="sidebar">
-            <div class="card qr-card">
-                <h3>📱 Entrar</h3>
+            <div class="card qr-section">
+                <div class="card-header">
+                    <h3>📱 Entre pelo celular</h3>
+                </div>
                 <div class="qr-wrapper">
                     <canvas id="qrcode"></canvas>
                 </div>
+                <p class="qr-instruction">Escaneie com a câmera do celular</p>
                 <div class="qr-url" id="qrUrl"></div>
             </div>
             
             <div class="card">
-                <h3>📋 Fila</h3>
+                <div class="card-header">
+                    <h3>📋 Fila</h3>
+                    <span class="badge" id="queueCount">0</span>
+                </div>
                 <div class="queue-list" id="queueList">
-                    <div class="empty-state">🎵 Fila vazia</div>
+                    <div class="empty-state">
+                        <div class="icon">🎵</div>
+                        <p>Fila vazia</p>
+                    </div>
                 </div>
             </div>
             
             <div class="card">
-                <h3>🏆 Placar</h3>
+                <div class="card-header">
+                    <h3>🏆 Placar</h3>
+                </div>
                 <div class="scoreboard" id="scoreboard">
-                    <div class="empty-state">⭐ Sem pontuações</div>
+                    <div class="empty-state">
+                        <div class="icon">⭐</div>
+                        <p>Sem pontuações</p>
+                    </div>
                 </div>
             </div>
         </aside>
         
         <div class="controls">
-            <button class="ctrl-btn btn-next" onclick="startVoting()">⏭️ Próximo (Votar)</button>
-            <button class="ctrl-btn btn-reset" onclick="resetAll()">🔄 Resetar Tudo</button>
+            <button class="ctrl-btn btn-vote" onclick="startVoting()" id="btnVote">
+                ⭐ Iniciar Votação
+            </button>
+            <button class="ctrl-btn btn-skip" onclick="skipSinger()">
+                ⏭️ Pular Cantor
+            </button>
+            <button class="ctrl-btn btn-reset" onclick="resetAll()">
+                🔄 Resetar Tudo
+            </button>
         </div>
     </div>
     
+    <!-- VOTING OVERLAY -->
     <div class="voting-overlay" id="votingOverlay">
         <div class="voting-content">
-            <h2>⭐ Hora de Votar! ⭐</h2>
-            <div class="voting-singer" id="votingSinger">-</div>
-            <div class="voting-song" id="votingSong">-</div>
+            <div class="vote-label">⭐ Hora de Votar! ⭐</div>
+            <div class="voting-singer-name" id="votingSinger">-</div>
+            <div class="voting-song-name" id="votingSong">-</div>
             <div class="voting-stats">
-                <div class="stat-box">
+                <div class="vote-stat">
                     <div class="value" id="statVotes">0</div>
                     <div class="label">🗳️ Votos</div>
                 </div>
-                <div class="stat-box">
+                <div class="vote-stat">
                     <div class="value" id="statAvg">-</div>
                     <div class="label">⭐ Média</div>
                 </div>
             </div>
-            <div class="voting-timer">Tempo: <span id="votingTimer">20</span>s</div>
+            <div class="voting-timer">
+                Tempo restante: <span id="votingTimer">20</span>s
+            </div>
         </div>
     </div>
     
-    <div class="debug" id="debug"></div>
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
     <script>
-        // ============================================================
-        // DEBUG
-        // ============================================================
-        function log(msg, type = 'info') {
-            console.log(`[${type.toUpperCase()}]`, msg);
-            const debug = document.getElementById('debug');
-            const div = document.createElement('div');
-            div.className = 'log ' + type;
-            div.textContent = `${new Date().toLocaleTimeString()} - ${msg}`;
-            debug.appendChild(div);
-            debug.scrollTop = debug.scrollHeight;
-        }
+        // ==================== CONFIG ====================
+        const BASE_URL = window.location.origin + window.location.pathname.replace('index.html', '');
         
-        // ============================================================
-        // CONFIG
-        // ============================================================
-        const BASE_URL = 'https://bavkiq-hugby8-cittet.github.io/karaoke';
-        
-        // ============================================================
-        // ESTADO
-        // ============================================================
-        let db = null;
-        let gameRef = null;
+        // ==================== STATE ====================
+        let db, gameRef;
         let currentSinger = null;
         let currentVideoId = null;
         let votingInterval = null;
+        let queueItems = [];
         
-        // ============================================================
-        // FIREBASE
-        // ============================================================
+        // ==================== INIT ====================
+        function init() {
+            initFirebase();
+        }
+        
+        function startApp() {
+            document.getElementById('tutorial').classList.add('hidden');
+            document.getElementById('app').classList.add('active');
+            initQR();
+        }
+        
+        // ==================== FIREBASE ====================
         function initFirebase() {
-            log('Iniciando Firebase...');
+            firebase.initializeApp({
+                apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
+                authDomain: "karaoke-46db0.firebaseapp.com",
+                databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
+                projectId: "karaoke-46db0"
+            });
             
-            try {
-                firebase.initializeApp({
-                    apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
-                    authDomain: "karaoke-46db0.firebaseapp.com",
-                    databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
-                    projectId: "karaoke-46db0"
-                });
-                
-                db = firebase.database();
-                gameRef = db.ref('karaoke');
-                
-                db.ref('.info/connected').on('value', snap => {
-                    if (snap.val()) {
-                        log('Firebase conectado!', 'success');
-                        document.getElementById('status').textContent = '🟢 Conectado';
-                        document.getElementById('status').className = 'status online';
-                    } else {
-                        log('Firebase desconectado', 'error');
-                        document.getElementById('status').textContent = '🔴 Desconectado';
-                        document.getElementById('status').className = 'status offline';
-                    }
-                });
-                
-                setupListeners();
-                
-            } catch (e) {
-                log('Erro Firebase: ' + e.message, 'error');
-            }
+            db = firebase.database();
+            gameRef = db.ref('karaoke');
+            
+            db.ref('.info/connected').on('value', snap => {
+                const dot = document.getElementById('statusDot');
+                const text = document.getElementById('statusText');
+                if (snap.val()) {
+                    dot.classList.add('online');
+                    text.textContent = 'Conectado';
+                } else {
+                    dot.classList.remove('online');
+                    text.textContent = 'Desconectado';
+                }
+            });
+            
+            setupListeners();
         }
         
         function setupListeners() {
-            // Fila
             gameRef.child('queue').on('value', snap => {
-                const data = snap.val();
-                log('Fila: ' + (data ? Object.keys(data).length : 0) + ' pessoas');
-                updateQueue(data);
+                updateQueue(snap.val());
             });
             
-            // Placar
             gameRef.child('scores').on('value', snap => {
                 updateScoreboard(snap.val());
             });
             
-            // Votação
             gameRef.child('voting').on('value', snap => {
                 handleVoting(snap.val());
             });
-        }
-        
-        // ============================================================
-        // QR CODE
-        // ============================================================
-        function initQR() {
-            const url = BASE_URL + '/jogador.html';
-            document.getElementById('qrUrl').textContent = url;
             
-            QRCode.toCanvas(document.getElementById('qrcode'), url, {
-                width: 130,
-                margin: 1
-            }, err => {
-                if (err) log('Erro QR: ' + err, 'error');
-                else log('QR Code OK', 'success');
+            gameRef.child('participants').on('value', snap => {
+                const data = snap.val();
+                const count = data ? Object.keys(data).length : 0;
+                document.getElementById('participantsCount').textContent = `👥 ${count} online`;
             });
         }
         
-        // ============================================================
-        // YOUTUBE - IFRAME DIRETO (SEM API)
-        // ============================================================
-        function loadVideo(videoId) {
-            if (!videoId) return;
-            if (videoId === currentVideoId) return; // já está tocando
+        // ==================== QR CODE ====================
+        function initQR() {
+            const playerUrl = BASE_URL + 'jogador.html';
+            document.getElementById('qrUrl').textContent = playerUrl;
             
-            log('Carregando vídeo: ' + videoId, 'success');
-            currentVideoId = videoId;
+            const canvas = document.getElementById('qrcode');
             
-            // Esconde placeholder
-            document.getElementById('placeholder').classList.add('hidden');
-            
-            // Remove iframe antigo se existir
-            const oldIframe = document.querySelector('#videoSection iframe');
-            if (oldIframe) oldIframe.remove();
-            
-            // Cria novo iframe
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&fs=1`;
-            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
-            iframe.allowFullscreen = true;
-            
-            document.getElementById('videoSection').appendChild(iframe);
-            
-            log('Vídeo carregado!', 'success');
+            QRCode.toCanvas(canvas, playerUrl, {
+                width: 160,
+                margin: 1,
+                color: { dark: '#000000', light: '#ffffff' }
+            }, err => {
+                if (err) {
+                    console.error('Erro QR:', err);
+                    showToast('Erro ao gerar QR Code', 'error');
+                }
+            });
         }
         
-        // ============================================================
-        // FILA
-        // ============================================================
+        // ==================== QUEUE ====================
         function updateQueue(queue) {
             const listEl = document.getElementById('queueList');
+            const countEl = document.getElementById('queueCount');
             const singerCard = document.getElementById('singerCard');
+            const placeholder = document.getElementById('placeholder');
             
             if (!queue || Object.keys(queue).length === 0) {
-                listEl.innerHTML = '<div class="empty-state">🎵 Fila vazia</div>';
+                queueItems = [];
+                countEl.textContent = '0';
+                listEl.innerHTML = '<div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>';
                 singerCard.className = 'singer-card empty';
-                singerCard.innerHTML = '<p>🎤 Escaneie o QR Code para entrar!</p>';
+                singerCard.innerHTML = '<span style="font-size: 1.1em; opacity: 0.7;">🎤 Nenhum cantor na fila ainda</span>';
                 currentSinger = null;
                 currentVideoId = null;
-                document.getElementById('placeholder').classList.remove('hidden');
-                
-                // Remove iframe
-                const oldIframe = document.querySelector('#videoSection iframe');
-                if (oldIframe) oldIframe.remove();
+                placeholder.classList.remove('hidden');
+                removeVideo();
                 return;
             }
             
-            // Ordena por timestamp
-            const items = Object.entries(queue)
+            queueItems = Object.entries(queue)
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
-            // Renderiza lista
-            listEl.innerHTML = items.map((item, i) => `
+            countEl.textContent = queueItems.length;
+            
+            listEl.innerHTML = queueItems.map((item, i) => `
                 <div class="queue-item">
-                    <div class="pos">${i + 1}</div>
+                    <div class="position">${i + 1}</div>
                     <div class="info">
-                        <div class="name">${item.name || 'Sem nome'}</div>
+                        <div class="name">${item.name}</div>
                         <div class="song">${item.song || 'Escolhendo...'}</div>
                     </div>
+                    <button class="remove-btn" onclick="removeFromQueue('${item.id}')" title="Remover">✕</button>
                 </div>
             `).join('');
             
-            // Primeiro da fila é o cantor atual
-            const first = items[0];
+            // Current singer
+            const first = queueItems[0];
             currentSinger = first;
             
             singerCard.className = 'singer-card';
             singerCard.innerHTML = `
                 <div class="singer-avatar">🎤</div>
                 <div class="singer-info">
-                    <div class="label">🎙️ Cantando agora</div>
+                    <div class="label">Cantando agora</div>
                     <div class="name">${first.name}</div>
                     <div class="song">${first.song || 'Escolhendo música...'}</div>
                 </div>
             `;
             
-            // Carrega vídeo se tiver
-            if (first.videoId) {
+            if (first.videoId && first.videoId !== currentVideoId) {
+                currentVideoId = first.videoId;
                 loadVideo(first.videoId);
             }
         }
         
-        // ============================================================
-        // PLACAR
-        // ============================================================
+        function removeFromQueue(id) {
+            if (confirm('Remover este cantor da fila?')) {
+                gameRef.child('queue/' + id).remove();
+                showToast('Cantor removido da fila', 'success');
+            }
+        }
+        
+        // ==================== VIDEO ====================
+        function loadVideo(videoId) {
+            document.getElementById('placeholder').classList.add('hidden');
+            
+            const oldIframe = document.querySelector('#videoSection iframe');
+            if (oldIframe) oldIframe.remove();
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+            iframe.allowFullscreen = true;
+            
+            document.getElementById('videoSection').appendChild(iframe);
+        }
+        
+        function removeVideo() {
+            const iframe = document.querySelector('#videoSection iframe');
+            if (iframe) iframe.remove();
+        }
+        
+        // ==================== SCOREBOARD ====================
         function updateScoreboard(scores) {
             const el = document.getElementById('scoreboard');
             
             if (!scores || Object.keys(scores).length === 0) {
-                el.innerHTML = '<div class="empty-state">⭐ Sem pontuações</div>';
+                el.innerHTML = '<div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
                 return;
             }
             
@@ -629,16 +972,12 @@
             `).join('');
         }
         
-        // ============================================================
-        // VOTAÇÃO
-        // ============================================================
+        // ==================== VOTING ====================
         function startVoting() {
             if (!currentSinger) {
-                log('Nenhum cantor na fila', 'error');
+                showToast('Nenhum cantor na fila!', 'error');
                 return;
             }
-            
-            log('Iniciando votação: ' + currentSinger.name);
             
             gameRef.child('voting').set({
                 singerId: currentSinger.id,
@@ -646,10 +985,13 @@
                 singerSong: currentSinger.song || '',
                 votes: {},
                 active: true,
-                startTime: firebase.database.ServerValue.TIMESTAMP
+                startTime: Date.now()
             });
             
-            // UI
+            showVotingOverlay();
+        }
+        
+        function showVotingOverlay() {
             document.getElementById('votingOverlay').classList.add('show');
             document.getElementById('votingSinger').textContent = currentSinger.name;
             document.getElementById('votingSong').textContent = currentSinger.song || '';
@@ -690,24 +1032,15 @@
                 const values = Object.values(votes);
                 const count = values.length;
                 const avg = count > 0 ? values.reduce((a,b) => a+b, 0) / count : 0;
-                
-                // Pontuação = média * 20 (para escala de 0-100)
                 const score = Math.round(avg * 20);
                 
-                log(`Pontuação de ${voting.singerName}: ${score} pts (média ${avg.toFixed(1)}⭐)`);
-                
-                // Salva placar
                 if (score > 0) {
                     gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + score);
+                    showToast(`${voting.singerName} ganhou ${score} pontos!`, 'success');
                 }
                 
-                // Remove da fila
                 gameRef.child('queue/' + voting.singerId).remove();
-                
-                // Desativa votação
                 gameRef.child('voting').set({ active: false });
-                
-                // Limpa vídeo atual
                 currentVideoId = null;
                 
                 setTimeout(() => {
@@ -716,22 +1049,43 @@
             });
         }
         
-        // ============================================================
-        // RESET
-        // ============================================================
-        function resetAll() {
-            if (!confirm('Resetar tudo? Fila e placar serão apagados!')) return;
-            gameRef.set(null).then(() => location.reload());
+        // ==================== ACTIONS ====================
+        function skipSinger() {
+            if (!currentSinger) {
+                showToast('Nenhum cantor para pular!', 'error');
+                return;
+            }
+            
+            if (confirm(`Pular ${currentSinger.name}? (não contará pontos)`)) {
+                gameRef.child('queue/' + currentSinger.id).remove();
+                currentVideoId = null;
+                showToast('Cantor pulado', 'success');
+            }
         }
         
-        // ============================================================
-        // INIT
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            log('Iniciando Karaokê...');
-            initFirebase();
-            initQR();
-        });
+        function resetAll() {
+            if (confirm('Resetar TUDO? Fila e placar serão apagados!')) {
+                gameRef.set(null).then(() => {
+                    showToast('Jogo resetado!', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                });
+            }
+        }
+        
+        // ==================== TOAST ====================
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ==================== START ====================
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
