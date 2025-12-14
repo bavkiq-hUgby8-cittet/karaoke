@@ -34,10 +34,9 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 15px;
-            padding-bottom: 80px;
+            padding-bottom: 30px;
         }
         
-        /* Header */
         .header {
             text-align: center;
             padding: 20px;
@@ -55,16 +54,10 @@
             -webkit-text-fill-color: transparent;
         }
         
-        .header .status {
-            font-size: 0.8em;
-            margin-top: 5px;
-            opacity: 0.7;
-        }
-        
+        .header .status { font-size: 0.8em; margin-top: 5px; opacity: 0.7; }
         .header .status.online { color: var(--cyan); opacity: 1; }
         .header .status.error { color: #ff4444; opacity: 1; }
         
-        /* Cards */
         .card {
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
             border-radius: 20px;
@@ -82,10 +75,8 @@
             gap: 10px;
         }
         
-        /* Tela de Login */
-        .login-screen {
-            text-align: center;
-        }
+        /* Login */
+        .login-screen { text-align: center; }
         
         .login-screen input {
             width: 100%;
@@ -101,14 +92,8 @@
             outline: none;
         }
         
-        .login-screen input::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-        
-        .login-screen input:focus {
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 0 0 3px rgba(131,56,236,0.3);
-        }
+        .login-screen input::placeholder { color: rgba(255,255,255,0.5); }
+        .login-screen input:focus { background: rgba(255,255,255,0.2); }
         
         .login-screen button {
             width: 100%;
@@ -121,21 +106,11 @@
             background: linear-gradient(135deg, var(--purple), var(--pink));
             color: white;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .login-screen button:active {
-            transform: scale(0.98);
-        }
-        
-        /* Tela Principal */
-        .main-screen {
-            display: none;
-        }
-        
-        .main-screen.active {
-            display: block;
-        }
+        /* Main Screen */
+        .main-screen { display: none; }
+        .main-screen.active { display: block; }
         
         /* User Bar */
         .user-bar {
@@ -150,8 +125,7 @@
         }
         
         .user-avatar {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 50%;
             display: flex;
@@ -173,25 +147,24 @@
         
         .user-status.singing {
             background: linear-gradient(135deg, var(--cyan), var(--blue));
-            animation: statusPulse 1.5s ease-in-out infinite;
+            animation: pulse 1.5s ease-in-out infinite;
         }
         
         .user-status.queue {
             background: linear-gradient(135deg, var(--yellow), var(--orange));
         }
         
-        @keyframes statusPulse {
+        @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
         
-        /* Cantor Atual */
+        /* Current Singer */
         .current-singer {
             text-align: center;
             padding: 25px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(131,56,236,0.3);
         }
         
         .current-singer .label { font-size: 0.9em; opacity: 0.8; }
@@ -206,32 +179,7 @@
         
         .no-singer .icon { font-size: 50px; margin-bottom: 10px; }
         
-        .energy-display {
-            margin-top: 20px;
-        }
-        
-        .energy-bar-wrapper {
-            height: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .energy-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple), var(--pink));
-            border-radius: 10px;
-            transition: width 0.2s ease;
-        }
-        
-        .energy-text {
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.9em;
-        }
-        
-        /* Botão Principal */
+        /* Main Button */
         .main-btn {
             width: 100%;
             padding: 20px;
@@ -247,37 +195,21 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: 15px;
-            transition: all 0.3s;
         }
         
-        .main-btn:active {
-            transform: scale(0.98);
-        }
+        .main-btn:active { transform: scale(0.98); }
         
         .main-btn.join {
             background: linear-gradient(135deg, var(--cyan), #00c9a7);
-            box-shadow: 0 8px 25px rgba(0,245,212,0.3);
         }
         
         .main-btn.leave {
             background: linear-gradient(135deg, #ff4444, #cc0000);
-            box-shadow: 0 8px 25px rgba(255,0,0,0.3);
         }
         
-        .main-btn:disabled {
-            background: rgba(255,255,255,0.2);
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-        
-        /* Busca de Música */
-        .search-section {
-            display: none;
-        }
-        
-        .search-section.active {
-            display: block;
-        }
+        /* Search */
+        .search-section { display: none; }
+        .search-section.active { display: block; }
         
         .search-box {
             display: flex;
@@ -297,10 +229,6 @@
             outline: none;
         }
         
-        .search-box input:focus {
-            background: rgba(255,255,255,0.2);
-        }
-        
         .search-box button {
             padding: 15px 20px;
             font-size: 1.2em;
@@ -311,10 +239,7 @@
             cursor: pointer;
         }
         
-        .search-results {
-            max-height: 300px;
-            overflow-y: auto;
-        }
+        .search-results { max-height: 300px; overflow-y: auto; }
         
         .result-item {
             display: flex;
@@ -325,133 +250,54 @@
             border-radius: 12px;
             margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.2s;
         }
         
-        .result-item:active {
-            background: rgba(255,255,255,0.2);
-            transform: scale(0.98);
-        }
+        .result-item:active { background: rgba(255,255,255,0.2); transform: scale(0.98); }
         
         .result-item img {
-            width: 70px;
-            height: 52px;
+            width: 70px; height: 52px;
             border-radius: 8px;
             object-fit: cover;
         }
         
-        .result-item .title {
-            flex: 1;
-            font-size: 0.9em;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+        .result-item .title { flex: 1; font-size: 0.9em; line-height: 1.3; }
         
-        .loading-text, .error-text, .success-text {
-            text-align: center;
-            padding: 20px;
-        }
-        
+        .loading-text, .error-text, .success-text { text-align: center; padding: 20px; }
         .error-text { color: #ff4444; }
         .success-text { color: var(--cyan); }
         
-        /* Seção do Microfone */
-        .mic-section {
+        /* My Turn */
+        .my-turn-section {
             display: none;
             text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border-radius: 15px;
         }
         
-        .mic-section.active {
-            display: block;
+        .my-turn-section.active { display: block; }
+        
+        .my-turn-section .big-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+            animation: bounce 1s ease-in-out infinite;
         }
         
-        .mic-info {
-            padding: 15px;
-            background: rgba(131,56,236,0.3);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 0.95em;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
-        .mic-celular {
-            display: none;
+        .my-turn-section h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
         }
         
-        .mic-celular.active {
-            display: block;
-        }
+        .my-turn-section p { opacity: 0.9; }
         
-        .visualizer {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 60px;
-            gap: 4px;
-            margin: 20px 0;
-        }
-        
-        .visualizer .bar {
-            width: 8px;
-            background: linear-gradient(to top, var(--cyan), var(--blue), var(--purple));
-            border-radius: 4px;
-            transition: height 0.05s;
-        }
-        
-        .mic-btn {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: white;
-            font-size: 50px;
-            cursor: pointer;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
-            transition: all 0.3s;
-        }
-        
-        .mic-btn.active {
-            background: linear-gradient(135deg, var(--cyan), var(--blue));
-            box-shadow: 0 10px 30px rgba(0,245,212,0.4);
-            animation: micPulse 1s ease-in-out infinite;
-        }
-        
-        @keyframes micPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .mic-status {
-            font-size: 0.95em;
-            opacity: 0.8;
-        }
-        
-        .my-energy {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-        }
-        
-        .my-energy .label { font-size: 0.9em; margin-bottom: 10px; }
-        
-        /* Seção de Votação */
-        .voting-section {
-            display: none;
-            text-align: center;
-        }
-        
-        .voting-section.active {
-            display: block;
-            animation: slideUp 0.5s ease;
-        }
+        /* Voting */
+        .voting-section { display: none; text-align: center; }
+        .voting-section.active { display: block; animation: slideUp 0.5s ease; }
         
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -470,10 +316,16 @@
         .voting-for {
             font-size: 1.8em;
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 5px;
             background: linear-gradient(90deg, var(--pink), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        
+        .voting-song {
+            font-size: 0.95em;
+            opacity: 0.7;
+            margin-bottom: 20px;
         }
         
         .stars {
@@ -491,10 +343,7 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        .star.active {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.2);
-        }
+        .star.active { filter: grayscale(0%) brightness(1); transform: scale(1.2); }
         
         .vote-btn {
             width: 100%;
@@ -507,34 +356,16 @@
             background: linear-gradient(135deg, var(--yellow), var(--orange));
             color: white;
             cursor: pointer;
-            transition: all 0.2s;
         }
         
-        .vote-btn:disabled {
-            background: rgba(255,255,255,0.2);
-            cursor: not-allowed;
-        }
+        .vote-btn:disabled { background: rgba(255,255,255,0.2); cursor: not-allowed; }
+        .vote-btn.voted { background: linear-gradient(135deg, var(--cyan), var(--blue)); }
         
-        .vote-btn.voted {
-            background: linear-gradient(135deg, var(--cyan), var(--blue));
-        }
+        .vote-timer { margin-top: 15px; font-size: 1.1em; }
+        .vote-timer span { font-weight: 800; color: var(--orange); font-size: 1.3em; }
         
-        .vote-timer {
-            margin-top: 15px;
-            font-size: 1.1em;
-        }
-        
-        .vote-timer span {
-            font-weight: 800;
-            color: var(--orange);
-            font-size: 1.3em;
-        }
-        
-        /* Fila */
-        .queue-list {
-            max-height: 200px;
-            overflow-y: auto;
-        }
+        /* Queue */
+        .queue-list { max-height: 200px; overflow-y: auto; }
         
         .queue-item {
             display: flex;
@@ -552,8 +383,7 @@
         }
         
         .queue-item .pos {
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
             display: flex;
@@ -573,19 +403,11 @@
             text-overflow: ellipsis;
         }
         
-        .empty-list {
-            text-align: center;
-            padding: 25px;
-            opacity: 0.5;
-        }
-        
+        .empty-list { text-align: center; padding: 25px; opacity: 0.5; }
         .empty-list .icon { font-size: 35px; margin-bottom: 10px; }
         
-        /* Placar */
-        .scoreboard {
-            max-height: 200px;
-            overflow-y: auto;
-        }
+        /* Scoreboard */
+        .scoreboard { max-height: 200px; overflow-y: auto; }
         
         .score-item {
             display: flex;
@@ -598,10 +420,8 @@
         }
         
         .score-item .medal { font-size: 1.2em; }
-        
         .score-item .rank {
-            width: 26px;
-            height: 26px;
+            width: 26px; height: 26px;
             background: rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex;
@@ -610,11 +430,9 @@
             font-weight: 700;
             font-size: 0.8em;
         }
-        
         .score-item .name { flex: 1; font-size: 0.9em; }
         .score-item .pts { font-weight: 700; color: var(--yellow); }
         
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
@@ -622,22 +440,20 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <h1>🎤 Karaokê dos Veloso</h1>
             <div class="status" id="status">Conectando...</div>
         </header>
         
-        <!-- Tela de Login -->
+        <!-- Login -->
         <div class="card login-screen" id="loginScreen">
             <h2>👤 Entre no Karaokê!</h2>
             <input type="text" id="nameInput" placeholder="Seu nome" maxlength="20" autocomplete="off">
             <button onclick="joinGame()">Entrar 🎵</button>
         </div>
         
-        <!-- Tela Principal -->
+        <!-- Main Screen -->
         <div class="main-screen" id="mainScreen">
-            <!-- User Bar -->
             <div class="user-bar">
                 <div class="user-avatar">🎤</div>
                 <div class="user-info">
@@ -646,7 +462,7 @@
                 <div class="user-status" id="userStatus">Assistindo</div>
             </div>
             
-            <!-- Cantor Atual -->
+            <!-- Current Singer -->
             <div class="card">
                 <h2>🎙️ Cantando Agora</h2>
                 <div id="currentSinger">
@@ -657,12 +473,12 @@
                 </div>
             </div>
             
-            <!-- Botão Principal -->
+            <!-- Main Button -->
             <button class="main-btn join" id="mainBtn" onclick="toggleQueue()">
                 🎤 Quero Cantar!
             </button>
             
-            <!-- Busca de Música -->
+            <!-- Search -->
             <div class="card search-section" id="searchSection">
                 <h2>🔍 Escolher Música</h2>
                 <div class="search-box">
@@ -672,32 +488,18 @@
                 <div class="search-results" id="searchResults"></div>
             </div>
             
-            <!-- Seção do Microfone -->
-            <div class="card mic-section" id="micSection">
-                <h2>🎤 É SUA VEZ!</h2>
-                <div class="mic-info" id="micInfo">
-                    Olhe para a TV e cante!
-                </div>
-                
-                <div class="mic-celular" id="micCelular">
-                    <div class="visualizer" id="visualizer"></div>
-                    <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
-                    <div class="mic-status" id="micStatus">Toque para ativar</div>
-                </div>
-                
-                <div class="my-energy">
-                    <div class="label">🔥 Sua Energia</div>
-                    <div class="energy-bar-wrapper">
-                        <div class="energy-bar-fill" id="myEnergyBar"></div>
-                    </div>
-                    <div class="energy-text" id="myEnergyText">0%</div>
-                </div>
+            <!-- My Turn -->
+            <div class="card my-turn-section" id="myTurnSection">
+                <div class="big-icon">🎤</div>
+                <h3>É SUA VEZ!</h3>
+                <p>Olhe para a TV e cante! 🎶</p>
             </div>
             
-            <!-- Seção de Votação -->
+            <!-- Voting -->
             <div class="card voting-section" id="votingSection">
                 <div class="voting-title">⭐ Vote!</div>
                 <div class="voting-for" id="votingFor">-</div>
+                <div class="voting-song" id="votingSong">-</div>
                 
                 <div class="stars" id="stars">
                     <span class="star" onclick="selectStar(1)">⭐</span>
@@ -711,10 +513,10 @@
                     Selecione sua nota
                 </button>
                 
-                <div class="vote-timer">Tempo: <span id="voteTimer">15</span>s</div>
+                <div class="vote-timer">Tempo: <span id="voteTimer">20</span>s</div>
             </div>
             
-            <!-- Fila -->
+            <!-- Queue -->
             <div class="card">
                 <h2>📋 Fila</h2>
                 <div class="queue-list" id="queueList">
@@ -725,7 +527,7 @@
                 </div>
             </div>
             
-            <!-- Placar -->
+            <!-- Scoreboard -->
             <div class="card">
                 <h2>🏆 Placar</h2>
                 <div class="scoreboard" id="scoreboard">
@@ -738,73 +540,53 @@
         </div>
     </div>
 
-    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
         // ============================================================
-        // CONFIGURAÇÃO
+        // CONFIG
         // ============================================================
-        
         const CONFIG = {
             firebase: {
                 apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
                 authDomain: "karaoke-46db0.firebaseapp.com",
                 databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
-                projectId: "karaoke-46db0",
-                storageBucket: "karaoke-46db0.firebasestorage.app",
-                messagingSenderId: "485060420642",
-                appId: "1:485060420642:web:70622aef371710f47cd67b"
+                projectId: "karaoke-46db0"
             },
             youtubeApiKey: 'AIzaSyA3Qbdoyqg0EzUPrT0Qo_-HbygKLjTczoc'
         };
         
         // ============================================================
-        // ESTADO
+        // STATE
         // ============================================================
-        
-        let state = {
-            db: null,
-            gameRef: null,
-            player: {
-                id: null,
-                name: '',
-                queueId: null,
-                inQueue: false,
-                isMyTurn: false
-            },
-            micMode: 'celular',
-            audioContext: null,
-            analyser: null,
-            micStream: null,
-            micActive: false,
-            energyInterval: null,
-            voting: {
-                id: null,
-                selected: 0,
-                voted: false
-            }
+        let db = null;
+        let gameRef = null;
+        let player = {
+            id: null,
+            name: '',
+            queueId: null,
+            inQueue: false,
+            isMyTurn: false
+        };
+        let voting = {
+            id: null,
+            selected: 0,
+            voted: false
         };
         
         // ============================================================
-        // INICIALIZAÇÃO
+        // INIT
         // ============================================================
-        
         function init() {
-            console.log('🎤 Iniciando...');
-            setStatus('Conectando...');
-            
             initFirebase();
-            initVisualizerBars();
             checkSavedSession();
             
-            // Event listeners
-            document.getElementById('nameInput').addEventListener('keypress', (e) => {
+            document.getElementById('nameInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') joinGame();
             });
             
-            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            document.getElementById('searchInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') searchMusic();
             });
         }
@@ -812,54 +594,28 @@
         // ============================================================
         // FIREBASE
         // ============================================================
-        
         function initFirebase() {
             try {
                 firebase.initializeApp(CONFIG.firebase);
-                state.db = firebase.database();
-                state.gameRef = state.db.ref('karaoke');
+                db = firebase.database();
+                gameRef = db.ref('karaoke');
                 
-                // Conexão
-                state.db.ref('.info/connected').on('value', (snap) => {
-                    if (snap.val() === true) {
+                db.ref('.info/connected').on('value', snap => {
+                    if (snap.val()) {
                         setStatus('🟢 Conectado', 'online');
                     } else {
                         setStatus('🔴 Desconectado');
                     }
                 });
-                
-            } catch (error) {
-                console.error('Erro Firebase:', error);
-                setStatus('❌ Erro: ' + error.message, 'error');
+            } catch (e) {
+                setStatus('❌ Erro: ' + e.message, 'error');
             }
         }
         
         function setupListeners() {
-            // Fila
-            state.gameRef.child('queue').on('value', (snap) => {
-                handleQueueUpdate(snap.val());
-            });
-            
-            // Energia
-            state.gameRef.child('energy').on('value', (snap) => {
-                updateEnergyDisplay(snap.val());
-            });
-            
-            // Placar
-            state.gameRef.child('scores').on('value', (snap) => {
-                updateScoreboard(snap.val());
-            });
-            
-            // Votação
-            state.gameRef.child('voting').on('value', (snap) => {
-                handleVotingUpdate(snap.val());
-            });
-            
-            // Modo do microfone
-            state.gameRef.child('settings/micMode').on('value', (snap) => {
-                state.micMode = snap.val() || 'celular';
-                updateMicModeUI();
-            });
+            gameRef.child('queue').on('value', snap => handleQueueUpdate(snap.val()));
+            gameRef.child('scores').on('value', snap => updateScoreboard(snap.val()));
+            gameRef.child('voting').on('value', snap => handleVotingUpdate(snap.val()));
         }
         
         function setStatus(text, type = '') {
@@ -869,33 +625,31 @@
         }
         
         // ============================================================
-        // SESSÃO
+        // SESSION
         // ============================================================
-        
         function checkSavedSession() {
-            const savedId = localStorage.getItem('karaoke_player_id');
-            const savedName = localStorage.getItem('karaoke_player_name');
+            const id = localStorage.getItem('karaoke_id');
+            const name = localStorage.getItem('karaoke_name');
             
-            if (savedId && savedName) {
-                state.player.id = savedId;
-                state.player.name = savedName;
+            if (id && name) {
+                player.id = id;
+                player.name = name;
                 showMainScreen();
             }
         }
         
         function joinGame() {
             const name = document.getElementById('nameInput').value.trim();
-            
             if (!name) {
                 alert('Digite seu nome!');
                 return;
             }
             
-            state.player.id = 'player_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-            state.player.name = name;
+            player.id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+            player.name = name;
             
-            localStorage.setItem('karaoke_player_id', state.player.id);
-            localStorage.setItem('karaoke_player_name', state.player.name);
+            localStorage.setItem('karaoke_id', player.id);
+            localStorage.setItem('karaoke_name', player.name);
             
             showMainScreen();
         }
@@ -903,17 +657,15 @@
         function showMainScreen() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainScreen').classList.add('active');
-            document.getElementById('userName').textContent = state.player.name;
-            
+            document.getElementById('userName').textContent = player.name;
             setupListeners();
         }
         
         // ============================================================
-        // FILA
+        // QUEUE
         // ============================================================
-        
         function toggleQueue() {
-            if (state.player.inQueue) {
+            if (player.inQueue) {
                 leaveQueue();
             } else {
                 document.getElementById('searchSection').classList.add('active');
@@ -921,18 +673,12 @@
         }
         
         function leaveQueue() {
-            if (state.player.queueId) {
-                state.gameRef.child('queue/' + state.player.queueId).remove()
-                    .then(() => {
-                        state.player.queueId = null;
-                        state.player.inQueue = false;
-                        updateMainButton();
-                        document.getElementById('searchSection').classList.remove('active');
-                    })
-                    .catch((e) => {
-                        console.error('Erro ao sair:', e);
-                        alert('Erro ao sair da fila');
-                    });
+            if (player.queueId) {
+                gameRef.child('queue/' + player.queueId).remove();
+                player.queueId = null;
+                player.inQueue = false;
+                updateMainButton();
+                document.getElementById('searchSection').classList.remove('active');
             }
         }
         
@@ -943,15 +689,10 @@
         }
         
         function updateQueueList(queue) {
-            const container = document.getElementById('queueList');
+            const el = document.getElementById('queueList');
             
             if (!queue || Object.keys(queue).length === 0) {
-                container.innerHTML = `
-                    <div class="empty-list">
-                        <div class="icon">🎵</div>
-                        <p>Fila vazia</p>
-                    </div>
-                `;
+                el.innerHTML = '<div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>';
                 return;
             }
             
@@ -959,11 +700,11 @@
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
-            container.innerHTML = items.map((item, i) => `
-                <div class="queue-item ${item.odPlayerId === state.player.id ? 'me' : ''}">
+            el.innerHTML = items.map((item, i) => `
+                <div class="queue-item ${item.odPlayerId === player.id ? 'me' : ''}">
                     <div class="pos">${i + 1}</div>
                     <div class="info">
-                        <div class="name">${item.name}${item.odPlayerId === state.player.id ? ' (você)' : ''}</div>
+                        <div class="name">${item.name}${item.odPlayerId === player.id ? ' (você)' : ''}</div>
                         <div class="song">${item.song || 'Escolhendo...'}</div>
                     </div>
                 </div>
@@ -971,15 +712,10 @@
         }
         
         function updateCurrentSinger(queue) {
-            const container = document.getElementById('currentSinger');
+            const el = document.getElementById('currentSinger');
             
             if (!queue || Object.keys(queue).length === 0) {
-                container.innerHTML = `
-                    <div class="no-singer">
-                        <div class="icon">🎤</div>
-                        <p>Ninguém cantando</p>
-                    </div>
-                `;
+                el.innerHTML = '<div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>';
                 return;
             }
             
@@ -987,35 +723,29 @@
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
-            const current = items[0];
+            const first = items[0];
             
-            container.innerHTML = `
+            el.innerHTML = `
                 <div class="current-singer">
                     <div class="label">🎙️ No palco</div>
-                    <div class="name">${current.name}</div>
-                    <div class="song">${current.song || 'Escolhendo música...'}</div>
-                    <div class="energy-display">
-                        <div class="energy-bar-wrapper">
-                            <div class="energy-bar-fill" id="currentEnergyBar"></div>
-                        </div>
-                        <div class="energy-text" id="currentEnergyText">0%</div>
-                    </div>
+                    <div class="name">${first.name}</div>
+                    <div class="song">${first.song || 'Escolhendo música...'}</div>
                 </div>
             `;
         }
         
         function checkMyPosition(queue) {
             const statusEl = document.getElementById('userStatus');
-            const micSection = document.getElementById('micSection');
+            const myTurnSection = document.getElementById('myTurnSection');
             const searchSection = document.getElementById('searchSection');
             
-            state.player.inQueue = false;
-            state.player.isMyTurn = false;
+            player.inQueue = false;
+            player.isMyTurn = false;
             
             if (!queue) {
                 statusEl.textContent = 'Assistindo';
                 statusEl.className = 'user-status';
-                micSection.classList.remove('active');
+                myTurnSection.classList.remove('active');
                 updateMainButton();
                 return;
             }
@@ -1024,40 +754,33 @@
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
-            const myIndex = items.findIndex(item => item.odPlayerId === state.player.id);
+            const myIndex = items.findIndex(item => item.odPlayerId === player.id);
             
             if (myIndex === 0) {
-                // É minha vez!
-                state.player.inQueue = true;
-                state.player.isMyTurn = true;
-                state.player.queueId = items[0].id;
+                player.inQueue = true;
+                player.isMyTurn = true;
+                player.queueId = items[0].id;
                 
                 statusEl.textContent = '🎤 Cantando!';
                 statusEl.className = 'user-status singing';
                 
                 searchSection.classList.remove('active');
-                micSection.classList.add('active');
-                updateMicModeUI();
+                myTurnSection.classList.add('active');
                 
-                // Vibra
-                if (navigator.vibrate) {
-                    navigator.vibrate([200, 100, 200, 100, 200]);
-                }
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
             } else if (myIndex > 0) {
-                // Na fila
-                state.player.inQueue = true;
-                state.player.queueId = items[myIndex].id;
+                player.inQueue = true;
+                player.queueId = items[myIndex].id;
                 
                 statusEl.textContent = `#${myIndex + 1} na fila`;
                 statusEl.className = 'user-status queue';
                 
                 searchSection.classList.remove('active');
-                micSection.classList.remove('active');
+                myTurnSection.classList.remove('active');
             } else {
-                // Assistindo
                 statusEl.textContent = 'Assistindo';
                 statusEl.className = 'user-status';
-                micSection.classList.remove('active');
+                myTurnSection.classList.remove('active');
             }
             
             updateMainButton();
@@ -1066,9 +789,9 @@
         function updateMainButton() {
             const btn = document.getElementById('mainBtn');
             
-            if (state.player.isMyTurn) {
+            if (player.isMyTurn) {
                 btn.style.display = 'none';
-            } else if (state.player.inQueue) {
+            } else if (player.inQueue) {
                 btn.style.display = 'flex';
                 btn.className = 'main-btn leave';
                 btn.innerHTML = '❌ Sair da Fila';
@@ -1080,9 +803,8 @@
         }
         
         // ============================================================
-        // BUSCA DE MÚSICA
+        // SEARCH
         // ============================================================
-        
         async function searchMusic() {
             const query = document.getElementById('searchInput').value.trim();
             if (!query) return;
@@ -1095,20 +817,15 @@
                 const response = await fetch(url);
                 const data = await response.json();
                 
-                if (data.error) {
-                    throw new Error(data.error.message);
-                }
+                if (data.error) throw new Error(data.error.message);
                 
                 if (!data.items || data.items.length === 0) {
-                    container.innerHTML = '<div class="loading-text">Nenhum resultado encontrado</div>';
+                    container.innerHTML = '<div class="loading-text">Nenhum resultado</div>';
                     return;
                 }
                 
                 container.innerHTML = data.items.map(item => {
-                    const title = item.snippet.title
-                        .replace(/"/g, '&quot;')
-                        .replace(/'/g, '&#39;');
-                    
+                    const title = item.snippet.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
                     return `
                         <div class="result-item" onclick="selectMusic('${item.id.videoId}', '${title}')">
                             <img src="${item.snippet.thumbnails.default.url}" alt="">
@@ -1118,201 +835,72 @@
                 }).join('');
                 
             } catch (error) {
-                console.error('Erro na busca:', error);
                 container.innerHTML = `<div class="error-text">Erro: ${error.message}</div>`;
             }
         }
         
         function selectMusic(videoId, title) {
-            const cleanTitle = title
-                .replace(/&quot;/g, '"')
-                .replace(/&#39;/g, "'");
+            const cleanTitle = title.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
             
-            // Adiciona na fila
-            const newRef = state.gameRef.child('queue').push();
-            state.player.queueId = newRef.key;
+            const newRef = gameRef.child('queue').push();
+            player.queueId = newRef.key;
             
             newRef.set({
-                odPlayerId: state.player.id,
-                name: state.player.name,
+                odPlayerId: player.id,
+                name: player.name,
                 song: cleanTitle,
                 videoId: videoId,
-                timestamp: firebase.database.ServerValue.TIMESTAMP,
-                energyTotal: 0,
-                energyCount: 0
+                timestamp: firebase.database.ServerValue.TIMESTAMP
             }).then(() => {
-                state.player.inQueue = true;
+                player.inQueue = true;
                 document.getElementById('searchSection').classList.remove('active');
-                document.getElementById('searchResults').innerHTML = `
-                    <div class="success-text">✓ ${cleanTitle}</div>
-                `;
+                document.getElementById('searchResults').innerHTML = `<div class="success-text">✓ ${cleanTitle}</div>`;
                 document.getElementById('searchInput').value = '';
                 updateMainButton();
-            }).catch((error) => {
-                console.error('Erro ao adicionar:', error);
-                alert('Erro: ' + error.message);
-            });
+            }).catch(e => alert('Erro: ' + e.message));
         }
         
         // ============================================================
-        // MICROFONE
+        // VOTING
         // ============================================================
-        
-        function initVisualizerBars() {
-            const vis = document.getElementById('visualizer');
-            vis.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'bar';
-                bar.style.height = '5px';
-                vis.appendChild(bar);
-            }
-        }
-        
-        function updateMicModeUI() {
-            const info = document.getElementById('micInfo');
-            const celular = document.getElementById('micCelular');
-            
-            if (state.micMode === 'operador') {
-                info.innerHTML = '🖥️ <strong>Microfone no computador!</strong><br>Pegue o microfone do operador e cante olhando para a TV!';
-                celular.classList.remove('active');
-            } else {
-                info.innerHTML = '📱 <strong>Microfone no celular!</strong><br>Ative o microfone abaixo e cante olhando para a TV!';
-                celular.classList.add('active');
-            }
-        }
-        
-        async function toggleMic() {
-            if (!state.micActive) {
-                try {
-                    state.micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    state.analyser = state.audioContext.createAnalyser();
-                    state.analyser.fftSize = 256;
-                    
-                    const source = state.audioContext.createMediaStreamSource(state.micStream);
-                    source.connect(state.analyser);
-                    
-                    state.micActive = true;
-                    document.getElementById('micBtn').classList.add('active');
-                    document.getElementById('micStatus').textContent = 'Gravando... Cante!';
-                    
-                    startEnergyCapture();
-                } catch (error) {
-                    console.error('Erro microfone:', error);
-                    alert('Não foi possível acessar o microfone: ' + error.message);
-                }
-            } else {
-                stopMic();
-            }
-        }
-        
-        function stopMic() {
-            state.micActive = false;
-            document.getElementById('micBtn').classList.remove('active');
-            document.getElementById('micStatus').textContent = 'Toque para ativar';
-            
-            if (state.energyInterval) clearInterval(state.energyInterval);
-            if (state.audioContext) state.audioContext.close();
-            if (state.micStream) state.micStream.getTracks().forEach(t => t.stop());
-        }
-        
-        function startEnergyCapture() {
-            const bufferLength = state.analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
-            const bars = document.querySelectorAll('#visualizer .bar');
-            
-            state.energyInterval = setInterval(() => {
-                if (!state.micActive || !state.analyser) return;
-                
-                state.analyser.getByteFrequencyData(dataArray);
-                
-                // Calcula energia
-                let sum = 0;
-                for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-                const avg = sum / bufferLength;
-                const energy = Math.min(100, (avg / 128) * 100);
-                
-                // Atualiza visualizador
-                bars.forEach((bar, i) => {
-                    const val = dataArray[i * 6] || 0;
-                    bar.style.height = Math.max(5, val / 3) + 'px';
-                });
-                
-                // Atualiza UI local
-                document.getElementById('myEnergyBar').style.width = energy + '%';
-                document.getElementById('myEnergyText').textContent = Math.round(energy) + '%';
-                
-                // Envia para Firebase
-                if (state.player.isMyTurn && state.player.queueId) {
-                    state.gameRef.child('energy').set(Math.round(energy));
-                    
-                    state.gameRef.child('queue/' + state.player.queueId).update({
-                        energyTotal: firebase.database.ServerValue.increment(energy),
-                        energyCount: firebase.database.ServerValue.increment(1)
-                    });
-                }
-            }, 100);
-        }
-        
-        function updateEnergyDisplay(energy) {
-            const bar = document.getElementById('currentEnergyBar');
-            const text = document.getElementById('currentEnergyText');
-            
-            if (bar && text) {
-                const pct = Math.min(100, Math.max(0, energy || 0));
-                bar.style.width = pct + '%';
-                text.textContent = Math.round(pct) + '%';
-            }
-        }
-        
-        // ============================================================
-        // VOTAÇÃO
-        // ============================================================
-        
-        function handleVotingUpdate(voting) {
+        function handleVotingUpdate(votingData) {
             const section = document.getElementById('votingSection');
             
-            if (!voting || !voting.active) {
+            if (!votingData || !votingData.active) {
                 section.classList.remove('active');
                 resetVoting();
                 return;
             }
             
             // Não mostra votação pro próprio cantor
-            if (voting.singerId === state.player.queueId) {
-                return;
-            }
+            if (votingData.singerId === player.queueId) return;
             
             // Nova votação
-            if (voting.singerId !== state.voting.id) {
+            if (votingData.singerId !== voting.id) {
                 resetVoting();
-                state.voting.id = voting.singerId;
+                voting.id = votingData.singerId;
             }
             
             section.classList.add('active');
-            document.getElementById('votingFor').textContent = voting.singerName;
+            document.getElementById('votingFor').textContent = votingData.singerName;
+            document.getElementById('votingSong').textContent = votingData.singerSong || '';
             
             // Timer
-            if (voting.startTime) {
-                const elapsed = (Date.now() - voting.startTime) / 1000;
-                const remaining = Math.max(0, 15 - Math.floor(elapsed));
+            if (votingData.startTime) {
+                const elapsed = (Date.now() - votingData.startTime) / 1000;
+                const remaining = Math.max(0, 20 - Math.floor(elapsed));
                 document.getElementById('voteTimer').textContent = remaining;
             }
             
-            // Vibra uma vez
-            if (!state.voting.voted && navigator.vibrate) {
-                navigator.vibrate([100, 50, 100]);
-            }
+            if (!voting.voted && navigator.vibrate) navigator.vibrate([100, 50, 100]);
         }
         
         function selectStar(value) {
-            if (state.voting.voted) return;
+            if (voting.voted) return;
             
-            state.voting.selected = value;
+            voting.selected = value;
             
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((star, i) => {
+            document.querySelectorAll('.star').forEach((star, i) => {
                 star.classList.toggle('active', i < value);
             });
             
@@ -1321,26 +909,20 @@
         }
         
         function submitVote() {
-            if (state.voting.selected === 0 || state.voting.voted) return;
+            if (voting.selected === 0 || voting.voted) return;
             
-            state.gameRef.child('voting/votes/' + state.player.id).set(state.voting.selected)
+            gameRef.child('voting/votes/' + player.id).set(voting.selected)
                 .then(() => {
-                    state.voting.voted = true;
+                    voting.voted = true;
                     document.getElementById('voteBtn').disabled = true;
                     document.getElementById('voteBtn').textContent = '✓ Voto enviado!';
                     document.getElementById('voteBtn').classList.add('voted');
-                    
                     if (navigator.vibrate) navigator.vibrate(100);
-                })
-                .catch((e) => {
-                    console.error('Erro ao votar:', e);
-                    alert('Erro ao votar');
                 });
         }
         
         function resetVoting() {
-            state.voting = { id: null, selected: 0, voted: false };
-            
+            voting = { id: null, selected: 0, voted: false };
             document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
             document.getElementById('voteBtn').disabled = true;
             document.getElementById('voteBtn').textContent = 'Selecione sua nota';
@@ -1348,26 +930,20 @@
         }
         
         // ============================================================
-        // PLACAR
+        // SCOREBOARD
         // ============================================================
-        
         function updateScoreboard(scores) {
-            const container = document.getElementById('scoreboard');
+            const el = document.getElementById('scoreboard');
             
             if (!scores || Object.keys(scores).length === 0) {
-                container.innerHTML = `
-                    <div class="empty-list">
-                        <div class="icon">⭐</div>
-                        <p>Sem pontuações</p>
-                    </div>
-                `;
+                el.innerHTML = '<div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
                 return;
             }
             
             const medals = ['🥇', '🥈', '🥉'];
             const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
             
-            container.innerHTML = sorted.map(([name, pts], i) => `
+            el.innerHTML = sorted.map(([name, pts], i) => `
                 <div class="score-item">
                     ${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i + 1}</div>`}
                     <div class="name">${name}</div>
@@ -1377,9 +953,8 @@
         }
         
         // ============================================================
-        // INICIAR
+        // START
         // ============================================================
-        
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>

@@ -74,9 +74,10 @@
             min-height: 300px;
         }
         
-        #youtube-player {
+        .video-section iframe {
             width: 100%;
             height: 100%;
+            border: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -130,31 +131,18 @@
             align-items: center;
             justify-content: center;
             font-size: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .singer-info { flex: 1; }
         .singer-info .label { font-size: 0.85em; opacity: 0.8; }
         .singer-info .name { font-size: 1.5em; font-weight: 700; }
         .singer-info .song { font-size: 0.95em; opacity: 0.9; }
-        
-        .energy-box { width: 150px; text-align: center; }
-        
-        .energy-bar {
-            height: 18px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 9px;
-            overflow: hidden;
-        }
-        
-        .energy-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple), var(--pink));
-            border-radius: 9px;
-            transition: width 0.2s;
-        }
-        
-        .energy-text { font-size: 0.85em; margin-top: 5px; }
         
         .sidebar {
             display: flex;
@@ -193,74 +181,7 @@
             word-break: break-all;
         }
         
-        .mic-options {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .mic-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-        
-        .mic-option:hover { background: rgba(255,255,255,0.1); }
-        .mic-option input { width: 16px; height: 16px; }
-        .mic-option span { font-size: 0.85em; }
-        
-        .operator-mic {
-            display: none;
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .operator-mic.active { display: block; }
-        
-        .mic-btn {
-            width: 70px; height: 70px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        
-        .mic-btn.recording {
-            background: linear-gradient(135deg, var(--cyan), var(--blue));
-            animation: pulse 1s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .mic-status { font-size: 0.8em; margin-top: 8px; opacity: 0.8; }
-        
-        .visualizer {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 25px;
-            gap: 2px;
-            margin-top: 8px;
-        }
-        
-        .visualizer .bar {
-            width: 4px;
-            background: var(--cyan);
-            border-radius: 2px;
-        }
-        
-        .queue-list { max-height: 150px; overflow-y: auto; }
+        .queue-list { max-height: 200px; overflow-y: auto; }
         
         .queue-item {
             display: flex;
@@ -299,7 +220,7 @@
         
         .empty-state { text-align: center; padding: 20px; opacity: 0.5; }
         
-        .scoreboard { max-height: 120px; overflow-y: auto; }
+        .scoreboard { max-height: 180px; overflow-y: auto; }
         
         .score-item {
             display: flex;
@@ -351,9 +272,7 @@
         .ctrl-btn:hover { transform: translateY(-2px); }
         .ctrl-btn:active { transform: translateY(0); }
         
-        .btn-play { background: linear-gradient(135deg, var(--cyan), #00c9a7); }
         .btn-next { background: linear-gradient(135deg, var(--yellow), var(--orange)); }
-        .btn-stop { background: linear-gradient(135deg, #e74c3c, #c0392b); }
         .btn-reset { background: linear-gradient(135deg, #666, #444); }
         
         .voting-overlay {
@@ -384,6 +303,12 @@
             background: linear-gradient(90deg, var(--pink), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        
+        .voting-song {
+            font-size: 1.3em;
+            opacity: 0.8;
             margin-bottom: 30px;
         }
         
@@ -429,12 +354,12 @@
         </header>
         
         <main class="main-area">
-            <div class="video-section">
+            <div class="video-section" id="videoSection">
                 <div class="video-placeholder" id="placeholder">
                     <div class="icon">🎤</div>
                     <p>Aguardando música...</p>
                 </div>
-                <div id="youtube-player"></div>
+                <!-- iframe será inserido aqui -->
             </div>
             
             <div class="singer-card empty" id="singerCard">
@@ -449,23 +374,6 @@
                     <canvas id="qrcode"></canvas>
                 </div>
                 <div class="qr-url" id="qrUrl"></div>
-                
-                <div class="mic-options">
-                    <label class="mic-option">
-                        <input type="radio" name="mic" value="celular" checked onchange="setMicMode('celular')">
-                        <span>📱 Mic no celular</span>
-                    </label>
-                    <label class="mic-option">
-                        <input type="radio" name="mic" value="operador" onchange="setMicMode('operador')">
-                        <span>🖥️ Mic aqui</span>
-                    </label>
-                </div>
-                
-                <div class="operator-mic" id="operatorMic">
-                    <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
-                    <div class="mic-status" id="micStatus">Clique para ativar</div>
-                    <div class="visualizer" id="visualizer"></div>
-                </div>
             </div>
             
             <div class="card">
@@ -484,10 +392,8 @@
         </aside>
         
         <div class="controls">
-            <button class="ctrl-btn btn-play" onclick="playVideo()">▶️ Tocar</button>
-            <button class="ctrl-btn btn-next" onclick="skipToVoting()">⏭️ Próximo</button>
-            <button class="ctrl-btn btn-stop" onclick="stopVideo()">⏹️ Parar</button>
-            <button class="ctrl-btn btn-reset" onclick="resetAll()">🔄 Resetar</button>
+            <button class="ctrl-btn btn-next" onclick="startVoting()">⏭️ Próximo (Votar)</button>
+            <button class="ctrl-btn btn-reset" onclick="resetAll()">🔄 Resetar Tudo</button>
         </div>
     </div>
     
@@ -495,11 +401,8 @@
         <div class="voting-content">
             <h2>⭐ Hora de Votar! ⭐</h2>
             <div class="voting-singer" id="votingSinger">-</div>
+            <div class="voting-song" id="votingSong">-</div>
             <div class="voting-stats">
-                <div class="stat-box">
-                    <div class="value" id="statEnergy">0</div>
-                    <div class="label">🔥 Energia</div>
-                </div>
                 <div class="stat-box">
                     <div class="value" id="statVotes">0</div>
                     <div class="label">🗳️ Votos</div>
@@ -509,7 +412,7 @@
                     <div class="label">⭐ Média</div>
                 </div>
             </div>
-            <div class="voting-timer">Tempo: <span id="votingTimer">15</span>s</div>
+            <div class="voting-timer">Tempo: <span id="votingTimer">20</span>s</div>
         </div>
     </div>
     
@@ -521,7 +424,7 @@
     
     <script>
         // ============================================================
-        // DEBUG LOG
+        // DEBUG
         // ============================================================
         function log(msg, type = 'info') {
             console.log(`[${type.toUpperCase()}]`, msg);
@@ -539,24 +442,13 @@
         const BASE_URL = 'https://bavkiq-hugby8-cittet.github.io/karaoke';
         
         // ============================================================
-        // ESTADO GLOBAL
+        // ESTADO
         // ============================================================
         let db = null;
         let gameRef = null;
-        let ytPlayer = null;
-        let ytReady = false;
         let currentSinger = null;
         let currentVideoId = null;
-        let pendingVideoId = null;
         let votingInterval = null;
-        
-        // Mic
-        let micMode = 'celular';
-        let micActive = false;
-        let audioCtx = null;
-        let analyser = null;
-        let micStream = null;
-        let energyInterval = null;
         
         // ============================================================
         // FIREBASE
@@ -595,30 +487,21 @@
         }
         
         function setupListeners() {
+            // Fila
             gameRef.child('queue').on('value', snap => {
                 const data = snap.val();
-                log('Fila atualizada: ' + (data ? Object.keys(data).length : 0) + ' itens');
+                log('Fila: ' + (data ? Object.keys(data).length : 0) + ' pessoas');
                 updateQueue(data);
             });
             
-            gameRef.child('energy').on('value', snap => {
-                updateEnergy(snap.val());
-            });
-            
+            // Placar
             gameRef.child('scores').on('value', snap => {
                 updateScoreboard(snap.val());
             });
             
+            // Votação
             gameRef.child('voting').on('value', snap => {
                 handleVoting(snap.val());
-            });
-            
-            gameRef.child('settings/micMode').on('value', snap => {
-                if (snap.val()) {
-                    micMode = snap.val();
-                    document.querySelector(`input[value="${micMode}"]`).checked = true;
-                    document.getElementById('operatorMic').classList.toggle('active', micMode === 'operador');
-                }
             });
         }
         
@@ -639,111 +522,31 @@
         }
         
         // ============================================================
-        // YOUTUBE
+        // YOUTUBE - IFRAME DIRETO (SEM API)
         // ============================================================
-        function initYouTube() {
-            log('Carregando YouTube API...');
+        function loadVideo(videoId) {
+            if (!videoId) return;
+            if (videoId === currentVideoId) return; // já está tocando
             
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            document.head.appendChild(tag);
-        }
-        
-        // Callback GLOBAL - chamado pela API do YouTube quando está pronta
-        window.onYouTubeIframeAPIReady = function() {
-            log('YouTube API pronta!', 'success');
-            ytReady = true;
-            
-            // Se já tinha um vídeo aguardando, carrega agora
-            if (pendingVideoId) {
-                loadYouTubeVideo(pendingVideoId);
-                pendingVideoId = null;
-            }
-        };
-        
-        function loadYouTubeVideo(videoId) {
-            log('loadYouTubeVideo: ' + videoId);
-            
-            // Se API não está pronta, guarda pra depois
-            if (!ytReady) {
-                log('API não pronta, guardando vídeo...', 'info');
-                pendingVideoId = videoId;
-                return;
-            }
+            log('Carregando vídeo: ' + videoId, 'success');
+            currentVideoId = videoId;
             
             // Esconde placeholder
             document.getElementById('placeholder').classList.add('hidden');
             
-            // Se já existe player, só troca o vídeo
-            if (ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
-                log('Trocando vídeo no player existente');
-                ytPlayer.loadVideoById(videoId);
-                return;
-            }
+            // Remove iframe antigo se existir
+            const oldIframe = document.querySelector('#videoSection iframe');
+            if (oldIframe) oldIframe.remove();
             
-            // Cria player novo
-            log('Criando novo player...');
+            // Cria novo iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&fs=1`;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+            iframe.allowFullscreen = true;
             
-            ytPlayer = new YT.Player('youtube-player', {
-                width: '100%',
-                height: '100%',
-                videoId: videoId,
-                playerVars: {
-                    autoplay: 1,
-                    controls: 1,
-                    rel: 0,
-                    modestbranding: 1,
-                    playsinline: 1,
-                    fs: 1
-                },
-                events: {
-                    onReady: function(event) {
-                        log('Player pronto!', 'success');
-                        event.target.playVideo();
-                    },
-                    onStateChange: function(event) {
-                        const states = {
-                            '-1': 'não iniciado',
-                            '0': 'terminado',
-                            '1': 'tocando',
-                            '2': 'pausado',
-                            '3': 'buffering',
-                            '5': 'vídeo cued'
-                        };
-                        log('Player state: ' + (states[event.data] || event.data));
-                        
-                        if (event.data === YT.PlayerState.ENDED) {
-                            startVoting();
-                        }
-                    },
-                    onError: function(event) {
-                        const errors = {
-                            2: 'ID inválido',
-                            5: 'Erro HTML5',
-                            100: 'Vídeo não encontrado',
-                            101: 'Incorporação não permitida',
-                            150: 'Incorporação não permitida'
-                        };
-                        log('Erro YouTube: ' + (errors[event.data] || event.data), 'error');
-                    }
-                }
-            });
-        }
-        
-        function playVideo() {
-            log('Botão Play clicado');
-            if (ytPlayer && ytPlayer.playVideo) {
-                ytPlayer.playVideo();
-            } else {
-                log('Player não disponível', 'error');
-            }
-        }
-        
-        function stopVideo() {
-            log('Botão Stop clicado');
-            if (ytPlayer && ytPlayer.stopVideo) {
-                ytPlayer.stopVideo();
-            }
+            document.getElementById('videoSection').appendChild(iframe);
+            
+            log('Vídeo carregado!', 'success');
         }
         
         // ============================================================
@@ -760,13 +563,19 @@
                 currentSinger = null;
                 currentVideoId = null;
                 document.getElementById('placeholder').classList.remove('hidden');
+                
+                // Remove iframe
+                const oldIframe = document.querySelector('#videoSection iframe');
+                if (oldIframe) oldIframe.remove();
                 return;
             }
             
+            // Ordena por timestamp
             const items = Object.entries(queue)
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
+            // Renderiza lista
             listEl.innerHTML = items.map((item, i) => `
                 <div class="queue-item">
                     <div class="pos">${i + 1}</div>
@@ -777,6 +586,7 @@
                 </div>
             `).join('');
             
+            // Primeiro da fila é o cantor atual
             const first = items[0];
             currentSinger = first;
             
@@ -788,36 +598,11 @@
                     <div class="name">${first.name}</div>
                     <div class="song">${first.song || 'Escolhendo música...'}</div>
                 </div>
-                <div class="energy-box">
-                    <div class="energy-bar">
-                        <div class="energy-fill" id="energyFill"></div>
-                    </div>
-                    <div class="energy-text">🔥 <span id="energyText">0%</span></div>
-                </div>
             `;
             
-            // CARREGA VÍDEO se tiver e for diferente do atual
+            // Carrega vídeo se tiver
             if (first.videoId) {
-                if (first.videoId !== currentVideoId) {
-                    log('Novo vídeo na fila: ' + first.videoId);
-                    currentVideoId = first.videoId;
-                    loadYouTubeVideo(first.videoId);
-                }
-            } else {
-                log('Cantor sem vídeo ainda');
-            }
-        }
-        
-        // ============================================================
-        // ENERGIA
-        // ============================================================
-        function updateEnergy(energy) {
-            const fill = document.getElementById('energyFill');
-            const text = document.getElementById('energyText');
-            if (fill && text) {
-                const pct = Math.min(100, Math.max(0, energy || 0));
-                fill.style.width = pct + '%';
-                text.textContent = Math.round(pct) + '%';
+                loadVideo(first.videoId);
             }
         }
         
@@ -847,35 +632,31 @@
         // ============================================================
         // VOTAÇÃO
         // ============================================================
-        function skipToVoting() {
-            if (currentSinger) startVoting();
-        }
-        
         function startVoting() {
-            if (!currentSinger) return;
+            if (!currentSinger) {
+                log('Nenhum cantor na fila', 'error');
+                return;
+            }
             
-            log('Iniciando votação para: ' + currentSinger.name);
-            
-            const energyAvg = currentSinger.energyCount > 0
-                ? Math.round(currentSinger.energyTotal / currentSinger.energyCount)
-                : 0;
+            log('Iniciando votação: ' + currentSinger.name);
             
             gameRef.child('voting').set({
                 singerId: currentSinger.id,
                 singerName: currentSinger.name,
-                energy: energyAvg,
+                singerSong: currentSinger.song || '',
                 votes: {},
                 active: true,
                 startTime: firebase.database.ServerValue.TIMESTAMP
             });
             
+            // UI
             document.getElementById('votingOverlay').classList.add('show');
             document.getElementById('votingSinger').textContent = currentSinger.name;
-            document.getElementById('statEnergy').textContent = energyAvg;
+            document.getElementById('votingSong').textContent = currentSinger.song || '';
             document.getElementById('statVotes').textContent = '0';
             document.getElementById('statAvg').textContent = '-';
             
-            let time = 15;
+            let time = 20;
             document.getElementById('votingTimer').textContent = time;
             
             if (votingInterval) clearInterval(votingInterval);
@@ -910,13 +691,24 @@
                 const count = values.length;
                 const avg = count > 0 ? values.reduce((a,b) => a+b, 0) / count : 0;
                 
-                const score = Math.round((voting.energy * 0.4) + (avg * 20 * 0.6));
+                // Pontuação = média * 20 (para escala de 0-100)
+                const score = Math.round(avg * 20);
                 
-                log(`Pontuação: ${score}`);
+                log(`Pontuação de ${voting.singerName}: ${score} pts (média ${avg.toFixed(1)}⭐)`);
                 
-                gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + score);
+                // Salva placar
+                if (score > 0) {
+                    gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + score);
+                }
+                
+                // Remove da fila
                 gameRef.child('queue/' + voting.singerId).remove();
+                
+                // Desativa votação
                 gameRef.child('voting').set({ active: false });
+                
+                // Limpa vídeo atual
+                currentVideoId = null;
                 
                 setTimeout(() => {
                     document.getElementById('votingOverlay').classList.remove('show');
@@ -925,106 +717,20 @@
         }
         
         // ============================================================
-        // MICROFONE DO OPERADOR
-        // ============================================================
-        function setMicMode(mode) {
-            micMode = mode;
-            gameRef.child('settings/micMode').set(mode);
-            document.getElementById('operatorMic').classList.toggle('active', mode === 'operador');
-            if (mode === 'celular' && micActive) stopMic();
-        }
-        
-        function initVisualizerBars() {
-            const vis = document.getElementById('visualizer');
-            vis.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'bar';
-                bar.style.height = '3px';
-                vis.appendChild(bar);
-            }
-        }
-        
-        async function toggleMic() {
-            if (!micActive) {
-                try {
-                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    analyser = audioCtx.createAnalyser();
-                    analyser.fftSize = 256;
-                    
-                    const source = audioCtx.createMediaStreamSource(micStream);
-                    source.connect(analyser);
-                    
-                    micActive = true;
-                    document.getElementById('micBtn').classList.add('recording');
-                    document.getElementById('micStatus').textContent = 'Gravando...';
-                    log('Microfone ativado', 'success');
-                    
-                    startEnergyCapture();
-                } catch (e) {
-                    log('Erro microfone: ' + e.message, 'error');
-                }
-            } else {
-                stopMic();
-            }
-        }
-        
-        function stopMic() {
-            micActive = false;
-            document.getElementById('micBtn').classList.remove('recording');
-            document.getElementById('micStatus').textContent = 'Clique para ativar';
-            if (energyInterval) clearInterval(energyInterval);
-            if (audioCtx) audioCtx.close();
-            if (micStream) micStream.getTracks().forEach(t => t.stop());
-        }
-        
-        function startEnergyCapture() {
-            const bufferLen = analyser.frequencyBinCount;
-            const data = new Uint8Array(bufferLen);
-            const bars = document.querySelectorAll('#visualizer .bar');
-            
-            energyInterval = setInterval(() => {
-                if (!micActive) return;
-                
-                analyser.getByteFrequencyData(data);
-                
-                let sum = 0;
-                for (let i = 0; i < bufferLen; i++) sum += data[i];
-                const avg = sum / bufferLen;
-                const energy = Math.min(100, (avg / 128) * 100);
-                
-                bars.forEach((bar, i) => {
-                    bar.style.height = Math.max(3, data[i * 6] / 5) + 'px';
-                });
-                
-                if (currentSinger) {
-                    gameRef.child('energy').set(Math.round(energy));
-                    gameRef.child('queue/' + currentSinger.id).update({
-                        energyTotal: firebase.database.ServerValue.increment(energy),
-                        energyCount: firebase.database.ServerValue.increment(1)
-                    });
-                }
-            }, 100);
-        }
-        
-        // ============================================================
         // RESET
         // ============================================================
         function resetAll() {
-            if (!confirm('Resetar tudo?')) return;
+            if (!confirm('Resetar tudo? Fila e placar serão apagados!')) return;
             gameRef.set(null).then(() => location.reload());
         }
         
         // ============================================================
-        // INICIALIZAÇÃO
+        // INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
             log('Iniciando Karaokê...');
             initFirebase();
             initQR();
-            initYouTube();
-            initVisualizerBars();
         });
     </script>
 </body>
