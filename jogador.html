@@ -29,7 +29,6 @@
             background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
             color: white;
             min-height: 100vh;
-            min-height: -webkit-fill-available;
             padding-bottom: env(safe-area-inset-bottom);
         }
         
@@ -37,21 +36,21 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 15px;
-            padding-bottom: 100px;
+            padding-bottom: 30px;
         }
         
-        /* ==================== HEADER ==================== */
+        /* Header */
         .header {
             text-align: center;
-            padding: 20px;
+            padding: 18px;
             background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
-            border-radius: 20px;
+            border-radius: 18px;
             margin-bottom: 15px;
             border: 1px solid rgba(255,255,255,0.1);
         }
         
         .header h1 {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: 800;
             background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
             -webkit-background-clip: text;
@@ -59,12 +58,12 @@
         }
         
         .header .status {
-            font-size: 0.8em;
+            font-size: 0.75em;
             margin-top: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .status-dot {
@@ -75,7 +74,7 @@
         
         .status-dot.online { background: var(--green); }
         
-        /* ==================== SCREENS ==================== */
+        /* Screens */
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.3s ease; }
         
@@ -84,118 +83,155 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* ==================== CARDS ==================== */
+        /* Cards */
         .card {
             background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            border-radius: 18px;
             padding: 20px;
             margin-bottom: 15px;
             border: 1px solid rgba(255,255,255,0.08);
         }
         
         .card h2 {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
-        /* ==================== LOGIN SCREEN ==================== */
+        /* ==================== LOGIN ==================== */
         .login-card {
             text-align: center;
-            padding: 30px 25px;
-        }
-        
-        .login-card .welcome-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
+            padding: 30px 20px;
         }
         
         .login-card h2 {
             justify-content: center;
-            font-size: 1.3em;
-            margin-bottom: 5px;
+            font-size: 1.2em;
+            margin-bottom: 20px;
         }
         
-        .login-card .subtitle {
-            font-size: 0.9em;
-            opacity: 0.7;
-            margin-bottom: 25px;
+        /* Photo Capture */
+        .photo-section {
+            margin-bottom: 20px;
         }
+        
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.2);
+            position: relative;
+        }
+        
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-btn {
+            padding: 10px 20px;
+            font-size: 0.9em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        
+        .photo-btn:active { transform: scale(0.95); }
+        .photo-btn.capturing { background: var(--red); }
         
         .input-field {
             width: 100%;
-            padding: 18px 20px;
-            font-size: 1.1em;
+            padding: 16px 18px;
+            font-size: 1.05em;
             font-family: 'Poppins', sans-serif;
             border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
+            border-radius: 12px;
             background: rgba(255,255,255,0.05);
             color: white;
             text-align: center;
             margin-bottom: 15px;
             outline: none;
-            transition: all 0.3s ease;
         }
         
         .input-field::placeholder { color: rgba(255,255,255,0.4); }
-        .input-field:focus { 
-            border-color: var(--cyan); 
-            background: rgba(255,255,255,0.08);
-        }
+        .input-field:focus { border-color: var(--cyan); }
         
         .primary-btn {
             width: 100%;
-            padding: 18px;
-            font-size: 1.2em;
+            padding: 16px;
+            font-size: 1.1em;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(131,56,236,0.3);
+            transition: all 0.2s;
         }
         
         .primary-btn:active { transform: scale(0.98); }
-        .primary-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
         
         /* ==================== USER BAR ==================== */
         .user-bar {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 12px;
+            padding: 12px 15px;
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.08);
         }
         
         .user-avatar {
-            width: 50px; height: 50px;
+            width: 45px; height: 45px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .user-info { flex: 1; }
-        .user-info .name { font-weight: 700; font-size: 1.05em; }
+        .user-info .name { font-weight: 700; font-size: 1em; }
         
         .user-status {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.8em;
+            font-size: 0.75em;
             font-weight: 600;
             background: rgba(255,255,255,0.15);
         }
@@ -219,50 +255,40 @@
         /* ==================== CURRENT SINGER ==================== */
         .current-singer {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(131,56,236,0.3);
         }
         
-        .current-singer .label { 
-            font-size: 0.85em; 
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .current-singer .name { 
-            font-size: 1.6em; 
-            font-weight: 800; 
-            margin: 5px 0; 
-        }
-        .current-singer .song { font-size: 0.95em; opacity: 0.9; }
+        .current-singer .label { font-size: 0.8em; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+        .current-singer .name { font-size: 1.4em; font-weight: 800; margin: 4px 0; }
+        .current-singer .song { font-size: 0.9em; opacity: 0.9; }
         
         .no-singer {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             opacity: 0.5;
         }
         
-        .no-singer .icon { font-size: 50px; margin-bottom: 10px; }
+        .no-singer .icon { font-size: 45px; margin-bottom: 8px; }
         
         /* ==================== ACTION BUTTONS ==================== */
         .action-btn {
             width: 100%;
-            padding: 18px;
-            font-size: 1.15em;
+            padding: 16px;
+            font-size: 1.05em;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             color: white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 15px;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
         
         .action-btn:active { transform: scale(0.98); }
@@ -270,12 +296,10 @@
         .btn-join {
             background: linear-gradient(135deg, var(--cyan), var(--green));
             color: var(--darker);
-            box-shadow: 0 8px 25px rgba(0,245,212,0.3);
         }
         
         .btn-leave {
             background: linear-gradient(135deg, var(--red), #c0392b);
-            box-shadow: 0 8px 25px rgba(239,71,111,0.3);
         }
         
         .btn-secondary {
@@ -283,19 +307,17 @@
             font-weight: 600;
         }
         
-        .btn-secondary:hover { background: rgba(255,255,255,0.15); }
-        
         /* ==================== SEARCH ==================== */
-        .search-section .back-btn {
+        .back-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 0;
+            gap: 6px;
+            padding: 8px 0;
             background: none;
             border: none;
             color: rgba(255,255,255,0.7);
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9em;
+            font-size: 0.85em;
             cursor: pointer;
             margin-bottom: 10px;
         }
@@ -308,11 +330,11 @@
         
         .search-box input {
             flex: 1;
-            padding: 15px 18px;
-            font-size: 1em;
+            padding: 14px 16px;
+            font-size: 0.95em;
             font-family: 'Poppins', sans-serif;
             border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            border-radius: 10px;
             background: rgba(255,255,255,0.05);
             color: white;
             outline: none;
@@ -321,48 +343,47 @@
         .search-box input:focus { border-color: var(--cyan); }
         
         .search-box button {
-            padding: 15px 20px;
-            font-size: 1.2em;
+            padding: 14px 18px;
+            font-size: 1.1em;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             color: white;
             cursor: pointer;
         }
         
         .search-results {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
         }
         
         .result-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px;
+            gap: 10px;
+            padding: 10px;
             background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
             cursor: pointer;
-            transition: all 0.2s ease;
             border: 2px solid transparent;
+            transition: all 0.2s;
         }
         
         .result-item:active { 
             background: rgba(255,255,255,0.1);
             border-color: var(--cyan);
-            transform: scale(0.98); 
         }
         
         .result-item img {
-            width: 80px; height: 60px;
-            border-radius: 8px;
+            width: 70px; height: 52px;
+            border-radius: 6px;
             object-fit: cover;
         }
         
         .result-item .title {
             flex: 1;
-            font-size: 0.9em;
+            font-size: 0.85em;
             line-height: 1.3;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -372,63 +393,53 @@
         
         .search-status {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             opacity: 0.6;
         }
         
         .search-status.error { color: var(--red); opacity: 1; }
-        .search-status.success { color: var(--green); opacity: 1; }
         
         /* ==================== MY TURN ==================== */
         .my-turn-card {
             text-align: center;
-            padding: 40px 25px;
+            padding: 35px 20px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(131,56,236,0.4);
+            border-radius: 18px;
+            margin-bottom: 15px;
         }
         
         .my-turn-card .big-icon {
-            font-size: 80px;
-            margin-bottom: 15px;
+            font-size: 70px;
+            margin-bottom: 12px;
             animation: bounce 1s ease-in-out infinite;
         }
         
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         
-        .my-turn-card h3 {
-            font-size: 1.8em;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        
-        .my-turn-card p {
-            font-size: 1em;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-        
+        .my-turn-card h3 { font-size: 1.6em; font-weight: 800; margin-bottom: 8px; }
+        .my-turn-card p { font-size: 0.95em; opacity: 0.9; }
         .my-turn-card .tip {
-            font-size: 0.85em;
+            font-size: 0.8em;
             opacity: 0.7;
-            margin-top: 15px;
-            padding-top: 15px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255,255,255,0.2);
         }
         
         /* ==================== VOTING ==================== */
         .voting-card {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
+            padding: 25px 18px;
+            background: linear-gradient(135deg, rgba(255,190,11,0.15), rgba(251,86,7,0.15));
             border: 2px solid var(--yellow);
+            margin-bottom: 15px;
         }
         
         .voting-card .vote-label {
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: var(--yellow);
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -436,32 +447,32 @@
         }
         
         .voting-card .singer-name {
-            font-size: 1.8em;
+            font-size: 1.6em;
             font-weight: 800;
             background: linear-gradient(90deg, var(--pink), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .voting-card .song-name {
-            font-size: 0.9em;
+            font-size: 0.85em;
             opacity: 0.7;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .stars {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 18px;
         }
         
         .star {
-            font-size: 42px;
+            font-size: 38px;
             cursor: pointer;
             filter: grayscale(100%) brightness(0.4);
-            transition: all 0.2s ease;
+            transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
         }
         
@@ -472,16 +483,15 @@
         
         .vote-btn {
             width: 100%;
-            padding: 16px;
-            font-size: 1.15em;
+            padding: 14px;
+            font-size: 1.05em;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             background: linear-gradient(135deg, var(--yellow), var(--orange));
             color: var(--darker);
             cursor: pointer;
-            transition: all 0.2s;
         }
         
         .vote-btn:disabled {
@@ -490,32 +500,26 @@
             cursor: not-allowed;
         }
         
-        .vote-btn.voted {
-            background: linear-gradient(135deg, var(--green), var(--cyan));
-        }
+        .vote-btn.voted { background: linear-gradient(135deg, var(--green), var(--cyan)); }
         
         .vote-timer {
-            margin-top: 15px;
-            font-size: 1em;
+            margin-top: 12px;
+            font-size: 0.95em;
         }
         
-        .vote-timer span {
-            font-weight: 800;
-            color: var(--orange);
-            font-size: 1.3em;
-        }
+        .vote-timer span { font-weight: 800; color: var(--orange); font-size: 1.2em; }
         
         /* ==================== QUEUE ==================== */
-        .queue-list { max-height: 200px; overflow-y: auto; }
+        .queue-list { max-height: 180px; overflow-y: auto; }
         
         .queue-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px;
+            gap: 10px;
+            padding: 10px;
             background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            margin-bottom: 8px;
+            border-radius: 10px;
+            margin-bottom: 6px;
         }
         
         .queue-item.me {
@@ -524,14 +528,14 @@
         }
         
         .queue-item .pos {
-            width: 30px; height: 30px;
+            width: 28px; height: 28px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9em;
+            font-size: 0.85em;
         }
         
         .queue-item.me .pos {
@@ -539,10 +543,27 @@
             color: var(--darker);
         }
         
+        .queue-item .avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .queue-item .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .queue-item .info { flex: 1; overflow: hidden; }
-        .queue-item .name { font-weight: 600; font-size: 0.95em; }
+        .queue-item .name { font-weight: 600; font-size: 0.9em; }
         .queue-item .song {
-            font-size: 0.8em;
+            font-size: 0.75em;
             opacity: 0.6;
             white-space: nowrap;
             overflow: hidden;
@@ -551,67 +572,63 @@
         
         .empty-list {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             opacity: 0.5;
         }
         
-        .empty-list .icon { font-size: 35px; margin-bottom: 10px; }
+        .empty-list .icon { font-size: 30px; margin-bottom: 8px; }
         
         /* ==================== SCOREBOARD ==================== */
-        .scoreboard { max-height: 200px; overflow-y: auto; }
+        .scoreboard { max-height: 180px; overflow-y: auto; }
         
         .score-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
+            gap: 10px;
+            padding: 8px 10px;
             background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            margin-bottom: 6px;
+            border-radius: 8px;
+            margin-bottom: 5px;
         }
         
-        .score-item .medal { font-size: 1.2em; }
+        .score-item .medal { font-size: 1.1em; }
         .score-item .rank {
-            width: 26px; height: 26px;
+            width: 24px; height: 24px;
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.75em;
             font-weight: 700;
-            font-size: 0.8em;
         }
-        .score-item .name { flex: 1; font-size: 0.9em; }
+        .score-item .name { flex: 1; font-size: 0.85em; }
         .score-item .pts { font-weight: 700; color: var(--yellow); }
         
-        /* ==================== TOAST ==================== */
+        /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            padding: 14px 25px;
+            padding: 12px 22px;
             background: var(--dark);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            font-size: 0.9em;
+            border-radius: 10px;
+            font-size: 0.85em;
             z-index: 1000;
             opacity: 0;
             transition: all 0.4s ease;
         }
         
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast.success { border-color: var(--green); }
         .toast.error { border-color: var(--red); }
         
-        /* ==================== SCROLLBAR ==================== */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -624,23 +641,31 @@
             </div>
         </header>
         
-        <!-- LOGIN SCREEN -->
+        <!-- LOGIN -->
         <div class="screen active" id="loginScreen">
             <div class="card login-card">
-                <div class="welcome-icon">🎤</div>
-                <h2>Bem-vindo!</h2>
-                <p class="subtitle">Digite seu nome para participar</p>
+                <h2>👋 Bem-vindo!</h2>
+                
+                <div class="photo-section">
+                    <div class="photo-preview" id="photoPreview">
+                        <video id="cameraVideo" autoplay playsinline style="display:none;"></video>
+                        <img id="photoImg" style="display:none;">
+                        <span id="photoPlaceholder">📷</span>
+                    </div>
+                    <button class="photo-btn" id="photoBtn" onclick="handlePhoto()">
+                        <span id="photoBtnText">📸 Tirar Foto</span>
+                    </button>
+                </div>
+                
                 <input type="text" class="input-field" id="nameInput" placeholder="Seu nome" maxlength="20" autocomplete="off">
-                <button class="primary-btn" onclick="joinGame()" id="joinBtn">
-                    Entrar 🎵
-                </button>
+                <button class="primary-btn" onclick="joinGame()">Entrar 🎵</button>
             </div>
         </div>
         
-        <!-- MAIN SCREEN -->
+        <!-- MAIN -->
         <div class="screen" id="mainScreen">
             <div class="user-bar">
-                <div class="user-avatar">🎤</div>
+                <div class="user-avatar" id="userAvatar">🎤</div>
                 <div class="user-info">
                     <div class="name" id="userName">-</div>
                 </div>
@@ -649,7 +674,7 @@
             
             <!-- Current Singer -->
             <div class="card" id="currentSingerCard">
-                <h2>🎙️ No palco agora</h2>
+                <h2>🎙️ No palco</h2>
                 <div id="currentSinger">
                     <div class="no-singer">
                         <div class="icon">🎤</div>
@@ -658,7 +683,7 @@
                 </div>
             </div>
             
-            <!-- My Turn Section -->
+            <!-- My Turn -->
             <div class="my-turn-card" id="myTurnCard" style="display: none;">
                 <div class="big-icon">🎤</div>
                 <h3>É SUA VEZ!</h3>
@@ -666,13 +691,13 @@
                 <p class="tip">💡 Use o microfone conectado na caixa de som</p>
             </div>
             
-            <!-- Voting Section -->
+            <!-- Voting -->
             <div class="card voting-card" id="votingCard" style="display: none;">
                 <div class="vote-label">⭐ Hora de Votar!</div>
                 <div class="singer-name" id="votingFor">-</div>
                 <div class="song-name" id="votingSong">-</div>
                 
-                <div class="stars" id="stars">
+                <div class="stars">
                     <span class="star" onclick="selectStar(1)">⭐</span>
                     <span class="star" onclick="selectStar(2)">⭐</span>
                     <span class="star" onclick="selectStar(3)">⭐</span>
@@ -687,7 +712,7 @@
                 <div class="vote-timer">Tempo: <span id="voteTimer">20</span>s</div>
             </div>
             
-            <!-- Action Buttons -->
+            <!-- Actions -->
             <button class="action-btn btn-join" id="joinQueueBtn" onclick="showSearch()">
                 🎤 Quero Cantar!
             </button>
@@ -719,32 +744,29 @@
             </div>
         </div>
         
-        <!-- SEARCH SCREEN -->
+        <!-- SEARCH -->
         <div class="screen" id="searchScreen">
-            <div class="card search-section">
-                <button class="back-btn" onclick="hideSearch()">
-                    ← Voltar
-                </button>
+            <div class="card">
+                <button class="back-btn" onclick="hideSearch()">← Voltar</button>
                 <h2>🔍 Escolher Música</h2>
+                
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Buscar música karaokê...">
+                    <input type="text" id="searchInput" placeholder="Nome da música...">
                     <button onclick="searchMusic()">🔍</button>
                 </div>
+                
                 <div class="search-results" id="searchResults">
-                    <div class="search-status">
-                        Digite o nome da música e toque em 🔍
-                    </div>
+                    <div class="search-status">Digite e toque 🔍</div>
                 </div>
             </div>
             
-            <button class="action-btn btn-secondary" onclick="hideSearch()">
-                ← Cancelar
-            </button>
+            <button class="action-btn btn-secondary" onclick="hideSearch()">← Cancelar</button>
         </div>
     </div>
     
-    <!-- TOAST -->
     <div class="toast" id="toast"></div>
+    
+    <canvas id="photoCanvas" style="display:none;"></canvas>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -763,14 +785,15 @@
         
         // ==================== STATE ====================
         let db, gameRef;
-        let player = { id: null, name: '', queueId: null, inQueue: false, isMyTurn: false };
+        let player = { id: null, name: '', photo: null, queueId: null, inQueue: false, isMyTurn: false };
         let voting = { id: null, selected: 0, voted: false };
-        let currentScreen = 'login';
+        let cameraStream = null;
+        let cameraActive = false;
         
         // ==================== INIT ====================
         function init() {
             initFirebase();
-            checkSavedSession();
+            checkSession();
             
             document.getElementById('nameInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') joinGame();
@@ -801,34 +824,83 @@
         }
         
         function setupListeners() {
-            gameRef.child('queue').on('value', snap => handleQueueUpdate(snap.val()));
+            gameRef.child('queue').on('value', snap => handleQueue(snap.val()));
             gameRef.child('scores').on('value', snap => updateScoreboard(snap.val()));
-            gameRef.child('voting').on('value', snap => handleVotingUpdate(snap.val()));
+            gameRef.child('voting').on('value', snap => handleVoting(snap.val()));
             
-            // Register participant
             if (player.id) {
-                const participantRef = gameRef.child('participants/' + player.id);
-                participantRef.set({ name: player.name, timestamp: Date.now() });
-                participantRef.onDisconnect().remove();
+                const ref = gameRef.child('participants/' + player.id);
+                ref.set({ name: player.name, timestamp: Date.now() });
+                ref.onDisconnect().remove();
             }
         }
         
-        // ==================== SCREENS ====================
-        function showScreen(name) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(name + 'Screen').classList.add('active');
-            currentScreen = name;
+        // ==================== PHOTO ====================
+        async function handlePhoto() {
+            const video = document.getElementById('cameraVideo');
+            const img = document.getElementById('photoImg');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const btn = document.getElementById('photoBtn');
+            const btnText = document.getElementById('photoBtnText');
+            
+            if (!cameraActive) {
+                // Start camera
+                try {
+                    cameraStream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { facingMode: 'user', width: 300, height: 300 } 
+                    });
+                    video.srcObject = cameraStream;
+                    video.style.display = 'block';
+                    img.style.display = 'none';
+                    placeholder.style.display = 'none';
+                    btn.classList.add('capturing');
+                    btnText.textContent = '📸 Capturar';
+                    cameraActive = true;
+                } catch (e) {
+                    showToast('Câmera indisponível', 'error');
+                }
+            } else {
+                // Capture photo
+                const canvas = document.getElementById('photoCanvas');
+                canvas.width = 200;
+                canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                
+                // Center crop
+                const size = Math.min(video.videoWidth, video.videoHeight);
+                const x = (video.videoWidth - size) / 2;
+                const y = (video.videoHeight - size) / 2;
+                
+                ctx.drawImage(video, x, y, size, size, 0, 0, 200, 200);
+                
+                player.photo = canvas.toDataURL('image/jpeg', 0.7);
+                
+                img.src = player.photo;
+                img.style.display = 'block';
+                video.style.display = 'none';
+                
+                cameraStream.getTracks().forEach(t => t.stop());
+                cameraStream = null;
+                cameraActive = false;
+                
+                btn.classList.remove('capturing');
+                btnText.textContent = '🔄 Trocar Foto';
+                
+                showToast('Foto capturada!', 'success');
+            }
         }
         
         // ==================== SESSION ====================
-        function checkSavedSession() {
+        function checkSession() {
             const id = localStorage.getItem('karaoke_id');
             const name = localStorage.getItem('karaoke_name');
+            const photo = localStorage.getItem('karaoke_photo');
             
             if (id && name) {
                 player.id = id;
                 player.name = name;
-                enterMainScreen();
+                player.photo = photo;
+                enterMain();
             }
         }
         
@@ -839,23 +911,44 @@
                 return;
             }
             
+            // Stop camera if active
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+            }
+            
             player.id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
             player.name = name;
             
             localStorage.setItem('karaoke_id', player.id);
             localStorage.setItem('karaoke_name', player.name);
+            if (player.photo) {
+                localStorage.setItem('karaoke_photo', player.photo);
+            }
             
-            enterMainScreen();
+            enterMain();
         }
         
-        function enterMainScreen() {
+        function enterMain() {
             document.getElementById('userName').textContent = player.name;
+            
+            const avatar = document.getElementById('userAvatar');
+            if (player.photo) {
+                avatar.innerHTML = `<img src="${player.photo}" alt="">`;
+            } else {
+                avatar.innerHTML = '🎤';
+            }
+            
             showScreen('main');
             setupListeners();
             showToast('Bem-vindo, ' + player.name + '!', 'success');
         }
         
-        // ==================== SEARCH ====================
+        // ==================== SCREENS ====================
+        function showScreen(name) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(name + 'Screen').classList.add('active');
+        }
+        
         function showSearch() {
             showScreen('search');
             document.getElementById('searchInput').focus();
@@ -863,14 +956,15 @@
         
         function hideSearch() {
             showScreen('main');
-            document.getElementById('searchResults').innerHTML = '<div class="search-status">Digite o nome da música e toque em 🔍</div>';
+            document.getElementById('searchResults').innerHTML = '<div class="search-status">Digite e toque 🔍</div>';
             document.getElementById('searchInput').value = '';
         }
         
+        // ==================== SEARCH ====================
         async function searchMusic() {
             const query = document.getElementById('searchInput').value.trim();
             if (!query) {
-                showToast('Digite o nome da música', 'error');
+                showToast('Digite algo', 'error');
                 return;
             }
             
@@ -884,8 +978,8 @@
                 
                 if (data.error) throw new Error(data.error.message);
                 
-                if (!data.items || data.items.length === 0) {
-                    container.innerHTML = '<div class="search-status">Nenhum resultado encontrado</div>';
+                if (!data.items?.length) {
+                    container.innerHTML = '<div class="search-status">Nenhum resultado</div>';
                     return;
                 }
                 
@@ -900,19 +994,20 @@
                 }).join('');
                 
             } catch (error) {
-                container.innerHTML = `<div class="search-status error">❌ Erro: ${error.message}</div>`;
+                container.innerHTML = `<div class="search-status error">❌ ${error.message}</div>`;
             }
         }
         
         function selectMusic(videoId, title) {
             const cleanTitle = title.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
             
-            const newRef = gameRef.child('queue').push();
-            player.queueId = newRef.key;
+            const ref = gameRef.child('queue').push();
+            player.queueId = ref.key;
             
-            newRef.set({
+            ref.set({
                 odPlayerId: player.id,
                 name: player.name,
+                photo: player.photo || null,
                 song: cleanTitle,
                 videoId: videoId,
                 timestamp: firebase.database.ServerValue.TIMESTAMP
@@ -921,9 +1016,7 @@
                 hideSearch();
                 showToast('Você entrou na fila!', 'success');
                 updateButtons();
-            }).catch(e => {
-                showToast('Erro: ' + e.message, 'error');
-            });
+            }).catch(e => showToast('Erro: ' + e.message, 'error'));
         }
         
         // ==================== QUEUE ====================
@@ -936,11 +1029,12 @@
                     showToast('Você saiu da fila', 'success');
                     updateButtons();
                     document.getElementById('myTurnCard').style.display = 'none';
+                    document.getElementById('currentSingerCard').style.display = 'block';
                 });
             }
         }
         
-        function handleQueueUpdate(queue) {
+        function handleQueue(queue) {
             updateQueueList(queue);
             updateCurrentSinger(queue);
             checkMyPosition(queue);
@@ -949,7 +1043,7 @@
         function updateQueueList(queue) {
             const el = document.getElementById('queueList');
             
-            if (!queue || Object.keys(queue).length === 0) {
+            if (!queue || !Object.keys(queue).length) {
                 el.innerHTML = '<div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>';
                 return;
             }
@@ -961,6 +1055,9 @@
             el.innerHTML = items.map((item, i) => `
                 <div class="queue-item ${item.odPlayerId === player.id ? 'me' : ''}">
                     <div class="pos">${i + 1}</div>
+                    <div class="avatar">
+                        ${item.photo ? `<img src="${item.photo}" alt="">` : '🎤'}
+                    </div>
                     <div class="info">
                         <div class="name">${item.name}${item.odPlayerId === player.id ? ' (você)' : ''}</div>
                         <div class="song">${item.song || 'Escolhendo...'}</div>
@@ -972,7 +1069,7 @@
         function updateCurrentSinger(queue) {
             const el = document.getElementById('currentSinger');
             
-            if (!queue || Object.keys(queue).length === 0) {
+            if (!queue || !Object.keys(queue).length) {
                 el.innerHTML = '<div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>';
                 return;
             }
@@ -987,7 +1084,7 @@
                 <div class="current-singer">
                     <div class="label">🎙️ No palco</div>
                     <div class="name">${first.name}</div>
-                    <div class="song">${first.song || 'Escolhendo música...'}</div>
+                    <div class="song">${first.song || 'Escolhendo...'}</div>
                 </div>
             `;
         }
@@ -995,7 +1092,7 @@
         function checkMyPosition(queue) {
             const statusEl = document.getElementById('userStatus');
             const myTurnCard = document.getElementById('myTurnCard');
-            const currentSingerCard = document.getElementById('currentSingerCard');
+            const singerCard = document.getElementById('currentSingerCard');
             
             player.inQueue = false;
             player.isMyTurn = false;
@@ -1004,7 +1101,7 @@
                 statusEl.textContent = 'Assistindo';
                 statusEl.className = 'user-status';
                 myTurnCard.style.display = 'none';
-                currentSingerCard.style.display = 'block';
+                singerCard.style.display = 'block';
                 updateButtons();
                 return;
             }
@@ -1013,7 +1110,7 @@
                 .map(([id, data]) => ({ id, ...data }))
                 .sort((a, b) => a.timestamp - b.timestamp);
             
-            const myIndex = items.findIndex(item => item.odPlayerId === player.id);
+            const myIndex = items.findIndex(i => i.odPlayerId === player.id);
             
             if (myIndex === 0) {
                 player.inQueue = true;
@@ -1024,7 +1121,7 @@
                 statusEl.className = 'user-status singing';
                 
                 myTurnCard.style.display = 'block';
-                currentSingerCard.style.display = 'none';
+                singerCard.style.display = 'none';
                 
                 if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
             } else if (myIndex > 0) {
@@ -1035,12 +1132,12 @@
                 statusEl.className = 'user-status queue';
                 
                 myTurnCard.style.display = 'none';
-                currentSingerCard.style.display = 'block';
+                singerCard.style.display = 'block';
             } else {
                 statusEl.textContent = 'Assistindo';
                 statusEl.className = 'user-status';
                 myTurnCard.style.display = 'none';
-                currentSingerCard.style.display = 'block';
+                singerCard.style.display = 'block';
             }
             
             updateButtons();
@@ -1063,35 +1160,32 @@
         }
         
         // ==================== VOTING ====================
-        function handleVotingUpdate(votingData) {
+        function handleVoting(data) {
             const card = document.getElementById('votingCard');
             
-            if (!votingData || !votingData.active) {
+            if (!data || !data.active) {
                 card.style.display = 'none';
                 resetVoting();
                 return;
             }
             
-            // Don't show voting for self
-            if (votingData.singerId === player.queueId) {
+            if (data.singerId === player.queueId) {
                 card.style.display = 'none';
                 return;
             }
             
-            // New voting
-            if (votingData.singerId !== voting.id) {
+            if (data.singerId !== voting.id) {
                 resetVoting();
-                voting.id = votingData.singerId;
+                voting.id = data.singerId;
                 if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
             }
             
             card.style.display = 'block';
-            document.getElementById('votingFor').textContent = votingData.singerName;
-            document.getElementById('votingSong').textContent = votingData.singerSong || '';
+            document.getElementById('votingFor').textContent = data.singerName;
+            document.getElementById('votingSong').textContent = data.singerSong || '';
             
-            // Timer
-            if (votingData.startTime) {
-                const elapsed = (Date.now() - votingData.startTime) / 1000;
+            if (data.startTime) {
+                const elapsed = (Date.now() - data.startTime) / 1000;
                 const remaining = Math.max(0, 20 - Math.floor(elapsed));
                 document.getElementById('voteTimer').textContent = remaining;
             }
@@ -1111,17 +1205,16 @@
         }
         
         function submitVote() {
-            if (voting.selected === 0 || voting.voted) return;
+            if (!voting.selected || voting.voted) return;
             
-            gameRef.child('voting/votes/' + player.id).set(voting.selected)
-                .then(() => {
-                    voting.voted = true;
-                    document.getElementById('voteBtn').disabled = true;
-                    document.getElementById('voteBtn').textContent = '✓ Voto enviado!';
-                    document.getElementById('voteBtn').classList.add('voted');
-                    showToast('Voto registrado!', 'success');
-                    if (navigator.vibrate) navigator.vibrate(100);
-                });
+            gameRef.child('voting/votes/' + player.id).set(voting.selected).then(() => {
+                voting.voted = true;
+                document.getElementById('voteBtn').disabled = true;
+                document.getElementById('voteBtn').textContent = '✓ Voto enviado!';
+                document.getElementById('voteBtn').classList.add('voted');
+                showToast('Voto registrado!', 'success');
+                if (navigator.vibrate) navigator.vibrate(100);
+            });
         }
         
         function resetVoting() {
@@ -1136,7 +1229,7 @@
         function updateScoreboard(scores) {
             const el = document.getElementById('scoreboard');
             
-            if (!scores || Object.keys(scores).length === 0) {
+            if (!scores || !Object.keys(scores).length) {
                 el.innerHTML = '<div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
                 return;
             }
@@ -1154,12 +1247,10 @@
         }
         
         // ==================== TOAST ====================
-        function showToast(message, type = '') {
+        function showToast(msg, type = '') {
             const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type;
-            toast.classList.add('show');
-            
+            toast.textContent = msg;
+            toast.className = 'toast ' + type + ' show';
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
         
