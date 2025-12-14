@@ -793,7 +793,7 @@
                 
                 <!-- Record Clip Button -->
                 <button class="record-btn" onclick="openRecordModal()">
-                    🎬 Gravar Clip (5s)
+                    🎬 Gravar Clip (3s)
                 </button>
             </div>
             
@@ -1415,8 +1415,14 @@
             `;
             
             try {
+                // Resolução BAIXA para funcionar bem
                 recordStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: 480, height: 640 },
+                    video: { 
+                        facingMode: 'environment',
+                        width: { ideal: 240 },
+                        height: { ideal: 320 },
+                        frameRate: { ideal: 15 }
+                    },
                     audio: false
                 });
                 video.srcObject = recordStream;
@@ -1460,12 +1466,21 @@
             
             recordedChunks = [];
             
-            // Setup MediaRecorder
-            const options = { mimeType: 'video/webm;codecs=vp8' };
+            // Setup MediaRecorder com BAIXA qualidade
+            const options = { 
+                mimeType: 'video/webm;codecs=vp8',
+                videoBitsPerSecond: 100000 // 100kbps - bem baixo
+            };
+            
             try {
                 mediaRecorder = new MediaRecorder(recordStream, options);
             } catch (e) {
-                mediaRecorder = new MediaRecorder(recordStream);
+                // Fallback sem especificar codec
+                try {
+                    mediaRecorder = new MediaRecorder(recordStream, { videoBitsPerSecond: 100000 });
+                } catch (e2) {
+                    mediaRecorder = new MediaRecorder(recordStream);
+                }
             }
             
             mediaRecorder.ondataavailable = (e) => {
@@ -1489,8 +1504,8 @@
             // Vibrate
             if (navigator.vibrate) navigator.vibrate(100);
             
-            // Countdown
-            let seconds = 5;
+            // Countdown - 3 segundos para arquivo menor
+            let seconds = 3;
             countdown.textContent = seconds;
             
             const interval = setInterval(() => {
@@ -1525,7 +1540,10 @@
             video.src = url;
             video.loop = true;
             video.muted = true;
-            video.play();
+            video.play().catch(e => console.log('Preview play error:', e));
+            
+            console.log('Blob size:', Math.round(recordedBlob.size / 1024), 'KB');
+            console.log('Blob type:', recordedBlob.type);
             
             // Show send/cancel buttons
             controls.innerHTML = `
@@ -1546,6 +1564,9 @@
             try {
                 // Convert blob to base64
                 const base64 = await blobToBase64(recordedBlob);
+                
+                console.log('Clip size:', Math.round(base64.length / 1024), 'KB');
+                console.log('Clip type:', base64.substring(0, 50));
                 
                 // Send to Firebase
                 await gameRef.child('clips').push({

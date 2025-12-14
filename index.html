@@ -266,44 +266,60 @@
             object-fit: cover;
         }
         
-        /* Fixed Video Clip Area */
+        /* Fixed Video Clip Area - GRANDE */
         .clip-container {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 280px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
             z-index: 100;
             display: none;
         }
         
-        .clip-container.show { display: block; }
+        .clip-container.show { 
+            display: block; 
+            animation: clipZoom 0.4s ease;
+        }
+        
+        @keyframes clipZoom {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
         
         .clip-box {
             background: #000;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            border: 3px solid var(--cyan);
-            animation: clipAppear 0.5s ease;
-        }
-        
-        @keyframes clipAppear {
-            from { transform: scale(0.8) translateY(20px); opacity: 0; }
-            to { transform: scale(1) translateY(0); opacity: 1; }
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            border: 4px solid var(--cyan);
         }
         
         .clip-box video {
             width: 100%;
-            height: auto;
-            min-height: 200px;
-            max-height: 350px;
+            height: 280px;
             display: block;
             background: #000;
             object-fit: cover;
         }
         
+        .clip-video-wrapper {
+            width: 100%;
+            height: 280px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .clip-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         .clip-box .clip-header {
-            padding: 10px 12px;
+            padding: 12px 15px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             display: flex;
             align-items: center;
@@ -311,8 +327,8 @@
         }
         
         .clip-box .clip-header img {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255,255,255,0.3);
@@ -329,28 +345,34 @@
         
         .clip-box .clip-header .sender-name {
             font-weight: 700;
-            font-size: 0.95em;
+            font-size: 1.1em;
         }
         
         .clip-box .clip-header .clip-label {
-            font-size: 0.75em;
+            font-size: 0.8em;
             opacity: 0.8;
         }
         
         .clip-box .clip-header .live-badge {
-            padding: 4px 10px;
+            padding: 5px 12px;
             background: var(--red);
             border-radius: 15px;
-            font-size: 0.7em;
+            font-size: 0.75em;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 5px;
+            animation: livePulse 1s infinite;
+        }
+        
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .clip-box .clip-header .live-badge .dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: white;
             border-radius: 50%;
             animation: blink 1s infinite;
@@ -835,7 +857,7 @@
                                     AO VIVO
                                 </div>
                             </div>
-                            <video id="clipVideo" autoplay playsinline muted loop preload="auto"></video>
+                            <div class="clip-video-wrapper" id="clipVideoWrapper"></div>
                         </div>
                     </div>
                 </div>
@@ -1089,9 +1111,12 @@
             const clip = clipQueue.shift();
             
             const container = document.getElementById('clipContainer');
-            const video = document.getElementById('clipVideo');
+            const videoWrapper = document.getElementById('clipVideoWrapper');
             const senderPhoto = document.getElementById('clipSenderPhoto');
             const senderName = document.getElementById('clipSenderName');
+            
+            console.log('Processando clip de:', clip.name);
+            console.log('Video data length:', clip.video?.length);
             
             // Set sender info
             if (clip.photo) {
@@ -1102,42 +1127,43 @@
             }
             senderName.textContent = clip.name || 'Anônimo';
             
-            // Clear previous handlers
-            video.onloadeddata = null;
-            video.onerror = null;
+            // Clear previous video
+            videoWrapper.innerHTML = '';
             
-            // Set up event handlers
-            video.onloadeddata = () => {
-                console.log('Video loaded, playing...');
-                video.play().catch(e => console.log('Play error:', e));
+            // Create fresh video element
+            const video = document.createElement('video');
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.setAttribute('playsinline', '');
+            
+            video.oncanplaythrough = () => {
+                console.log('Video ready, playing...');
+                video.play().catch(e => console.log('Play blocked:', e));
             };
             
             video.onerror = (e) => {
-                console.error('Video error:', e);
-                // Skip to next clip on error
-                setTimeout(() => {
-                    container.classList.remove('show');
-                    processClipQueue();
-                }, 1000);
+                console.error('Video error:', video.error?.message);
+                videoWrapper.innerHTML = '<div style="color:white;padding:20px;text-align:center;">⚠️ Erro ao carregar vídeo</div>';
             };
             
-            // Set video source - base64 data URL
+            // Add to wrapper
+            videoWrapper.appendChild(video);
+            
+            // Set source AFTER adding to DOM
             video.src = clip.video;
-            video.load();
             
             // Show container
             container.classList.add('show');
             
-            // Process next clip after 6 seconds
+            // Hide after 6 seconds
             setTimeout(() => {
                 container.classList.remove('show');
                 video.pause();
-                video.src = '';
+                videoWrapper.innerHTML = '';
                 
-                // Small delay before next
-                setTimeout(() => {
-                    processClipQueue();
-                }, 500);
+                setTimeout(() => processClipQueue(), 500);
             }, 6000);
         }
         
