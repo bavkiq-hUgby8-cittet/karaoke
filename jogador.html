@@ -1544,32 +1544,35 @@
             controls.innerHTML = '';
             
             try {
-                // Convert to base64
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    const base64 = reader.result;
-                    
-                    // Send to Firebase
-                    gameRef.child('clips').push({
-                        video: base64,
-                        name: player.name,
-                        photo: player.photo || null,
-                        timestamp: Date.now()
-                    }).then(() => {
-                        showToast('Clip enviado! 🎬', 'success');
-                        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-                        closeRecordModal();
-                    }).catch(e => {
-                        showToast('Erro ao enviar', 'error');
-                        closeRecordModal();
-                    });
-                };
-                reader.readAsDataURL(recordedBlob);
+                // Convert blob to base64
+                const base64 = await blobToBase64(recordedBlob);
+                
+                // Send to Firebase
+                await gameRef.child('clips').push({
+                    video: base64,
+                    name: player.name,
+                    photo: player.photo || null,
+                    timestamp: Date.now()
+                });
+                
+                showToast('Clip enviado! 🎬', 'success');
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                closeRecordModal();
                 
             } catch (e) {
-                showToast('Erro ao processar', 'error');
+                console.error('Erro ao enviar clip:', e);
+                showToast('Erro ao enviar', 'error');
                 closeRecordModal();
             }
+        }
+        
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
         }
         
         document.addEventListener('DOMContentLoaded', init);

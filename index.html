@@ -266,48 +266,99 @@
             object-fit: cover;
         }
         
-        /* Floating Video Clips */
-        .floating-clip {
+        /* Fixed Video Clip Area */
+        .clip-container {
             position: absolute;
-            width: 200px;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            z-index: 100;
+            display: none;
+        }
+        
+        .clip-container.show { display: block; }
+        
+        .clip-box {
+            background: #000;
             border-radius: 15px;
             overflow: hidden;
-            animation: floatClip 8s ease-out forwards;
             box-shadow: 0 10px 40px rgba(0,0,0,0.8);
             border: 3px solid var(--cyan);
+            animation: clipAppear 0.5s ease;
         }
         
-        .floating-clip video {
+        @keyframes clipAppear {
+            from { transform: scale(0.8) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .clip-box video {
             width: 100%;
+            height: auto;
+            min-height: 200px;
+            max-height: 350px;
             display: block;
-        }
-        
-        .floating-clip .clip-sender {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 8px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-        
-        .floating-clip .clip-sender img {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+            background: #000;
             object-fit: cover;
         }
         
-        @keyframes floatClip {
-            0% { transform: scale(0.5) translateY(50px); opacity: 0; }
-            10% { transform: scale(1) translateY(0); opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: scale(0.8) translateY(-100px); opacity: 0; }
+        .clip-box .clip-header {
+            padding: 10px 12px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .clip-box .clip-header img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.3);
+            flex-shrink: 0;
+        }
+        
+        .clip-box .clip-header img[style*="display: none"] + .sender-info {
+            margin-left: 0;
+        }
+        
+        .clip-box .clip-header .sender-info {
+            flex: 1;
+        }
+        
+        .clip-box .clip-header .sender-name {
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+        
+        .clip-box .clip-header .clip-label {
+            font-size: 0.75em;
+            opacity: 0.8;
+        }
+        
+        .clip-box .clip-header .live-badge {
+            padding: 4px 10px;
+            background: var(--red);
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .clip-box .clip-header .live-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
         
         /* Recording indicator on TV */
@@ -769,6 +820,24 @@
                         <span>GRAVANDO</span>
                     </div>
                     <div class="reactions-overlay" id="reactionsOverlay"></div>
+                    
+                    <!-- Fixed Clip Container -->
+                    <div class="clip-container" id="clipContainer">
+                        <div class="clip-box">
+                            <div class="clip-header">
+                                <img id="clipSenderPhoto" src="" alt="" onerror="this.style.display='none'">
+                                <div class="sender-info">
+                                    <div class="sender-name" id="clipSenderName">-</div>
+                                    <div class="clip-label">📹 enviou um clip</div>
+                                </div>
+                                <div class="live-badge">
+                                    <div class="dot"></div>
+                                    AO VIVO
+                                </div>
+                            </div>
+                            <video id="clipVideo" autoplay playsinline muted loop preload="auto"></video>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="applause-meter" id="applauseMeter" style="display: none;">
@@ -865,6 +934,8 @@
         let currentVideoId = null;
         let votingInterval = null;
         let applauseTotal = 0;
+        let clipQueue = [];
+        let clipPlaying = false;
         
         // ==================== INIT ====================
         function init() {
@@ -929,6 +1000,7 @@
             // Video clips listener
             gameRef.child('clips').on('child_added', snap => {
                 const clip = snap.val();
+                console.log('Clip recebido:', clip.name, 'video length:', clip.video?.length);
                 showVideoClip(clip);
                 // Remove after 10 seconds
                 setTimeout(() => snap.ref.remove(), 10000);
@@ -998,28 +1070,75 @@
         }
         
         function showVideoClip(clip) {
-            const overlay = document.getElementById('reactionsOverlay');
-            const div = document.createElement('div');
-            div.className = 'floating-clip';
+            // Add to queue
+            clipQueue.push(clip);
             
-            // Random position
-            div.style.left = Math.random() * 60 + 10 + '%';
-            div.style.top = Math.random() * 40 + 10 + '%';
+            // Process queue if not already playing
+            if (!clipPlaying) {
+                processClipQueue();
+            }
+        }
+        
+        function processClipQueue() {
+            if (clipQueue.length === 0) {
+                clipPlaying = false;
+                return;
+            }
             
-            div.innerHTML = `
-                <video autoplay muted playsinline loop>
-                    <source src="${clip.video}" type="video/webm">
-                </video>
-                <div class="clip-sender">
-                    ${clip.photo ? `<img src="${clip.photo}" alt="">` : ''}
-                    <span>${clip.name || 'Anônimo'}</span>
-                </div>
-            `;
+            clipPlaying = true;
+            const clip = clipQueue.shift();
             
-            overlay.appendChild(div);
+            const container = document.getElementById('clipContainer');
+            const video = document.getElementById('clipVideo');
+            const senderPhoto = document.getElementById('clipSenderPhoto');
+            const senderName = document.getElementById('clipSenderName');
             
-            // Remove after animation
-            setTimeout(() => div.remove(), 8000);
+            // Set sender info
+            if (clip.photo) {
+                senderPhoto.src = clip.photo;
+                senderPhoto.style.display = 'block';
+            } else {
+                senderPhoto.style.display = 'none';
+            }
+            senderName.textContent = clip.name || 'Anônimo';
+            
+            // Clear previous handlers
+            video.onloadeddata = null;
+            video.onerror = null;
+            
+            // Set up event handlers
+            video.onloadeddata = () => {
+                console.log('Video loaded, playing...');
+                video.play().catch(e => console.log('Play error:', e));
+            };
+            
+            video.onerror = (e) => {
+                console.error('Video error:', e);
+                // Skip to next clip on error
+                setTimeout(() => {
+                    container.classList.remove('show');
+                    processClipQueue();
+                }, 1000);
+            };
+            
+            // Set video source - base64 data URL
+            video.src = clip.video;
+            video.load();
+            
+            // Show container
+            container.classList.add('show');
+            
+            // Process next clip after 6 seconds
+            setTimeout(() => {
+                container.classList.remove('show');
+                video.pause();
+                video.src = '';
+                
+                // Small delay before next
+                setTimeout(() => {
+                    processClipQueue();
+                }, 500);
+            }, 6000);
         }
         
         function updateApplauseMeter(count) {
