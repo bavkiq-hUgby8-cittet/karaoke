@@ -30,27 +30,27 @@
             color: white;
             min-height: 100vh;
             padding-bottom: env(safe-area-inset-bottom);
+            -webkit-tap-highlight-color: transparent;
         }
         
         .container {
             max-width: 500px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 12px;
             padding-bottom: 30px;
         }
         
         /* Header */
         .header {
             text-align: center;
-            padding: 18px;
+            padding: 15px;
             background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
-            border-radius: 18px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-bottom: 12px;
         }
         
         .header h1 {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 800;
             background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
             -webkit-background-clip: text;
@@ -58,20 +58,15 @@
         }
         
         .header .status {
-            font-size: 0.75em;
-            margin-top: 5px;
+            font-size: 0.7em;
+            margin-top: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
         }
         
-        .status-dot {
-            width: 8px; height: 8px;
-            background: var(--red);
-            border-radius: 50%;
-        }
-        
+        .status-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
         .status-dot.online { background: var(--green); }
         
         /* Screens */
@@ -86,105 +81,69 @@
         /* Cards */
         .card {
             background: rgba(255,255,255,0.05);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 12px;
             border: 1px solid rgba(255,255,255,0.08);
         }
         
-        .card h2 {
-            font-size: 1em;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .card h2 { font-size: 0.95em; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         
         /* ==================== LOGIN ==================== */
-        .login-card {
-            text-align: center;
-            padding: 30px 20px;
-        }
+        .login-card { text-align: center; padding: 25px 18px; }
+        .login-card h2 { justify-content: center; font-size: 1.1em; margin-bottom: 18px; }
         
-        .login-card h2 {
-            justify-content: center;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        
-        /* Photo Capture */
-        .photo-section {
-            margin-bottom: 20px;
-        }
+        .photo-section { margin-bottom: 18px; }
         
         .photo-preview {
-            width: 120px;
-            height: 120px;
+            width: 100px; height: 100px;
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: 0 auto 12px;
             background: rgba(255,255,255,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px;
+            font-size: 40px;
             overflow: hidden;
             border: 3px solid rgba(255,255,255,0.2);
-            position: relative;
         }
         
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .photo-preview video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .photo-preview img, .photo-preview video { width: 100%; height: 100%; object-fit: cover; }
         
         .photo-btn {
-            padding: 10px 20px;
-            font-size: 0.9em;
+            padding: 8px 18px;
+            font-size: 0.85em;
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             border: none;
-            border-radius: 25px;
+            border-radius: 20px;
             background: rgba(255,255,255,0.15);
             color: white;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
         }
         
-        .photo-btn:active { transform: scale(0.95); }
         .photo-btn.capturing { background: var(--red); }
         
         .input-field {
             width: 100%;
-            padding: 16px 18px;
-            font-size: 1.05em;
+            padding: 14px 16px;
+            font-size: 1em;
             font-family: 'Poppins', sans-serif;
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             background: rgba(255,255,255,0.05);
             color: white;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             outline: none;
         }
         
-        .input-field::placeholder { color: rgba(255,255,255,0.4); }
         .input-field:focus { border-color: var(--cyan); }
         
         .primary-btn {
             width: 100%;
-            padding: 16px;
-            font-size: 1.1em;
+            padding: 14px;
+            font-size: 1.05em;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             border: none;
@@ -192,91 +151,211 @@
             background: linear-gradient(135deg, var(--purple), var(--pink));
             color: white;
             cursor: pointer;
-            transition: all 0.2s;
         }
-        
-        .primary-btn:active { transform: scale(0.98); }
         
         /* ==================== USER BAR ==================== */
         .user-bar {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
+            gap: 10px;
+            padding: 10px 12px;
             background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            margin-bottom: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
         }
         
         .user-avatar {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             overflow: hidden;
         }
         
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
         
         .user-info { flex: 1; }
-        .user-info .name { font-weight: 700; font-size: 1em; }
+        .user-info .name { font-weight: 700; font-size: 0.95em; }
         
         .user-status {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7em;
             font-weight: 600;
             background: rgba(255,255,255,0.15);
         }
         
-        .user-status.singing {
-            background: linear-gradient(135deg, var(--cyan), var(--green));
-            color: var(--darker);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        
-        .user-status.queue {
-            background: linear-gradient(135deg, var(--yellow), var(--orange));
-            color: var(--darker);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+        .user-status.singing { background: linear-gradient(135deg, var(--cyan), var(--green)); color: var(--darker); }
+        .user-status.queue { background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--darker); }
         
         /* ==================== CURRENT SINGER ==================== */
         .current-singer {
             text-align: center;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border-radius: 12px;
+        }
+        
+        .current-singer .label { font-size: 0.75em; opacity: 0.9; text-transform: uppercase; }
+        .current-singer .name { font-size: 1.3em; font-weight: 800; margin: 3px 0; }
+        .current-singer .song { font-size: 0.85em; opacity: 0.9; }
+        
+        .no-singer { text-align: center; padding: 20px; opacity: 0.5; }
+        .no-singer .icon { font-size: 40px; margin-bottom: 8px; }
+        
+        /* ==================== INTERACTION SECTION ==================== */
+        .interaction-section {
+            display: none;
+            margin-bottom: 12px;
+        }
+        
+        .interaction-section.active { display: block; }
+        
+        /* Applause Button */
+        .applause-section {
+            text-align: center;
             padding: 20px;
+            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
+            border-radius: 15px;
+            border: 2px solid var(--yellow);
+            margin-bottom: 12px;
+        }
+        
+        .applause-btn {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 10px 30px rgba(255,190,11,0.4);
+        }
+        
+        .applause-btn:active { transform: scale(0.9); }
+        
+        .applause-count {
+            margin-top: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+        
+        .applause-count span { color: var(--yellow); font-size: 1.3em; }
+        
+        /* Emoji Grid */
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .emoji-btn {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .emoji-btn:active { transform: scale(0.85); background: rgba(255,255,255,0.2); }
+        
+        /* Phrase Buttons */
+        .phrase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        .phrase-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(131,56,236,0.4), rgba(255,0,110,0.4));
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .phrase-btn:active { transform: scale(0.95); }
+        
+        /* ==================== MY TURN ==================== */
+        .my-turn-card {
+            text-align: center;
+            padding: 30px 18px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
             border-radius: 15px;
+            margin-bottom: 12px;
         }
         
-        .current-singer .label { font-size: 0.8em; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
-        .current-singer .name { font-size: 1.4em; font-weight: 800; margin: 4px 0; }
-        .current-singer .song { font-size: 0.9em; opacity: 0.9; }
+        .my-turn-card .big-icon { font-size: 60px; margin-bottom: 10px; animation: bounce 1s infinite; }
         
-        .no-singer {
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .my-turn-card h3 { font-size: 1.5em; font-weight: 800; margin-bottom: 8px; }
+        .my-turn-card p { font-size: 0.9em; opacity: 0.9; }
+        .my-turn-card .tip { font-size: 0.8em; opacity: 0.7; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); }
+        
+        /* ==================== VOTING ==================== */
+        .voting-card {
             text-align: center;
-            padding: 25px;
-            opacity: 0.5;
+            padding: 22px 15px;
+            background: linear-gradient(135deg, rgba(255,190,11,0.15), rgba(251,86,7,0.15));
+            border: 2px solid var(--yellow);
+            margin-bottom: 12px;
         }
         
-        .no-singer .icon { font-size: 45px; margin-bottom: 8px; }
+        .voting-card .vote-label { font-size: 0.8em; color: var(--yellow); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .voting-card .singer-name { font-size: 1.5em; font-weight: 800; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 3px; }
+        .voting-card .song-name { font-size: 0.8em; opacity: 0.7; margin-bottom: 15px; }
+        
+        .stars { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        
+        .star {
+            font-size: 36px;
+            cursor: pointer;
+            filter: grayscale(100%) brightness(0.4);
+            transition: all 0.2s;
+        }
+        
+        .star.active { filter: grayscale(0%) brightness(1); transform: scale(1.15); }
+        
+        .vote-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--yellow), var(--orange));
+            color: var(--darker);
+            cursor: pointer;
+        }
+        
+        .vote-btn:disabled { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+        .vote-btn.voted { background: linear-gradient(135deg, var(--green), var(--cyan)); }
+        
+        .vote-timer { margin-top: 12px; font-size: 0.9em; }
+        .vote-timer span { font-weight: 800; color: var(--orange); font-size: 1.2em; }
         
         /* ==================== ACTION BUTTONS ==================== */
         .action-btn {
             width: 100%;
-            padding: 16px;
-            font-size: 1.05em;
+            padding: 14px;
+            font-size: 1em;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             border: none;
@@ -287,51 +366,34 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 15px;
-            transition: all 0.2s;
+            margin-bottom: 12px;
         }
         
-        .action-btn:active { transform: scale(0.98); }
-        
-        .btn-join {
-            background: linear-gradient(135deg, var(--cyan), var(--green));
-            color: var(--darker);
-        }
-        
-        .btn-leave {
-            background: linear-gradient(135deg, var(--red), #c0392b);
-        }
-        
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            font-weight: 600;
-        }
+        .btn-join { background: linear-gradient(135deg, var(--cyan), var(--green)); color: var(--darker); }
+        .btn-leave { background: linear-gradient(135deg, var(--red), #c0392b); }
+        .btn-secondary { background: rgba(255,255,255,0.1); font-weight: 600; font-size: 0.9em; }
         
         /* ==================== SEARCH ==================== */
         .back-btn {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             padding: 8px 0;
             background: none;
             border: none;
             color: rgba(255,255,255,0.7);
             font-family: 'Poppins', sans-serif;
-            font-size: 0.85em;
+            font-size: 0.8em;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .search-box { display: flex; gap: 8px; margin-bottom: 12px; }
         
         .search-box input {
             flex: 1;
-            padding: 14px 16px;
-            font-size: 0.95em;
+            padding: 12px 14px;
+            font-size: 0.9em;
             font-family: 'Poppins', sans-serif;
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 10px;
@@ -340,11 +402,9 @@
             outline: none;
         }
         
-        .search-box input:focus { border-color: var(--cyan); }
-        
         .search-box button {
-            padding: 14px 18px;
-            font-size: 1.1em;
+            padding: 12px 16px;
+            font-size: 1em;
             border: none;
             border-radius: 10px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
@@ -352,10 +412,7 @@
             cursor: pointer;
         }
         
-        .search-results {
-            max-height: 350px;
-            overflow-y: auto;
-        }
+        .search-results { max-height: 320px; overflow-y: auto; }
         
         .result-item {
             display: flex;
@@ -366,256 +423,65 @@
             border-radius: 10px;
             margin-bottom: 8px;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
         }
         
-        .result-item:active { 
-            background: rgba(255,255,255,0.1);
-            border-color: var(--cyan);
-        }
+        .result-item:active { background: rgba(255,255,255,0.1); }
         
-        .result-item img {
-            width: 70px; height: 52px;
-            border-radius: 6px;
-            object-fit: cover;
-        }
+        .result-item img { width: 65px; height: 48px; border-radius: 6px; object-fit: cover; }
+        .result-item .title { flex: 1; font-size: 0.8em; line-height: 1.3; }
         
-        .result-item .title {
-            flex: 1;
-            font-size: 0.85em;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .search-status {
-            text-align: center;
-            padding: 25px;
-            opacity: 0.6;
-        }
-        
+        .search-status { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.9em; }
         .search-status.error { color: var(--red); opacity: 1; }
         
-        /* ==================== MY TURN ==================== */
-        .my-turn-card {
-            text-align: center;
-            padding: 35px 20px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 18px;
-            margin-bottom: 15px;
-        }
-        
-        .my-turn-card .big-icon {
-            font-size: 70px;
-            margin-bottom: 12px;
-            animation: bounce 1s ease-in-out infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        
-        .my-turn-card h3 { font-size: 1.6em; font-weight: 800; margin-bottom: 8px; }
-        .my-turn-card p { font-size: 0.95em; opacity: 0.9; }
-        .my-turn-card .tip {
-            font-size: 0.8em;
-            opacity: 0.7;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        /* ==================== VOTING ==================== */
-        .voting-card {
-            text-align: center;
-            padding: 25px 18px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.15), rgba(251,86,7,0.15));
-            border: 2px solid var(--yellow);
-            margin-bottom: 15px;
-        }
-        
-        .voting-card .vote-label {
-            font-size: 0.85em;
-            color: var(--yellow);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-        
-        .voting-card .singer-name {
-            font-size: 1.6em;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--pink), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 3px;
-        }
-        
-        .voting-card .song-name {
-            font-size: 0.85em;
-            opacity: 0.7;
-            margin-bottom: 18px;
-        }
-        
-        .stars {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 18px;
-        }
-        
-        .star {
-            font-size: 38px;
-            cursor: pointer;
-            filter: grayscale(100%) brightness(0.4);
-            transition: all 0.2s;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .star.active {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.15);
-        }
-        
-        .vote-btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 1.05em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--yellow), var(--orange));
-            color: var(--darker);
-            cursor: pointer;
-        }
-        
-        .vote-btn:disabled {
-            background: rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.5);
-            cursor: not-allowed;
-        }
-        
-        .vote-btn.voted { background: linear-gradient(135deg, var(--green), var(--cyan)); }
-        
-        .vote-timer {
-            margin-top: 12px;
-            font-size: 0.95em;
-        }
-        
-        .vote-timer span { font-weight: 800; color: var(--orange); font-size: 1.2em; }
-        
         /* ==================== QUEUE ==================== */
-        .queue-list { max-height: 180px; overflow-y: auto; }
+        .queue-list { max-height: 150px; overflow-y: auto; }
         
         .queue-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            margin-bottom: 6px;
-        }
-        
-        .queue-item.me {
-            background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3));
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        
-        .queue-item .pos {
-            width: 28px; height: 28px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85em;
-        }
-        
-        .queue-item.me .pos {
-            background: var(--cyan);
-            color: var(--darker);
-        }
-        
-        .queue-item .avatar {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        
-        .queue-item .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .queue-item .info { flex: 1; overflow: hidden; }
-        .queue-item .name { font-weight: 600; font-size: 0.9em; }
-        .queue-item .song {
-            font-size: 0.75em;
-            opacity: 0.6;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .empty-list {
-            text-align: center;
-            padding: 20px;
-            opacity: 0.5;
-        }
-        
-        .empty-list .icon { font-size: 30px; margin-bottom: 8px; }
-        
-        /* ==================== SCOREBOARD ==================== */
-        .scoreboard { max-height: 180px; overflow-y: auto; }
-        
-        .score-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 10px;
+            gap: 8px;
+            padding: 8px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
             margin-bottom: 5px;
         }
         
-        .score-item .medal { font-size: 1.1em; }
-        .score-item .rank {
-            width: 24px; height: 24px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75em;
-            font-weight: 700;
-        }
-        .score-item .name { flex: 1; font-size: 0.85em; }
-        .score-item .pts { font-weight: 700; color: var(--yellow); }
+        .queue-item.me { background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3)); }
+        
+        .queue-item .pos { width: 24px; height: 24px; background: rgba(0,0,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75em; }
+        .queue-item.me .pos { background: var(--cyan); color: var(--darker); }
+        
+        .queue-item .avatar { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .queue-item .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .queue-item .info { flex: 1; overflow: hidden; }
+        .queue-item .name { font-weight: 600; font-size: 0.8em; }
+        .queue-item .song { font-size: 0.7em; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .empty-list { text-align: center; padding: 18px; opacity: 0.5; }
+        .empty-list .icon { font-size: 28px; margin-bottom: 5px; }
+        .empty-list p { font-size: 0.8em; }
+        
+        /* Scoreboard */
+        .scoreboard { max-height: 140px; overflow-y: auto; }
+        
+        .score-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 4px; }
+        .score-item .medal { font-size: 1em; }
+        .score-item .rank { width: 20px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65em; font-weight: 700; }
+        .score-item .name { flex: 1; font-size: 0.8em; }
+        .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.85em; }
         
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            padding: 12px 22px;
+            padding: 10px 18px;
             background: var(--dark);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
-            font-size: 0.85em;
+            font-size: 0.8em;
             z-index: 1000;
             opacity: 0;
             transition: all 0.4s ease;
@@ -625,9 +491,7 @@
         .toast.success { border-color: var(--green); }
         .toast.error { border-color: var(--red); }
         
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
     </style>
 </head>
@@ -645,19 +509,15 @@
         <div class="screen active" id="loginScreen">
             <div class="card login-card">
                 <h2>👋 Bem-vindo!</h2>
-                
                 <div class="photo-section">
                     <div class="photo-preview" id="photoPreview">
                         <video id="cameraVideo" autoplay playsinline style="display:none;"></video>
                         <img id="photoImg" style="display:none;">
                         <span id="photoPlaceholder">📷</span>
                     </div>
-                    <button class="photo-btn" id="photoBtn" onclick="handlePhoto()">
-                        <span id="photoBtnText">📸 Tirar Foto</span>
-                    </button>
+                    <button class="photo-btn" id="photoBtn" onclick="handlePhoto()">📸 Tirar Foto</button>
                 </div>
-                
-                <input type="text" class="input-field" id="nameInput" placeholder="Seu nome" maxlength="20" autocomplete="off">
+                <input type="text" class="input-field" id="nameInput" placeholder="Seu nome" maxlength="20">
                 <button class="primary-btn" onclick="joinGame()">Entrar 🎵</button>
             </div>
         </div>
@@ -666,9 +526,7 @@
         <div class="screen" id="mainScreen">
             <div class="user-bar">
                 <div class="user-avatar" id="userAvatar">🎤</div>
-                <div class="user-info">
-                    <div class="name" id="userName">-</div>
-                </div>
+                <div class="user-info"><div class="name" id="userName">-</div></div>
                 <div class="user-status" id="userStatus">Assistindo</div>
             </div>
             
@@ -676,10 +534,7 @@
             <div class="card" id="currentSingerCard">
                 <h2>🎙️ No palco</h2>
                 <div id="currentSinger">
-                    <div class="no-singer">
-                        <div class="icon">🎤</div>
-                        <p>Ninguém cantando</p>
-                    </div>
+                    <div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>
                 </div>
             </div>
             
@@ -688,7 +543,41 @@
                 <div class="big-icon">🎤</div>
                 <h3>É SUA VEZ!</h3>
                 <p>Olhe para a TV e cante!</p>
-                <p class="tip">💡 Use o microfone conectado na caixa de som</p>
+                <p class="tip">💡 Use o microfone da caixa de som</p>
+            </div>
+            
+            <!-- Interaction Section -->
+            <div class="interaction-section" id="interactionSection">
+                <div class="applause-section">
+                    <button class="applause-btn" id="applauseBtn" onclick="sendApplause()">👏</button>
+                    <div class="applause-count">Seus aplausos: <span id="myApplause">0</span></div>
+                </div>
+                
+                <div class="card">
+                    <h2>😍 Reações</h2>
+                    <div class="emoji-grid">
+                        <button class="emoji-btn" onclick="sendEmoji('🔥')">🔥</button>
+                        <button class="emoji-btn" onclick="sendEmoji('❤️')">❤️</button>
+                        <button class="emoji-btn" onclick="sendEmoji('⭐')">⭐</button>
+                        <button class="emoji-btn" onclick="sendEmoji('😍')">😍</button>
+                        <button class="emoji-btn" onclick="sendEmoji('🎤')">🎤</button>
+                        <button class="emoji-btn" onclick="sendEmoji('🎶')">🎶</button>
+                        <button class="emoji-btn" onclick="sendEmoji('💃')">💃</button>
+                        <button class="emoji-btn" onclick="sendEmoji('🙌')">🙌</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>💬 Frases</h2>
+                    <div class="phrase-grid">
+                        <button class="phrase-btn" onclick="sendPhrase('Uau!')">Uau! 🤩</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Arrasa!')">Arrasa! 💅</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Canta muito!')">Canta muito! 🎤</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Demais!')">Demais! 🔥</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Nossa!')">Nossa! 😱</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Top!')">Top! ⭐</button>
+                    </div>
+                </div>
             </div>
             
             <!-- Voting -->
@@ -696,7 +585,6 @@
                 <div class="vote-label">⭐ Hora de Votar!</div>
                 <div class="singer-name" id="votingFor">-</div>
                 <div class="song-name" id="votingSong">-</div>
-                
                 <div class="stars">
                     <span class="star" onclick="selectStar(1)">⭐</span>
                     <span class="star" onclick="selectStar(2)">⭐</span>
@@ -704,31 +592,19 @@
                     <span class="star" onclick="selectStar(4)">⭐</span>
                     <span class="star" onclick="selectStar(5)">⭐</span>
                 </div>
-                
-                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>
-                    Selecione sua nota
-                </button>
-                
+                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>Selecione sua nota</button>
                 <div class="vote-timer">Tempo: <span id="voteTimer">20</span>s</div>
             </div>
             
             <!-- Actions -->
-            <button class="action-btn btn-join" id="joinQueueBtn" onclick="showSearch()">
-                🎤 Quero Cantar!
-            </button>
-            
-            <button class="action-btn btn-leave" id="leaveQueueBtn" onclick="leaveQueue()" style="display: none;">
-                ❌ Sair da Fila
-            </button>
+            <button class="action-btn btn-join" id="joinQueueBtn" onclick="showSearch()">🎤 Quero Cantar!</button>
+            <button class="action-btn btn-leave" id="leaveQueueBtn" onclick="leaveQueue()" style="display: none;">❌ Sair da Fila</button>
             
             <!-- Queue -->
             <div class="card">
                 <h2>📋 Fila</h2>
                 <div class="queue-list" id="queueList">
-                    <div class="empty-list">
-                        <div class="icon">🎵</div>
-                        <p>Fila vazia</p>
-                    </div>
+                    <div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>
                 </div>
             </div>
             
@@ -736,12 +612,11 @@
             <div class="card">
                 <h2>🏆 Placar</h2>
                 <div class="scoreboard" id="scoreboard">
-                    <div class="empty-list">
-                        <div class="icon">⭐</div>
-                        <p>Sem pontuações</p>
-                    </div>
+                    <div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>
                 </div>
             </div>
+            
+            <button class="action-btn btn-secondary" onclick="resetUser()">🔄 Trocar Usuário</button>
         </div>
         
         <!-- SEARCH -->
@@ -749,30 +624,25 @@
             <div class="card">
                 <button class="back-btn" onclick="hideSearch()">← Voltar</button>
                 <h2>🔍 Escolher Música</h2>
-                
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="Nome da música...">
                     <button onclick="searchMusic()">🔍</button>
                 </div>
-                
                 <div class="search-results" id="searchResults">
                     <div class="search-status">Digite e toque 🔍</div>
                 </div>
             </div>
-            
             <button class="action-btn btn-secondary" onclick="hideSearch()">← Cancelar</button>
         </div>
     </div>
     
     <div class="toast" id="toast"></div>
-    
     <canvas id="photoCanvas" style="display:none;"></canvas>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
-        // ==================== CONFIG ====================
         const CONFIG = {
             firebase: {
                 apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
@@ -783,28 +653,21 @@
             youtubeApiKey: 'AIzaSyA3Qbdoyqg0EzUPrT0Qo_-HbygKLjTczoc'
         };
         
-        // ==================== STATE ====================
         let db, gameRef;
         let player = { id: null, name: '', photo: null, queueId: null, inQueue: false, isMyTurn: false };
         let voting = { id: null, selected: 0, voted: false };
+        let myApplause = 0;
         let cameraStream = null;
         let cameraActive = false;
+        let currentSingerId = null;
         
-        // ==================== INIT ====================
         function init() {
             initFirebase();
             checkSession();
-            
-            document.getElementById('nameInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') joinGame();
-            });
-            
-            document.getElementById('searchInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') searchMusic();
-            });
+            document.getElementById('nameInput').addEventListener('keypress', e => { if (e.key === 'Enter') joinGame(); });
+            document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') searchMusic(); });
         }
         
-        // ==================== FIREBASE ====================
         function initFirebase() {
             firebase.initializeApp(CONFIG.firebase);
             db = firebase.database();
@@ -813,13 +676,8 @@
             db.ref('.info/connected').on('value', snap => {
                 const dot = document.getElementById('statusDot');
                 const text = document.getElementById('statusText');
-                if (snap.val()) {
-                    dot.classList.add('online');
-                    text.textContent = 'Conectado';
-                } else {
-                    dot.classList.remove('online');
-                    text.textContent = 'Desconectado';
-                }
+                dot.classList.toggle('online', snap.val());
+                text.textContent = snap.val() ? 'Conectado' : 'Offline';
             });
         }
         
@@ -841,51 +699,36 @@
             const img = document.getElementById('photoImg');
             const placeholder = document.getElementById('photoPlaceholder');
             const btn = document.getElementById('photoBtn');
-            const btnText = document.getElementById('photoBtnText');
             
             if (!cameraActive) {
-                // Start camera
                 try {
-                    cameraStream = await navigator.mediaDevices.getUserMedia({ 
-                        video: { facingMode: 'user', width: 300, height: 300 } 
-                    });
+                    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 300, height: 300 } });
                     video.srcObject = cameraStream;
                     video.style.display = 'block';
                     img.style.display = 'none';
                     placeholder.style.display = 'none';
+                    btn.textContent = '📸 Capturar';
                     btn.classList.add('capturing');
-                    btnText.textContent = '📸 Capturar';
                     cameraActive = true;
-                } catch (e) {
-                    showToast('Câmera indisponível', 'error');
-                }
+                } catch (e) { showToast('Câmera indisponível', 'error'); }
             } else {
-                // Capture photo
                 const canvas = document.getElementById('photoCanvas');
-                canvas.width = 200;
-                canvas.height = 200;
+                canvas.width = 200; canvas.height = 200;
                 const ctx = canvas.getContext('2d');
-                
-                // Center crop
                 const size = Math.min(video.videoWidth, video.videoHeight);
                 const x = (video.videoWidth - size) / 2;
                 const y = (video.videoHeight - size) / 2;
-                
                 ctx.drawImage(video, x, y, size, size, 0, 0, 200, 200);
                 
                 player.photo = canvas.toDataURL('image/jpeg', 0.7);
-                
                 img.src = player.photo;
                 img.style.display = 'block';
                 video.style.display = 'none';
                 
                 cameraStream.getTracks().forEach(t => t.stop());
-                cameraStream = null;
                 cameraActive = false;
-                
+                btn.textContent = '🔄 Trocar Foto';
                 btn.classList.remove('capturing');
-                btnText.textContent = '🔄 Trocar Foto';
-                
                 showToast('Foto capturada!', 'success');
             }
         }
@@ -895,7 +738,6 @@
             const id = localStorage.getItem('karaoke_id');
             const name = localStorage.getItem('karaoke_name');
             const photo = localStorage.getItem('karaoke_photo');
-            
             if (id && name) {
                 player.id = id;
                 player.name = name;
@@ -906,41 +748,36 @@
         
         function joinGame() {
             const name = document.getElementById('nameInput').value.trim();
-            if (!name) {
-                showToast('Digite seu nome!', 'error');
-                return;
-            }
+            if (!name) return showToast('Digite seu nome!', 'error');
             
-            // Stop camera if active
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(t => t.stop());
-            }
+            if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
             
             player.id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
             player.name = name;
             
             localStorage.setItem('karaoke_id', player.id);
             localStorage.setItem('karaoke_name', player.name);
-            if (player.photo) {
-                localStorage.setItem('karaoke_photo', player.photo);
-            }
+            if (player.photo) localStorage.setItem('karaoke_photo', player.photo);
             
             enterMain();
         }
         
         function enterMain() {
             document.getElementById('userName').textContent = player.name;
-            
             const avatar = document.getElementById('userAvatar');
-            if (player.photo) {
-                avatar.innerHTML = `<img src="${player.photo}" alt="">`;
-            } else {
-                avatar.innerHTML = '🎤';
-            }
-            
+            avatar.innerHTML = player.photo ? `<img src="${player.photo}">` : '🎤';
             showScreen('main');
             setupListeners();
-            showToast('Bem-vindo, ' + player.name + '!', 'success');
+            showToast('Bem-vindo!', 'success');
+        }
+        
+        function resetUser() {
+            if (confirm('Sair e recadastrar?')) {
+                if (player.queueId) gameRef.child('queue/' + player.queueId).remove();
+                if (player.id) gameRef.child('participants/' + player.id).remove();
+                localStorage.clear();
+                location.reload();
+            }
         }
         
         // ==================== SCREENS ====================
@@ -949,24 +786,54 @@
             document.getElementById(name + 'Screen').classList.add('active');
         }
         
-        function showSearch() {
-            showScreen('search');
-            document.getElementById('searchInput').focus();
+        function showSearch() { showScreen('search'); document.getElementById('searchInput').focus(); }
+        function hideSearch() { showScreen('main'); document.getElementById('searchResults').innerHTML = '<div class="search-status">Digite e toque 🔍</div>'; document.getElementById('searchInput').value = ''; }
+        
+        // ==================== INTERACTIONS ====================
+        function sendApplause() {
+            if (!currentSingerId || player.isMyTurn) return;
+            
+            gameRef.child('applause').transaction(c => (c || 0) + 1);
+            gameRef.child('reactions').push({ type: 'clap', name: player.name, photo: player.photo });
+            
+            myApplause++;
+            document.getElementById('myApplause').textContent = myApplause;
+            
+            if (navigator.vibrate) navigator.vibrate(30);
         }
         
-        function hideSearch() {
-            showScreen('main');
-            document.getElementById('searchResults').innerHTML = '<div class="search-status">Digite e toque 🔍</div>';
-            document.getElementById('searchInput').value = '';
+        function sendEmoji(emoji) {
+            if (!currentSingerId || player.isMyTurn) return;
+            
+            gameRef.child('reactions').push({
+                type: 'emoji',
+                value: emoji,
+                name: player.name,
+                photo: player.photo
+            });
+            
+            if (navigator.vibrate) navigator.vibrate(30);
+            showToast(emoji + ' enviado!', 'success');
+        }
+        
+        function sendPhrase(phrase) {
+            if (!currentSingerId || player.isMyTurn) return;
+            
+            gameRef.child('reactions').push({
+                type: 'phrase',
+                value: phrase,
+                name: player.name,
+                photo: player.photo
+            });
+            
+            if (navigator.vibrate) navigator.vibrate(30);
+            showToast('"' + phrase + '" enviado!', 'success');
         }
         
         // ==================== SEARCH ====================
         async function searchMusic() {
             const query = document.getElementById('searchInput').value.trim();
-            if (!query) {
-                showToast('Digite algo', 'error');
-                return;
-            }
+            if (!query) return showToast('Digite algo', 'error');
             
             const container = document.getElementById('searchResults');
             container.innerHTML = '<div class="search-status">🔄 Buscando...</div>';
@@ -977,30 +844,19 @@
                 const data = await response.json();
                 
                 if (data.error) throw new Error(data.error.message);
-                
-                if (!data.items?.length) {
-                    container.innerHTML = '<div class="search-status">Nenhum resultado</div>';
-                    return;
-                }
+                if (!data.items?.length) { container.innerHTML = '<div class="search-status">Nenhum resultado</div>'; return; }
                 
                 container.innerHTML = data.items.map(item => {
                     const title = item.snippet.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                    return `
-                        <div class="result-item" onclick="selectMusic('${item.id.videoId}', '${title}')">
-                            <img src="${item.snippet.thumbnails.medium.url}" alt="">
-                            <div class="title">${item.snippet.title}</div>
-                        </div>
-                    `;
+                    return `<div class="result-item" onclick="selectMusic('${item.id.videoId}', '${title}')">
+                        <img src="${item.snippet.thumbnails.medium.url}">
+                        <div class="title">${item.snippet.title}</div>
+                    </div>`;
                 }).join('');
-                
-            } catch (error) {
-                container.innerHTML = `<div class="search-status error">❌ ${error.message}</div>`;
-            }
+            } catch (e) { container.innerHTML = `<div class="search-status error">❌ ${e.message}</div>`; }
         }
         
         function selectMusic(videoId, title) {
-            const cleanTitle = title.replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-            
             const ref = gameRef.child('queue').push();
             player.queueId = ref.key;
             
@@ -1008,15 +864,15 @@
                 odPlayerId: player.id,
                 name: player.name,
                 photo: player.photo || null,
-                song: cleanTitle,
+                song: title.replace(/&quot;/g, '"').replace(/&#39;/g, "'"),
                 videoId: videoId,
                 timestamp: firebase.database.ServerValue.TIMESTAMP
             }).then(() => {
                 player.inQueue = true;
                 hideSearch();
-                showToast('Você entrou na fila!', 'success');
+                showToast('Entrou na fila!', 'success');
                 updateButtons();
-            }).catch(e => showToast('Erro: ' + e.message, 'error'));
+            });
         }
         
         // ==================== QUEUE ====================
@@ -1026,7 +882,7 @@
                     player.queueId = null;
                     player.inQueue = false;
                     player.isMyTurn = false;
-                    showToast('Você saiu da fila', 'success');
+                    showToast('Saiu da fila', 'success');
                     updateButtons();
                     document.getElementById('myTurnCard').style.display = 'none';
                     document.getElementById('currentSingerCard').style.display = 'block';
@@ -1042,22 +898,16 @@
         
         function updateQueueList(queue) {
             const el = document.getElementById('queueList');
-            
             if (!queue || !Object.keys(queue).length) {
                 el.innerHTML = '<div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>';
                 return;
             }
             
-            const items = Object.entries(queue)
-                .map(([id, data]) => ({ id, ...data }))
-                .sort((a, b) => a.timestamp - b.timestamp);
-            
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
             el.innerHTML = items.map((item, i) => `
                 <div class="queue-item ${item.odPlayerId === player.id ? 'me' : ''}">
                     <div class="pos">${i + 1}</div>
-                    <div class="avatar">
-                        ${item.photo ? `<img src="${item.photo}" alt="">` : '🎤'}
-                    </div>
+                    <div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div>
                     <div class="info">
                         <div class="name">${item.name}${item.odPlayerId === player.id ? ' (você)' : ''}</div>
                         <div class="song">${item.song || 'Escolhendo...'}</div>
@@ -1068,25 +918,38 @@
         
         function updateCurrentSinger(queue) {
             const el = document.getElementById('currentSinger');
+            const interactionSection = document.getElementById('interactionSection');
             
             if (!queue || !Object.keys(queue).length) {
                 el.innerHTML = '<div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>';
+                interactionSection.classList.remove('active');
+                currentSingerId = null;
                 return;
             }
             
-            const items = Object.entries(queue)
-                .map(([id, data]) => ({ id, ...data }))
-                .sort((a, b) => a.timestamp - b.timestamp);
-            
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
             const first = items[0];
             
-            el.innerHTML = `
-                <div class="current-singer">
-                    <div class="label">🎙️ No palco</div>
-                    <div class="name">${first.name}</div>
-                    <div class="song">${first.song || 'Escolhendo...'}</div>
-                </div>
-            `;
+            // Reset applause counter when singer changes
+            if (currentSingerId !== first.id) {
+                myApplause = 0;
+                document.getElementById('myApplause').textContent = '0';
+            }
+            
+            currentSingerId = first.id;
+            
+            el.innerHTML = `<div class="current-singer">
+                <div class="label">🎙️ No palco</div>
+                <div class="name">${first.name}</div>
+                <div class="song">${first.song || 'Escolhendo...'}</div>
+            </div>`;
+            
+            // Show interaction section if someone is singing and it's not me
+            if (first.odPlayerId !== player.id) {
+                interactionSection.classList.add('active');
+            } else {
+                interactionSection.classList.remove('active');
+            }
         }
         
         function checkMyPosition(queue) {
@@ -1106,31 +969,23 @@
                 return;
             }
             
-            const items = Object.entries(queue)
-                .map(([id, data]) => ({ id, ...data }))
-                .sort((a, b) => a.timestamp - b.timestamp);
-            
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
             const myIndex = items.findIndex(i => i.odPlayerId === player.id);
             
             if (myIndex === 0) {
                 player.inQueue = true;
                 player.isMyTurn = true;
                 player.queueId = items[0].id;
-                
                 statusEl.textContent = '🎤 Sua vez!';
                 statusEl.className = 'user-status singing';
-                
                 myTurnCard.style.display = 'block';
                 singerCard.style.display = 'none';
-                
-                if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
             } else if (myIndex > 0) {
                 player.inQueue = true;
                 player.queueId = items[myIndex].id;
-                
                 statusEl.textContent = `#${myIndex + 1} na fila`;
                 statusEl.className = 'user-status queue';
-                
                 myTurnCard.style.display = 'none';
                 singerCard.style.display = 'block';
             } else {
@@ -1162,6 +1017,7 @@
         // ==================== VOTING ====================
         function handleVoting(data) {
             const card = document.getElementById('votingCard');
+            const interactionSection = document.getElementById('interactionSection');
             
             if (!data || !data.active) {
                 card.style.display = 'none';
@@ -1169,10 +1025,10 @@
                 return;
             }
             
-            if (data.singerId === player.queueId) {
-                card.style.display = 'none';
-                return;
-            }
+            // Hide interactions during voting
+            interactionSection.classList.remove('active');
+            
+            if (data.singerId === player.queueId) { card.style.display = 'none'; return; }
             
             if (data.singerId !== voting.id) {
                 resetVoting();
@@ -1185,35 +1041,27 @@
             document.getElementById('votingSong').textContent = data.singerSong || '';
             
             if (data.startTime) {
-                const elapsed = (Date.now() - data.startTime) / 1000;
-                const remaining = Math.max(0, 20 - Math.floor(elapsed));
+                const remaining = Math.max(0, 20 - Math.floor((Date.now() - data.startTime) / 1000));
                 document.getElementById('voteTimer').textContent = remaining;
             }
         }
         
         function selectStar(value) {
             if (voting.voted) return;
-            
             voting.selected = value;
-            
-            document.querySelectorAll('.star').forEach((star, i) => {
-                star.classList.toggle('active', i < value);
-            });
-            
+            document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < value));
             document.getElementById('voteBtn').disabled = false;
             document.getElementById('voteBtn').textContent = `Votar ${value} ⭐`;
         }
         
         function submitVote() {
             if (!voting.selected || voting.voted) return;
-            
             gameRef.child('voting/votes/' + player.id).set(voting.selected).then(() => {
                 voting.voted = true;
                 document.getElementById('voteBtn').disabled = true;
-                document.getElementById('voteBtn').textContent = '✓ Voto enviado!';
+                document.getElementById('voteBtn').textContent = '✓ Enviado!';
                 document.getElementById('voteBtn').classList.add('voted');
-                showToast('Voto registrado!', 'success');
-                if (navigator.vibrate) navigator.vibrate(100);
+                showToast('Voto enviado!', 'success');
             });
         }
         
@@ -1228,7 +1076,6 @@
         // ==================== SCOREBOARD ====================
         function updateScoreboard(scores) {
             const el = document.getElementById('scoreboard');
-            
             if (!scores || !Object.keys(scores).length) {
                 el.innerHTML = '<div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
                 return;
@@ -1236,7 +1083,6 @@
             
             const medals = ['🥇', '🥈', '🥉'];
             const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-            
             el.innerHTML = sorted.map(([name, pts], i) => `
                 <div class="score-item">
                     ${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i + 1}</div>`}
@@ -1246,15 +1092,13 @@
             `).join('');
         }
         
-        // ==================== TOAST ====================
         function showToast(msg, type = '') {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.className = 'toast ' + type + ' show';
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(() => toast.classList.remove('show'), 2500);
         }
         
-        // ==================== START ====================
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>

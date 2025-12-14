@@ -47,7 +47,7 @@
         
         .tutorial-box {
             max-width: 700px;
-            padding: 50px;
+            padding: 40px;
             text-align: center;
         }
         
@@ -63,30 +63,30 @@
         .tutorial-box .subtitle {
             font-size: 1.2em;
             opacity: 0.8;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
         
         .tutorial-steps {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 18px;
+            margin-bottom: 35px;
             text-align: left;
         }
         
         .tutorial-step {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 18px;
+            padding: 18px;
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
             border-left: 4px solid var(--cyan);
         }
         
-        .tutorial-step .icon { font-size: 2.2em; min-width: 50px; text-align: center; }
-        .tutorial-step .text h3 { font-size: 1.05em; font-weight: 700; margin-bottom: 5px; }
-        .tutorial-step .text p { font-size: 0.9em; opacity: 0.8; line-height: 1.4; }
+        .tutorial-step .icon { font-size: 2em; min-width: 45px; text-align: center; }
+        .tutorial-step .text h3 { font-size: 1em; font-weight: 700; margin-bottom: 4px; }
+        .tutorial-step .text p { font-size: 0.85em; opacity: 0.8; line-height: 1.4; }
         
         .tutorial-start-btn {
             padding: 18px 50px;
@@ -98,15 +98,12 @@
             background: linear-gradient(135deg, var(--cyan), var(--green));
             color: var(--darker);
             cursor: pointer;
-            transition: transform 0.3s;
         }
-        
-        .tutorial-start-btn:hover { transform: scale(1.05); }
         
         /* ==================== APP ==================== */
         .app {
             display: none;
-            padding: 20px;
+            padding: 15px;
             max-width: 1600px;
             margin: 0 auto;
         }
@@ -118,16 +115,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 25px;
+            padding: 12px 20px;
             background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
-            border-radius: 20px;
-            margin-bottom: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
         
         .header h1 {
-            font-size: 1.6em;
+            font-size: 1.5em;
             font-weight: 800;
             background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
             -webkit-background-clip: text;
@@ -137,22 +134,21 @@
         .header-status {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 12px;
         }
         
         .status-badge {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 6px;
+            padding: 6px 14px;
             background: rgba(0,0,0,0.3);
-            border-radius: 30px;
-            font-size: 0.85em;
+            border-radius: 20px;
+            font-size: 0.8em;
         }
         
         .status-dot {
-            width: 10px; height: 10px;
+            width: 8px; height: 8px;
             border-radius: 50%;
             background: var(--red);
         }
@@ -160,41 +156,41 @@
         .status-dot.online { background: var(--green); }
         
         .participants-count {
-            padding: 8px 16px;
+            padding: 6px 14px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 30px;
-            font-size: 0.85em;
+            border-radius: 20px;
+            font-size: 0.8em;
             font-weight: 600;
         }
         
         /* Main Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
-            margin-bottom: 20px;
+            grid-template-columns: 1fr 300px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
         @media (max-width: 900px) {
             .main-grid { grid-template-columns: 1fr; }
         }
         
-        /* Video Section */
+        /* Video Container */
         .video-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
-        .video-section {
+        .video-wrapper {
+            position: relative;
             aspect-ratio: 16/9;
             background: #000;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            position: relative;
         }
         
-        .video-section iframe {
+        .video-wrapper iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -212,29 +208,129 @@
         }
         
         .video-placeholder.hidden { display: none; }
-        
-        .video-placeholder .waiting-icon {
-            font-size: 80px;
-            margin-bottom: 15px;
-            animation: float 3s ease-in-out infinite;
-        }
+        .video-placeholder .waiting-icon { font-size: 70px; margin-bottom: 15px; animation: float 3s ease-in-out infinite; }
+        .video-placeholder h2 { font-size: 1.2em; opacity: 0.9; }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
         
-        .video-placeholder h2 { font-size: 1.3em; opacity: 0.9; margin-bottom: 8px; }
-        .video-placeholder p { font-size: 0.95em; opacity: 0.6; }
+        /* Reactions Overlay */
+        .reactions-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .floating-reaction {
+            position: absolute;
+            bottom: -100px;
+            animation: floatUp 4s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .floating-reaction .emoji {
+            font-size: 50px;
+            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+        }
+        
+        .floating-reaction .phrase {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        
+        .floating-reaction .sender {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.7);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+        }
+        
+        .floating-reaction .sender img {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            10% { transform: translateY(-50px) scale(1); opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-600px) scale(0.8); opacity: 0; }
+        }
+        
+        /* Applause Claps Animation */
+        .clap-burst {
+            position: absolute;
+            font-size: 40px;
+            animation: clapBurst 0.8s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        @keyframes clapBurst {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        
+        /* Applause Meter */
+        .applause-meter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
+            border-radius: 15px;
+            border: 2px solid var(--yellow);
+        }
+        
+        .applause-meter .icon { font-size: 2em; }
+        
+        .applause-meter .meter-bar {
+            flex: 1;
+            height: 25px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .applause-meter .meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            border-radius: 12px;
+            transition: width 0.3s ease;
+        }
+        
+        .applause-meter .count {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--yellow);
+            min-width: 80px;
+            text-align: right;
+        }
         
         /* Singer Card */
         .singer-card {
-            padding: 20px 25px;
+            padding: 18px 20px;
             background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 20px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         
         .singer-card.empty {
@@ -244,38 +340,34 @@
         }
         
         .singer-avatar {
-            width: 60px; height: 60px;
+            width: 55px; height: 55px;
             background: rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 25px;
             overflow: hidden;
         }
         
-        .singer-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .singer-avatar img { width: 100%; height: 100%; object-fit: cover; }
         
         .singer-info { flex: 1; }
-        .singer-info .label { font-size: 0.8em; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
-        .singer-info .name { font-size: 1.5em; font-weight: 800; }
-        .singer-info .song { font-size: 0.9em; opacity: 0.9; }
+        .singer-info .label { font-size: 0.75em; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .singer-info .name { font-size: 1.4em; font-weight: 800; }
+        .singer-info .song { font-size: 0.85em; opacity: 0.9; }
         
         /* Sidebar */
         .sidebar {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         
         .card {
             background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 18px;
+            border-radius: 15px;
+            padding: 15px;
             border: 1px solid rgba(255,255,255,0.08);
         }
         
@@ -283,197 +375,132 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
-        .card-header h3 {
-            font-size: 0.95em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .card-header h3 { font-size: 0.9em; font-weight: 600; }
         
         .card-header .badge {
             padding: 3px 10px;
             background: var(--purple);
-            border-radius: 20px;
-            font-size: 0.75em;
+            border-radius: 15px;
+            font-size: 0.7em;
             font-weight: 600;
         }
         
-        /* QR Code */
+        /* QR */
         .qr-section { text-align: center; }
-        
-        .qr-wrapper {
-            background: white;
-            padding: 12px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        
-        .qr-wrapper canvas, .qr-wrapper img {
-            display: block;
-            width: 140px;
-            height: 140px;
-        }
-        
-        .qr-instruction { font-size: 0.8em; opacity: 0.7; margin-bottom: 6px; }
-        
-        .qr-url {
-            font-size: 0.65em;
-            padding: 6px 10px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 6px;
-            word-break: break-all;
-            opacity: 0.6;
-        }
+        .qr-wrapper { background: white; padding: 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; }
+        .qr-wrapper img { display: block; width: 120px; height: 120px; }
+        .qr-instruction { font-size: 0.75em; opacity: 0.7; margin-bottom: 5px; }
+        .qr-url { font-size: 0.6em; padding: 5px 8px; background: rgba(0,0,0,0.3); border-radius: 5px; word-break: break-all; opacity: 0.6; }
         
         /* Queue */
-        .queue-list {
-            max-height: 220px;
-            overflow-y: auto;
-        }
+        .queue-list { max-height: 160px; overflow-y: auto; }
         
         .queue-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            margin-bottom: 6px;
-        }
-        
-        .queue-item:first-child {
-            background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3));
-        }
-        
-        .queue-item .position {
-            width: 26px; height: 26px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.8em;
-        }
-        
-        .queue-item:first-child .position {
-            background: var(--cyan);
-            color: var(--darker);
-        }
-        
-        .queue-item .avatar {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        
-        .queue-item .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .queue-item .info { flex: 1; overflow: hidden; }
-        .queue-item .name { font-weight: 600; font-size: 0.85em; }
-        .queue-item .song {
-            font-size: 0.75em;
-            opacity: 0.6;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .queue-item .remove-btn {
-            width: 26px; height: 26px;
-            background: rgba(239,71,111,0.2);
-            border: none;
-            border-radius: 50%;
-            color: var(--red);
-            cursor: pointer;
-            font-size: 0.8em;
-            opacity: 0;
-            transition: all 0.2s;
-        }
-        
-        .queue-item:hover .remove-btn { opacity: 1; }
-        .queue-item .remove-btn:hover { background: var(--red); color: white; }
-        
-        .empty-state {
-            text-align: center;
-            padding: 25px 15px;
-            opacity: 0.5;
-        }
-        
-        .empty-state .icon { font-size: 35px; margin-bottom: 8px; }
-        .empty-state p { font-size: 0.85em; }
-        
-        /* Scoreboard */
-        .scoreboard { max-height: 180px; overflow-y: auto; }
-        
-        .score-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 10px;
+            gap: 8px;
+            padding: 8px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
             margin-bottom: 5px;
         }
         
-        .score-item .medal { font-size: 1.1em; }
-        .score-item .rank {
+        .queue-item:first-child { background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3)); }
+        
+        .queue-item .position {
             width: 24px; height: 24px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75em;
             font-weight: 700;
+            font-size: 0.75em;
         }
-        .score-item .name { flex: 1; font-size: 0.85em; }
-        .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.9em; }
+        
+        .queue-item:first-child .position { background: var(--cyan); color: var(--darker); }
+        
+        .queue-item .avatar {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .queue-item .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .queue-item .info { flex: 1; overflow: hidden; }
+        .queue-item .name { font-weight: 600; font-size: 0.8em; }
+        .queue-item .song { font-size: 0.7em; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .queue-item .remove-btn {
+            width: 22px; height: 22px;
+            background: rgba(239,71,111,0.2);
+            border: none;
+            border-radius: 50%;
+            color: var(--red);
+            cursor: pointer;
+            font-size: 0.7em;
+            opacity: 0;
+        }
+        
+        .queue-item:hover .remove-btn { opacity: 1; }
+        
+        .empty-state { text-align: center; padding: 20px; opacity: 0.5; }
+        .empty-state .icon { font-size: 30px; margin-bottom: 5px; }
+        .empty-state p { font-size: 0.8em; }
+        
+        /* Scoreboard */
+        .scoreboard { max-height: 130px; overflow-y: auto; }
+        
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+        
+        .score-item .medal { font-size: 1em; }
+        .score-item .rank { width: 20px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: 700; }
+        .score-item .name { flex: 1; font-size: 0.8em; }
+        .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.85em; }
         
         /* Controls */
         .controls {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            padding: 15px 20px;
+            gap: 10px;
+            padding: 12px;
             background: rgba(255,255,255,0.05);
-            border-radius: 20px;
+            border-radius: 15px;
             flex-wrap: wrap;
         }
         
         .ctrl-btn {
-            padding: 12px 25px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 600;
             cursor: pointer;
             color: white;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        
-        .ctrl-btn:hover { transform: translateY(-2px); }
-        .ctrl-btn:active { transform: translateY(0); }
         
         .btn-vote { background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--darker); }
         .btn-skip { background: linear-gradient(135deg, var(--blue), var(--purple)); }
@@ -489,89 +516,39 @@
             z-index: 1500;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
         
         .voting-overlay.show { display: flex; }
         
-        .voting-content {
-            text-align: center;
-            animation: zoomIn 0.5s ease;
-        }
+        .voting-content { text-align: center; animation: zoomIn 0.5s ease; }
         
         @keyframes zoomIn {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
         
-        .voting-content .vote-label {
-            font-size: 1.3em;
-            color: var(--yellow);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
+        .voting-content .vote-label { font-size: 1.2em; color: var(--yellow); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
+        .voting-singer-name { font-size: 3em; font-weight: 900; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .voting-song-name { font-size: 1.1em; opacity: 0.7; margin-bottom: 30px; }
         
-        .voting-singer-name {
-            font-size: 3.5em;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
+        .voting-stats { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; }
+        .vote-stat .value { font-size: 3.5em; font-weight: 900; color: var(--yellow); line-height: 1; }
+        .vote-stat .label { font-size: 0.9em; opacity: 0.7; margin-top: 5px; }
         
-        .voting-song-name {
-            font-size: 1.2em;
-            opacity: 0.7;
-            margin-bottom: 35px;
-        }
-        
-        .voting-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-bottom: 35px;
-        }
-        
-        .vote-stat .value {
-            font-size: 4em;
-            font-weight: 900;
-            color: var(--yellow);
-            line-height: 1;
-        }
-        
-        .vote-stat .label {
-            font-size: 1em;
-            opacity: 0.7;
-            margin-top: 8px;
-        }
-        
-        .voting-timer {
-            font-size: 1.2em;
-            padding: 12px 35px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50px;
-            display: inline-block;
-        }
-        
-        .voting-timer span {
-            font-size: 1.4em;
-            font-weight: 800;
-            color: var(--orange);
-        }
+        .voting-timer { font-size: 1.1em; padding: 10px 30px; background: rgba(255,255,255,0.1); border-radius: 30px; display: inline-block; }
+        .voting-timer span { font-size: 1.3em; font-weight: 800; color: var(--orange); }
         
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            padding: 12px 25px;
+            padding: 10px 20px;
             background: var(--dark);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            font-size: 0.9em;
+            border-radius: 10px;
+            font-size: 0.85em;
             z-index: 1600;
             opacity: 0;
             transition: all 0.4s ease;
@@ -581,9 +558,8 @@
         .toast.success { border-color: var(--green); }
         .toast.error { border-color: var(--red); }
         
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 3px; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
     </style>
 </head>
@@ -592,37 +568,40 @@
     <div class="tutorial-overlay" id="tutorial">
         <div class="tutorial-box">
             <h1>🎤 Karaokê dos Veloso</h1>
-            <p class="subtitle">Prepare-se para a diversão!</p>
+            <p class="subtitle">Diversão interativa para toda família!</p>
             
             <div class="tutorial-steps">
                 <div class="tutorial-step">
                     <div class="icon">🔊</div>
                     <div class="text">
                         <h3>Conecte o som</h3>
-                        <p>Ligue um <strong>microfone na caixa de som</strong> para o cantor usar. O vídeo com a letra aparecerá na TV!</p>
+                        <p>Ligue um <strong>microfone na caixa de som</strong> para o cantor usar.</p>
                     </div>
                 </div>
-                
                 <div class="tutorial-step">
                     <div class="icon">📱</div>
                     <div class="text">
                         <h3>Participantes escaneiam o QR Code</h3>
-                        <p>Todos usam o celular para entrar na fila, escolher músicas e <strong>votar nas apresentações</strong>.</p>
+                        <p>Todos entram pelo celular para escolher músicas e interagir!</p>
                     </div>
                 </div>
-                
+                <div class="tutorial-step">
+                    <div class="icon">👏</div>
+                    <div class="text">
+                        <h3>Interação durante a música</h3>
+                        <p>Aplausos, emojis e frases aparecem na tela em tempo real!</p>
+                    </div>
+                </div>
                 <div class="tutorial-step">
                     <div class="icon">⭐</div>
                     <div class="text">
-                        <h3>Votação pelos participantes</h3>
-                        <p>Após cada música, todos votam de <strong>1 a 5 estrelas</strong> pelo celular. A média vira a pontuação!</p>
+                        <h3>Votação no final</h3>
+                        <p>Todos votam de 1-5 estrelas. Aplausos + votos = pontuação!</p>
                     </div>
                 </div>
             </div>
             
-            <button class="tutorial-start-btn" onclick="startApp()">
-                Começar! 🎉
-            </button>
+            <button class="tutorial-start-btn" onclick="startApp()">Começar! 🎉</button>
         </div>
     </div>
     
@@ -635,35 +614,41 @@
                     <div class="status-dot" id="statusDot"></div>
                     <span id="statusText">Conectando...</span>
                 </div>
-                <div class="participants-count" id="participantsCount">👥 0 online</div>
+                <div class="participants-count" id="participantsCount">👥 0</div>
             </div>
         </header>
         
         <div class="main-grid">
             <div class="video-container">
-                <div class="video-section" id="videoSection">
+                <div class="video-wrapper" id="videoWrapper">
                     <div class="video-placeholder" id="placeholder">
                         <div class="waiting-icon">🎤</div>
                         <h2>Aguardando cantor...</h2>
-                        <p>Peça para alguém escanear o QR Code!</p>
                     </div>
+                    <div class="reactions-overlay" id="reactionsOverlay"></div>
+                </div>
+                
+                <div class="applause-meter" id="applauseMeter" style="display: none;">
+                    <div class="icon">👏</div>
+                    <div class="meter-bar">
+                        <div class="meter-fill" id="applauseFill"></div>
+                    </div>
+                    <div class="count" id="applauseCount">0</div>
                 </div>
                 
                 <div class="singer-card empty" id="singerCard">
-                    <span style="font-size: 1em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>
+                    <span style="font-size: 0.95em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>
                 </div>
             </div>
             
             <aside class="sidebar">
                 <div class="card qr-section">
-                    <div class="card-header">
-                        <h3>📱 Entrar</h3>
-                    </div>
-                    <div class="qr-wrapper" id="qrWrapper">
-                        <canvas id="qrcode"></canvas>
+                    <div class="card-header"><h3>📱 Entrar</h3></div>
+                    <div class="qr-wrapper">
+                        <img id="qrcode" src="" alt="QR Code">
                     </div>
                     <p class="qr-instruction">Escaneie com a câmera</p>
-                    <div class="qr-url" id="qrUrl">Carregando...</div>
+                    <div class="qr-url" id="qrUrl"></div>
                 </div>
                 
                 <div class="card">
@@ -672,22 +657,14 @@
                         <span class="badge" id="queueCount">0</span>
                     </div>
                     <div class="queue-list" id="queueList">
-                        <div class="empty-state">
-                            <div class="icon">🎵</div>
-                            <p>Fila vazia</p>
-                        </div>
+                        <div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-header">
-                        <h3>🏆 Placar</h3>
-                    </div>
+                    <div class="card-header"><h3>🏆 Placar</h3></div>
                     <div class="scoreboard" id="scoreboard">
-                        <div class="empty-state">
-                            <div class="icon">⭐</div>
-                            <p>Sem pontuações</p>
-                        </div>
+                        <div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div>
                     </div>
                 </div>
             </aside>
@@ -700,13 +677,17 @@
         </div>
     </div>
     
-    <!-- VOTING OVERLAY -->
+    <!-- VOTING -->
     <div class="voting-overlay" id="votingOverlay">
         <div class="voting-content">
             <div class="vote-label">⭐ Hora de Votar! ⭐</div>
             <div class="voting-singer-name" id="votingSinger">-</div>
             <div class="voting-song-name" id="votingSong">-</div>
             <div class="voting-stats">
+                <div class="vote-stat">
+                    <div class="value" id="statApplause">0</div>
+                    <div class="label">👏 Aplausos</div>
+                </div>
                 <div class="vote-stat">
                     <div class="value" id="statVotes">0</div>
                     <div class="label">🗳️ Votos</div>
@@ -724,7 +705,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
     <script>
         // ==================== CONFIG ====================
@@ -735,6 +715,7 @@
         let currentSinger = null;
         let currentVideoId = null;
         let votingInterval = null;
+        let applauseTotal = 0;
         
         // ==================== INIT ====================
         function init() {
@@ -767,7 +748,7 @@
                     text.textContent = 'Conectado';
                 } else {
                     dot.classList.remove('online');
-                    text.textContent = 'Desconectado';
+                    text.textContent = 'Offline';
                 }
             });
             
@@ -780,26 +761,87 @@
             gameRef.child('voting').on('value', snap => handleVoting(snap.val()));
             gameRef.child('participants').on('value', snap => {
                 const count = snap.val() ? Object.keys(snap.val()).length : 0;
-                document.getElementById('participantsCount').textContent = `👥 ${count} online`;
+                document.getElementById('participantsCount').textContent = `👥 ${count}`;
+            });
+            
+            // Reactions listener
+            gameRef.child('reactions').on('child_added', snap => {
+                const reaction = snap.val();
+                showReaction(reaction);
+                snap.ref.remove(); // Remove after showing
+            });
+            
+            // Applause listener
+            gameRef.child('applause').on('value', snap => {
+                applauseTotal = snap.val() || 0;
+                updateApplauseMeter(applauseTotal);
             });
         }
         
         // ==================== QR CODE ====================
         function generateQR() {
             document.getElementById('qrUrl').textContent = PLAYER_URL;
+            document.getElementById('qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(PLAYER_URL)}`;
+        }
+        
+        // ==================== REACTIONS ====================
+        function showReaction(reaction) {
+            const overlay = document.getElementById('reactionsOverlay');
+            const div = document.createElement('div');
+            div.className = 'floating-reaction';
+            div.style.left = Math.random() * 80 + 10 + '%';
             
-            QRCode.toCanvas(document.getElementById('qrcode'), PLAYER_URL, {
-                width: 140,
-                margin: 1,
-                color: { dark: '#000000', light: '#ffffff' }
-            }, function(error) {
-                if (error) {
-                    console.error('Erro QR:', error);
-                    // Fallback: usar API externa
-                    const wrapper = document.getElementById('qrWrapper');
-                    wrapper.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(PLAYER_URL)}" alt="QR Code">`;
+            let content = '';
+            
+            if (reaction.type === 'emoji') {
+                content = `<span class="emoji">${reaction.value}</span>`;
+            } else if (reaction.type === 'phrase') {
+                content = `<span class="phrase">${reaction.value}</span>`;
+            } else if (reaction.type === 'clap') {
+                // Show clap burst instead
+                showClapBurst();
+                return;
+            }
+            
+            if (reaction.photo || reaction.name) {
+                content += `<span class="sender">`;
+                if (reaction.photo) {
+                    content += `<img src="${reaction.photo}" alt="">`;
                 }
-            });
+                content += `${reaction.name || ''}</span>`;
+            }
+            
+            div.innerHTML = content;
+            overlay.appendChild(div);
+            
+            setTimeout(() => div.remove(), 4000);
+        }
+        
+        function showClapBurst() {
+            const overlay = document.getElementById('reactionsOverlay');
+            const clap = document.createElement('div');
+            clap.className = 'clap-burst';
+            clap.textContent = '👏';
+            clap.style.left = Math.random() * 80 + 10 + '%';
+            clap.style.top = Math.random() * 60 + 20 + '%';
+            overlay.appendChild(clap);
+            setTimeout(() => clap.remove(), 800);
+        }
+        
+        function updateApplauseMeter(count) {
+            const meter = document.getElementById('applauseMeter');
+            const fill = document.getElementById('applauseFill');
+            const countEl = document.getElementById('applauseCount');
+            
+            if (currentSinger) {
+                meter.style.display = 'flex';
+                countEl.textContent = count;
+                // Max around 500 claps for full bar
+                const pct = Math.min(100, (count / 500) * 100);
+                fill.style.width = pct + '%';
+            } else {
+                meter.style.display = 'none';
+            }
         }
         
         // ==================== QUEUE ====================
@@ -808,15 +850,17 @@
             const countEl = document.getElementById('queueCount');
             const singerCard = document.getElementById('singerCard');
             const placeholder = document.getElementById('placeholder');
+            const meter = document.getElementById('applauseMeter');
             
             if (!queue || Object.keys(queue).length === 0) {
                 countEl.textContent = '0';
                 listEl.innerHTML = '<div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>';
                 singerCard.className = 'singer-card empty';
-                singerCard.innerHTML = '<span style="font-size: 1em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>';
+                singerCard.innerHTML = '<span style="font-size: 0.95em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>';
                 currentSinger = null;
                 currentVideoId = null;
                 placeholder.classList.remove('hidden');
+                meter.style.display = 'none';
                 removeVideo();
                 return;
             }
@@ -830,31 +874,35 @@
             listEl.innerHTML = items.map((item, i) => `
                 <div class="queue-item">
                     <div class="position">${i + 1}</div>
-                    <div class="avatar">
-                        ${item.photo ? `<img src="${item.photo}" alt="">` : '🎤'}
-                    </div>
+                    <div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div>
                     <div class="info">
                         <div class="name">${item.name}</div>
                         <div class="song">${item.song || 'Escolhendo...'}</div>
                     </div>
-                    <button class="remove-btn" onclick="removeFromQueue('${item.id}')" title="Remover">✕</button>
+                    <button class="remove-btn" onclick="removeFromQueue('${item.id}')">✕</button>
                 </div>
             `).join('');
             
             const first = items[0];
+            
+            // New singer? Reset applause
+            if (!currentSinger || currentSinger.id !== first.id) {
+                gameRef.child('applause').set(0);
+            }
+            
             currentSinger = first;
             
             singerCard.className = 'singer-card';
             singerCard.innerHTML = `
-                <div class="singer-avatar">
-                    ${first.photo ? `<img src="${first.photo}" alt="">` : '🎤'}
-                </div>
+                <div class="singer-avatar">${first.photo ? `<img src="${first.photo}">` : '🎤'}</div>
                 <div class="singer-info">
                     <div class="label">Cantando agora</div>
                     <div class="name">${first.name}</div>
                     <div class="song">${first.song || 'Escolhendo...'}</div>
                 </div>
             `;
+            
+            meter.style.display = 'flex';
             
             if (first.videoId && first.videoId !== currentVideoId) {
                 currentVideoId = first.videoId;
@@ -863,17 +911,15 @@
         }
         
         function removeFromQueue(id) {
-            if (confirm('Remover da fila?')) {
+            if (confirm('Remover?')) {
                 gameRef.child('queue/' + id).remove();
-                showToast('Removido da fila', 'success');
             }
         }
         
         // ==================== VIDEO ====================
         function loadVideo(videoId) {
             document.getElementById('placeholder').classList.add('hidden');
-            
-            const old = document.querySelector('#videoSection iframe');
+            const old = document.querySelector('#videoWrapper iframe');
             if (old) old.remove();
             
             const iframe = document.createElement('iframe');
@@ -881,11 +927,12 @@
             iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
             iframe.allowFullscreen = true;
             
-            document.getElementById('videoSection').appendChild(iframe);
+            const wrapper = document.getElementById('videoWrapper');
+            wrapper.insertBefore(iframe, wrapper.firstChild);
         }
         
         function removeVideo() {
-            const iframe = document.querySelector('#videoSection iframe');
+            const iframe = document.querySelector('#videoWrapper iframe');
             if (iframe) iframe.remove();
         }
         
@@ -912,15 +959,13 @@
         
         // ==================== VOTING ====================
         function startVoting() {
-            if (!currentSinger) {
-                showToast('Ninguém na fila!', 'error');
-                return;
-            }
+            if (!currentSinger) return showToast('Ninguém na fila!', 'error');
             
             gameRef.child('voting').set({
                 singerId: currentSinger.id,
                 singerName: currentSinger.name,
                 singerSong: currentSinger.song || '',
+                applause: applauseTotal,
                 votes: {},
                 active: true,
                 startTime: Date.now()
@@ -933,6 +978,7 @@
             document.getElementById('votingOverlay').classList.add('show');
             document.getElementById('votingSinger').textContent = currentSinger.name;
             document.getElementById('votingSong').textContent = currentSinger.song || '';
+            document.getElementById('statApplause').textContent = applauseTotal;
             document.getElementById('statVotes').textContent = '0';
             document.getElementById('statAvg').textContent = '-';
             
@@ -968,17 +1014,22 @@
                 
                 const votes = voting.votes || {};
                 const values = Object.values(votes);
-                const count = values.length;
-                const avg = count > 0 ? values.reduce((a,b) => a+b, 0) / count : 0;
-                const score = Math.round(avg * 20);
+                const voteCount = values.length;
+                const voteAvg = voteCount > 0 ? values.reduce((a,b) => a+b, 0) / voteCount : 0;
                 
-                if (score > 0) {
-                    gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + score);
-                    showToast(`${voting.singerName}: ${score} pts!`, 'success');
+                // Score: 50% applause (max 50pts) + 50% votes (max 50pts)
+                const applauseScore = Math.min(50, Math.round((voting.applause || 0) / 10));
+                const voteScore = Math.round(voteAvg * 10);
+                const totalScore = applauseScore + voteScore;
+                
+                if (totalScore > 0) {
+                    gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + totalScore);
+                    showToast(`${voting.singerName}: ${totalScore} pts!`, 'success');
                 }
                 
                 gameRef.child('queue/' + voting.singerId).remove();
                 gameRef.child('voting').set({ active: false });
+                gameRef.child('applause').set(0);
                 currentVideoId = null;
                 
                 setTimeout(() => {
@@ -989,27 +1040,20 @@
         
         // ==================== ACTIONS ====================
         function skipSinger() {
-            if (!currentSinger) {
-                showToast('Ninguém para pular!', 'error');
-                return;
-            }
+            if (!currentSinger) return showToast('Ninguém!', 'error');
             if (confirm(`Pular ${currentSinger.name}?`)) {
                 gameRef.child('queue/' + currentSinger.id).remove();
+                gameRef.child('applause').set(0);
                 currentVideoId = null;
-                showToast('Pulado!', 'success');
             }
         }
         
         function resetAll() {
             if (confirm('Resetar TUDO?')) {
-                gameRef.set(null).then(() => {
-                    showToast('Resetado!', 'success');
-                    setTimeout(() => location.reload(), 1000);
-                });
+                gameRef.set(null).then(() => location.reload());
             }
         }
         
-        // ==================== TOAST ====================
         function showToast(msg, type = '') {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -1017,7 +1061,6 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
         
-        // ==================== START ====================
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
