@@ -512,10 +512,11 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(10,0,21,0.97);
+            background: linear-gradient(135deg, rgba(10,0,21,0.98), rgba(131,56,236,0.3));
             z-index: 1500;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
         
         .voting-overlay.show { display: flex; }
@@ -527,16 +528,79 @@
             to { transform: scale(1); opacity: 1; }
         }
         
-        .voting-content .vote-label { font-size: 1.2em; color: var(--yellow); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 2px; }
-        .voting-singer-name { font-size: 3em; font-weight: 900; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
-        .voting-song-name { font-size: 1.1em; opacity: 0.7; margin-bottom: 30px; }
+        .voting-alert {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: pulseAlert 1s ease-in-out infinite;
+        }
         
-        .voting-stats { display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; }
-        .vote-stat .value { font-size: 3.5em; font-weight: 900; color: var(--yellow); line-height: 1; }
-        .vote-stat .label { font-size: 0.9em; opacity: 0.7; margin-top: 5px; }
+        @keyframes pulseAlert {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
         
-        .voting-timer { font-size: 1.1em; padding: 10px 30px; background: rgba(255,255,255,0.1); border-radius: 30px; display: inline-block; }
-        .voting-timer span { font-size: 1.3em; font-weight: 800; color: var(--orange); }
+        .voting-content .vote-label { font-size: 1em; color: rgba(255,255,255,0.7); margin-bottom: 5px; }
+        .voting-singer-name { font-size: 3.5em; font-weight: 900; background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .voting-song-name { font-size: 1.1em; opacity: 0.6; margin-bottom: 25px; }
+        
+        /* Giant Timer */
+        .voting-timer-giant {
+            font-size: 12em;
+            font-weight: 900;
+            line-height: 1;
+            margin: 20px 0 30px;
+            background: linear-gradient(180deg, var(--yellow), var(--orange), var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(255,190,11,0.5));
+            animation: timerPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        .voting-timer-giant.urgent {
+            animation: timerUrgent 0.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 50px rgba(239,71,111,0.8));
+        }
+        
+        @keyframes timerUrgent {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        
+        .voting-timer-label {
+            font-size: 1.5em;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .voting-stats { display: flex; justify-content: center; gap: 60px; margin-bottom: 20px; }
+        .vote-stat { background: rgba(255,255,255,0.1); padding: 20px 35px; border-radius: 20px; }
+        .vote-stat .value { font-size: 3em; font-weight: 900; color: var(--yellow); line-height: 1; }
+        .vote-stat .label { font-size: 0.9em; opacity: 0.7; margin-top: 8px; }
+        
+        .voting-phone-reminder {
+            margin-top: 25px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--cyan), var(--green));
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--darker);
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
         
         /* Toast */
         .toast {
@@ -680,9 +744,14 @@
     <!-- VOTING -->
     <div class="voting-overlay" id="votingOverlay">
         <div class="voting-content">
-            <div class="vote-label">⭐ Hora de Votar! ⭐</div>
+            <div class="voting-alert">📱 VOTE AGORA NO CELULAR! 📱</div>
+            <div class="vote-label">Avalie a performance de</div>
             <div class="voting-singer-name" id="votingSinger">-</div>
             <div class="voting-song-name" id="votingSong">-</div>
+            
+            <div class="voting-timer-giant" id="votingTimer">20</div>
+            <div class="voting-timer-label">segundos restantes</div>
+            
             <div class="voting-stats">
                 <div class="vote-stat">
                     <div class="value" id="statApplause">0</div>
@@ -697,7 +766,8 @@
                     <div class="label">⭐ Média</div>
                 </div>
             </div>
-            <div class="voting-timer">Tempo: <span id="votingTimer">20</span>s</div>
+            
+            <div class="voting-phone-reminder">📱 Pegue o celular e dê sua nota! ⭐</div>
         </div>
     </div>
     
@@ -982,13 +1052,21 @@
             document.getElementById('statVotes').textContent = '0';
             document.getElementById('statAvg').textContent = '-';
             
+            const timerEl = document.getElementById('votingTimer');
             let time = 20;
-            document.getElementById('votingTimer').textContent = time;
+            timerEl.textContent = time;
+            timerEl.classList.remove('urgent');
             
             if (votingInterval) clearInterval(votingInterval);
             votingInterval = setInterval(() => {
                 time--;
-                document.getElementById('votingTimer').textContent = time;
+                timerEl.textContent = time;
+                
+                // Urgency effect when <= 5 seconds
+                if (time <= 5) {
+                    timerEl.classList.add('urgent');
+                }
+                
                 if (time <= 0) endVoting();
             }, 1000);
         }

@@ -311,45 +311,130 @@
         /* ==================== VOTING ==================== */
         .voting-card {
             text-align: center;
-            padding: 22px 15px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.15), rgba(251,86,7,0.15));
-            border: 2px solid var(--yellow);
+            padding: 25px 15px;
+            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
+            border: 3px solid var(--yellow);
             margin-bottom: 12px;
+            animation: votingPulse 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
         
-        .voting-card .vote-label { font-size: 0.8em; color: var(--yellow); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-        .voting-card .singer-name { font-size: 1.5em; font-weight: 800; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 3px; }
-        .voting-card .song-name { font-size: 0.8em; opacity: 0.7; margin-bottom: 15px; }
+        @keyframes votingPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,190,11,0.3); }
+            50% { box-shadow: 0 0 40px rgba(255,190,11,0.6); }
+        }
         
-        .stars { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .voting-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .voting-card .vote-alert {
+            font-size: 1.1em;
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            animation: alertBounce 0.6s ease-in-out infinite;
+        }
+        
+        @keyframes alertBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .voting-card .singer-name { font-size: 1.6em; font-weight: 800; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 3px; }
+        .voting-card .song-name { font-size: 0.8em; opacity: 0.7; margin-bottom: 12px; }
+        
+        /* Giant Timer Mobile */
+        .vote-timer-big {
+            font-size: 4em;
+            font-weight: 900;
+            line-height: 1;
+            margin: 10px 0 15px;
+            background: linear-gradient(180deg, var(--yellow), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .vote-timer-big.urgent {
+            background: linear-gradient(180deg, var(--orange), var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: urgentShake 0.3s ease-in-out infinite;
+        }
+        
+        @keyframes urgentShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        
+        .vote-timer-label { font-size: 0.85em; opacity: 0.7; margin-bottom: 15px; }
+        
+        .stars { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
         
         .star {
-            font-size: 36px;
+            font-size: 42px;
             cursor: pointer;
             filter: grayscale(100%) brightness(0.4);
-            transition: all 0.2s;
+            transition: all 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .star.active { filter: grayscale(0%) brightness(1); transform: scale(1.15); }
+        .star.active { 
+            filter: grayscale(0%) brightness(1); 
+            transform: scale(1.2);
+            animation: starPop 0.3s ease;
+        }
+        
+        @keyframes starPop {
+            0% { transform: scale(0.5); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1.2); }
+        }
         
         .vote-btn {
             width: 100%;
-            padding: 12px;
-            font-size: 1em;
+            padding: 16px;
+            font-size: 1.2em;
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
+            font-weight: 800;
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             background: linear-gradient(135deg, var(--yellow), var(--orange));
             color: var(--darker);
             cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .vote-btn:disabled { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
-        .vote-btn.voted { background: linear-gradient(135deg, var(--green), var(--cyan)); }
         
-        .vote-timer { margin-top: 12px; font-size: 0.9em; }
-        .vote-timer span { font-weight: 800; color: var(--orange); font-size: 1.2em; }
+        .vote-btn:not(:disabled):active { transform: scale(0.95); }
+        
+        .vote-btn.voted { 
+            background: linear-gradient(135deg, var(--green), var(--cyan)); 
+            animation: votedCelebrate 0.5s ease;
+        }
+        
+        @keyframes votedCelebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
         
         /* ==================== ACTION BUTTONS ==================== */
         .action-btn {
@@ -582,9 +667,13 @@
             
             <!-- Voting -->
             <div class="card voting-card" id="votingCard" style="display: none;">
-                <div class="vote-label">⭐ Hora de Votar!</div>
+                <div class="vote-alert">⭐ DÊ SUA NOTA AGORA! ⭐</div>
                 <div class="singer-name" id="votingFor">-</div>
                 <div class="song-name" id="votingSong">-</div>
+                
+                <div class="vote-timer-big" id="voteTimerBig">20</div>
+                <div class="vote-timer-label">segundos</div>
+                
                 <div class="stars">
                     <span class="star" onclick="selectStar(1)">⭐</span>
                     <span class="star" onclick="selectStar(2)">⭐</span>
@@ -592,8 +681,7 @@
                     <span class="star" onclick="selectStar(4)">⭐</span>
                     <span class="star" onclick="selectStar(5)">⭐</span>
                 </div>
-                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>Selecione sua nota</button>
-                <div class="vote-timer">Tempo: <span id="voteTimer">20</span>s</div>
+                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>Toque nas estrelas ⭐</button>
             </div>
             
             <!-- Actions -->
@@ -1015,6 +1103,8 @@
         }
         
         // ==================== VOTING ====================
+        let voteTimerInterval = null;
+        
         function handleVoting(data) {
             const card = document.getElementById('votingCard');
             const interactionSection = document.getElementById('interactionSection');
@@ -1022,6 +1112,7 @@
             if (!data || !data.active) {
                 card.style.display = 'none';
                 resetVoting();
+                if (voteTimerInterval) clearInterval(voteTimerInterval);
                 return;
             }
             
@@ -1033,44 +1124,90 @@
             if (data.singerId !== voting.id) {
                 resetVoting();
                 voting.id = data.singerId;
-                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                
+                // Vibrate and scroll to voting
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Start local timer
+                startVoteTimer(data.startTime);
             }
             
             card.style.display = 'block';
             document.getElementById('votingFor').textContent = data.singerName;
             document.getElementById('votingSong').textContent = data.singerSong || '';
+        }
+        
+        function startVoteTimer(startTime) {
+            const timerEl = document.getElementById('voteTimerBig');
             
-            if (data.startTime) {
-                const remaining = Math.max(0, 20 - Math.floor((Date.now() - data.startTime) / 1000));
-                document.getElementById('voteTimer').textContent = remaining;
+            if (voteTimerInterval) clearInterval(voteTimerInterval);
+            
+            function updateTimer() {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const remaining = Math.max(0, 20 - elapsed);
+                
+                timerEl.textContent = remaining;
+                
+                if (remaining <= 5) {
+                    timerEl.classList.add('urgent');
+                    if (remaining > 0 && !voting.voted && navigator.vibrate) {
+                        navigator.vibrate(100);
+                    }
+                } else {
+                    timerEl.classList.remove('urgent');
+                }
+                
+                if (remaining <= 0) {
+                    clearInterval(voteTimerInterval);
+                }
             }
+            
+            updateTimer();
+            voteTimerInterval = setInterval(updateTimer, 1000);
         }
         
         function selectStar(value) {
             if (voting.voted) return;
             voting.selected = value;
             document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < value));
-            document.getElementById('voteBtn').disabled = false;
-            document.getElementById('voteBtn').textContent = `Votar ${value} ⭐`;
+            
+            const btn = document.getElementById('voteBtn');
+            btn.disabled = false;
+            
+            const labels = ['', 'Fraco 😕', 'Regular 😐', 'Bom! 🙂', 'Ótimo! 😄', 'INCRÍVEL! 🤩'];
+            btn.textContent = `VOTAR ${value} ⭐ - ${labels[value]}`;
+            
+            if (navigator.vibrate) navigator.vibrate(30);
         }
         
         function submitVote() {
             if (!voting.selected || voting.voted) return;
             gameRef.child('voting/votes/' + player.id).set(voting.selected).then(() => {
                 voting.voted = true;
-                document.getElementById('voteBtn').disabled = true;
-                document.getElementById('voteBtn').textContent = '✓ Enviado!';
-                document.getElementById('voteBtn').classList.add('voted');
-                showToast('Voto enviado!', 'success');
+                const btn = document.getElementById('voteBtn');
+                btn.disabled = true;
+                btn.textContent = '✓ VOTO ENVIADO!';
+                btn.classList.add('voted');
+                
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                
+                const messages = ['Valeu!', 'Show!', 'Votou!', 'Feito!', 'Top!'];
+                showToast(messages[Math.floor(Math.random() * messages.length)] + ' 🎉', 'success');
             });
         }
         
         function resetVoting() {
             voting = { id: null, selected: 0, voted: false };
             document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
-            document.getElementById('voteBtn').disabled = true;
-            document.getElementById('voteBtn').textContent = 'Selecione sua nota';
-            document.getElementById('voteBtn').classList.remove('voted');
+            const btn = document.getElementById('voteBtn');
+            btn.disabled = true;
+            btn.textContent = 'Toque nas estrelas ⭐';
+            btn.classList.remove('voted');
+            
+            const timerEl = document.getElementById('voteTimerBig');
+            timerEl.textContent = '20';
+            timerEl.classList.remove('urgent');
         }
         
         // ==================== SCOREBOARD ====================
