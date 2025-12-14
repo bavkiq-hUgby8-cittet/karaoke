@@ -266,6 +266,81 @@
             object-fit: cover;
         }
         
+        /* Floating Video Clips */
+        .floating-clip {
+            position: absolute;
+            width: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: floatClip 8s ease-out forwards;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            border: 3px solid var(--cyan);
+        }
+        
+        .floating-clip video {
+            width: 100%;
+            display: block;
+        }
+        
+        .floating-clip .clip-sender {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .floating-clip .clip-sender img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        @keyframes floatClip {
+            0% { transform: scale(0.5) translateY(50px); opacity: 0; }
+            10% { transform: scale(1) translateY(0); opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: scale(0.8) translateY(-100px); opacity: 0; }
+        }
+        
+        /* Recording indicator on TV */
+        .recording-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 15px;
+            background: var(--red);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: recordBlink 1s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        .recording-indicator.hidden { display: none; }
+        
+        .recording-indicator .dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        @keyframes recordBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0.5); opacity: 0; }
             10% { transform: translateY(-50px) scale(1); opacity: 1; }
@@ -512,7 +587,7 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(10,0,21,0.98), rgba(131,56,236,0.3));
+            background: var(--darker);
             z-index: 1500;
             align-items: center;
             justify-content: center;
@@ -689,6 +764,10 @@
                         <div class="waiting-icon">🎤</div>
                         <h2>Aguardando cantor...</h2>
                     </div>
+                    <div class="recording-indicator hidden" id="recordingIndicator">
+                        <div class="dot"></div>
+                        <span>GRAVANDO</span>
+                    </div>
                     <div class="reactions-overlay" id="reactionsOverlay"></div>
                 </div>
                 
@@ -846,6 +925,26 @@
                 applauseTotal = snap.val() || 0;
                 updateApplauseMeter(applauseTotal);
             });
+            
+            // Video clips listener
+            gameRef.child('clips').on('child_added', snap => {
+                const clip = snap.val();
+                showVideoClip(clip);
+                // Remove after 10 seconds
+                setTimeout(() => snap.ref.remove(), 10000);
+            });
+            
+            // Recording indicator listener
+            gameRef.child('recording').on('value', snap => {
+                const count = snap.val() || 0;
+                const indicator = document.getElementById('recordingIndicator');
+                if (count > 0) {
+                    indicator.classList.remove('hidden');
+                    indicator.querySelector('span').textContent = `GRAVANDO (${count})`;
+                } else {
+                    indicator.classList.add('hidden');
+                }
+            });
         }
         
         // ==================== QR CODE ====================
@@ -896,6 +995,31 @@
             clap.style.top = Math.random() * 60 + 20 + '%';
             overlay.appendChild(clap);
             setTimeout(() => clap.remove(), 800);
+        }
+        
+        function showVideoClip(clip) {
+            const overlay = document.getElementById('reactionsOverlay');
+            const div = document.createElement('div');
+            div.className = 'floating-clip';
+            
+            // Random position
+            div.style.left = Math.random() * 60 + 10 + '%';
+            div.style.top = Math.random() * 40 + 10 + '%';
+            
+            div.innerHTML = `
+                <video autoplay muted playsinline loop>
+                    <source src="${clip.video}" type="video/webm">
+                </video>
+                <div class="clip-sender">
+                    ${clip.photo ? `<img src="${clip.photo}" alt="">` : ''}
+                    <span>${clip.name || 'Anônimo'}</span>
+                </div>
+            `;
+            
+            overlay.appendChild(div);
+            
+            // Remove after animation
+            setTimeout(() => div.remove(), 8000);
         }
         
         function updateApplauseMeter(count) {

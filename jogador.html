@@ -308,6 +308,133 @@
         .my-turn-card p { font-size: 0.9em; opacity: 0.9; }
         .my-turn-card .tip { font-size: 0.8em; opacity: 0.7; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); }
         
+        /* ==================== RECORDING CLIP ==================== */
+        .record-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--red), #c0392b);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .record-btn:active { transform: scale(0.98); }
+        
+        .record-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--darker);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .record-modal.show { display: flex; }
+        
+        .record-preview {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 9/16;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .record-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .record-timer {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 25px;
+            background: var(--red);
+            border-radius: 30px;
+            font-size: 1.5em;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .record-timer .dot {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .record-timer.hidden { display: none; }
+        
+        .record-controls {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        .record-controls button {
+            flex: 1;
+            padding: 16px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-start-record {
+            background: linear-gradient(135deg, var(--red), #c0392b);
+            color: white;
+        }
+        
+        .btn-cancel-record {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .btn-send-clip {
+            background: linear-gradient(135deg, var(--green), var(--cyan));
+            color: var(--darker);
+        }
+        
+        .record-status {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
         /* ==================== VOTING ==================== */
         .voting-card {
             text-align: center;
@@ -663,6 +790,11 @@
                         <button class="phrase-btn" onclick="sendPhrase('Top!')">Top! ⭐</button>
                     </div>
                 </div>
+                
+                <!-- Record Clip Button -->
+                <button class="record-btn" onclick="openRecordModal()">
+                    🎬 Gravar Clip (5s)
+                </button>
             </div>
             
             <!-- Voting -->
@@ -725,6 +857,23 @@
     </div>
     
     <div class="toast" id="toast"></div>
+    
+    <!-- Record Modal -->
+    <div class="record-modal" id="recordModal">
+        <div class="record-status" id="recordStatus">📹 Aponte para quem está cantando</div>
+        <div class="record-preview">
+            <video id="recordVideo" autoplay playsinline muted></video>
+            <div class="record-timer hidden" id="recordTimer">
+                <div class="dot"></div>
+                <span id="recordCountdown">5</span>
+            </div>
+        </div>
+        <div class="record-controls" id="recordControls">
+            <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Cancelar</button>
+            <button class="btn-start-record" id="btnStartRecord" onclick="startRecording()">🔴 Gravar</button>
+        </div>
+    </div>
+    
     <canvas id="photoCanvas" style="display:none;"></canvas>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -748,6 +897,12 @@
         let cameraStream = null;
         let cameraActive = false;
         let currentSingerId = null;
+        
+        // Recording state
+        let recordStream = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let recordedBlob = null;
         
         function init() {
             initFirebase();
@@ -1234,6 +1389,187 @@
             toast.textContent = msg;
             toast.className = 'toast ' + type + ' show';
             setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+        
+        // ==================== CLIP RECORDING ====================
+        async function openRecordModal() {
+            if (!currentSingerId || player.isMyTurn) {
+                showToast('Aguarde alguém cantar!', 'error');
+                return;
+            }
+            
+            const modal = document.getElementById('recordModal');
+            const video = document.getElementById('recordVideo');
+            const status = document.getElementById('recordStatus');
+            const timer = document.getElementById('recordTimer');
+            const controls = document.getElementById('recordControls');
+            
+            modal.classList.add('show');
+            status.textContent = '📹 Aponte para quem está cantando';
+            timer.classList.add('hidden');
+            
+            // Reset controls
+            controls.innerHTML = `
+                <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Cancelar</button>
+                <button class="btn-start-record" onclick="startRecording()">🔴 Gravar</button>
+            `;
+            
+            try {
+                recordStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: 480, height: 640 },
+                    audio: false
+                });
+                video.srcObject = recordStream;
+                
+                // Notify TV that someone is about to record
+                gameRef.child('recording').transaction(c => (c || 0) + 1);
+                
+            } catch (e) {
+                showToast('Câmera indisponível', 'error');
+                closeRecordModal();
+            }
+        }
+        
+        function closeRecordModal() {
+            const modal = document.getElementById('recordModal');
+            modal.classList.remove('show');
+            
+            if (recordStream) {
+                recordStream.getTracks().forEach(t => t.stop());
+                recordStream = null;
+            }
+            
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            
+            // Decrease recording count
+            gameRef.child('recording').transaction(c => Math.max(0, (c || 1) - 1));
+            
+            recordedChunks = [];
+            recordedBlob = null;
+        }
+        
+        function startRecording() {
+            if (!recordStream) return;
+            
+            const status = document.getElementById('recordStatus');
+            const timer = document.getElementById('recordTimer');
+            const countdown = document.getElementById('recordCountdown');
+            const controls = document.getElementById('recordControls');
+            
+            recordedChunks = [];
+            
+            // Setup MediaRecorder
+            const options = { mimeType: 'video/webm;codecs=vp8' };
+            try {
+                mediaRecorder = new MediaRecorder(recordStream, options);
+            } catch (e) {
+                mediaRecorder = new MediaRecorder(recordStream);
+            }
+            
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            };
+            
+            mediaRecorder.onstop = () => {
+                recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
+                showRecordedPreview();
+            };
+            
+            // Start recording
+            mediaRecorder.start();
+            
+            status.textContent = '🔴 Gravando...';
+            timer.classList.remove('hidden');
+            controls.innerHTML = '';
+            
+            // Vibrate
+            if (navigator.vibrate) navigator.vibrate(100);
+            
+            // Countdown
+            let seconds = 5;
+            countdown.textContent = seconds;
+            
+            const interval = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    mediaRecorder.stop();
+                }
+            }, 1000);
+        }
+        
+        function showRecordedPreview() {
+            const status = document.getElementById('recordStatus');
+            const timer = document.getElementById('recordTimer');
+            const controls = document.getElementById('recordControls');
+            const video = document.getElementById('recordVideo');
+            
+            timer.classList.add('hidden');
+            status.textContent = '✅ Clip gravado! Enviar?';
+            
+            // Stop live preview
+            if (recordStream) {
+                recordStream.getTracks().forEach(t => t.stop());
+                recordStream = null;
+            }
+            
+            // Show recorded video
+            const url = URL.createObjectURL(recordedBlob);
+            video.srcObject = null;
+            video.src = url;
+            video.loop = true;
+            video.muted = true;
+            video.play();
+            
+            // Show send/cancel buttons
+            controls.innerHTML = `
+                <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Descartar</button>
+                <button class="btn-send-clip" onclick="sendClip()">📤 Enviar</button>
+            `;
+        }
+        
+        async function sendClip() {
+            if (!recordedBlob) return;
+            
+            const status = document.getElementById('recordStatus');
+            const controls = document.getElementById('recordControls');
+            
+            status.textContent = '📤 Enviando...';
+            controls.innerHTML = '';
+            
+            try {
+                // Convert to base64
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    const base64 = reader.result;
+                    
+                    // Send to Firebase
+                    gameRef.child('clips').push({
+                        video: base64,
+                        name: player.name,
+                        photo: player.photo || null,
+                        timestamp: Date.now()
+                    }).then(() => {
+                        showToast('Clip enviado! 🎬', 'success');
+                        if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+                        closeRecordModal();
+                    }).catch(e => {
+                        showToast('Erro ao enviar', 'error');
+                        closeRecordModal();
+                    });
+                };
+                reader.readAsDataURL(recordedBlob);
+                
+            } catch (e) {
+                showToast('Erro ao processar', 'error');
+                closeRecordModal();
+            }
         }
         
         document.addEventListener('DOMContentLoaded', init);
