@@ -3,702 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0a0015">
     <title>🎤 Karaokê dos Veloso</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --pink: #ff006e; --purple: #8338ec; --blue: #3a86ff; --cyan: #00f5d4; --yellow: #ffbe0b; --orange: #fb5607; --green: #06d6a0; --red: #ef476f; --dark: #10002b; --darker: #0a0015; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(180deg, var(--darker), var(--dark)); color: white; min-height: 100vh; -webkit-tap-highlight-color: transparent; }
+        .container { max-width: 500px; margin: 0 auto; padding: 12px; padding-bottom: 30px; }
         
-        :root {
-            --pink: #ff006e;
-            --purple: #8338ec;
-            --blue: #3a86ff;
-            --cyan: #00f5d4;
-            --yellow: #ffbe0b;
-            --orange: #fb5607;
-            --green: #06d6a0;
-            --red: #ef476f;
-            --dark: #10002b;
-            --darker: #0a0015;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
-            color: white;
-            min-height: 100vh;
-            padding-bottom: env(safe-area-inset-bottom);
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 12px;
-            padding-bottom: 30px;
-        }
-        
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
-            border-radius: 15px;
-            margin-bottom: 12px;
-        }
-        
-        .header h1 {
-            font-size: 1.2em;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .header .status {
-            font-size: 0.7em;
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
+        .header { text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2)); border-radius: 15px; margin-bottom: 12px; }
+        .header h1 { font-size: 1.2em; font-weight: 800; background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .status { font-size: 0.7em; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 5px; }
         .status-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; }
         .status-dot.online { background: var(--green); }
         
-        /* Screens */
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Cards */
-        .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        
+        .card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.08); }
         .card h2 { font-size: 0.95em; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         
-        /* ==================== LOGIN ==================== */
+        /* LOGIN */
         .login-card { text-align: center; padding: 25px 18px; }
         .login-card h2 { justify-content: center; font-size: 1.1em; margin-bottom: 18px; }
-        
         .photo-section { margin-bottom: 18px; }
-        
-        .photo-preview {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 12px;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.2);
-        }
-        
+        .photo-preview { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 12px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 40px; overflow: hidden; border: 3px solid rgba(255,255,255,0.2); }
         .photo-preview img, .photo-preview video { width: 100%; height: 100%; object-fit: cover; }
-        
-        .photo-btn {
-            padding: 8px 18px;
-            font-size: 0.85em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            border: none;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.15);
-            color: white;
-            cursor: pointer;
-        }
-        
+        .photo-btn { padding: 8px 18px; font-size: 0.85em; font-family: 'Poppins', sans-serif; font-weight: 600; border: none; border-radius: 20px; background: rgba(255,255,255,0.15); color: white; cursor: pointer; }
         .photo-btn.capturing { background: var(--red); }
-        
-        .input-field {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-            color: white;
-            text-align: center;
-            margin-bottom: 12px;
-            outline: none;
-        }
-        
+        .input-field { width: 100%; padding: 14px 16px; font-size: 1em; font-family: 'Poppins', sans-serif; border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; background: rgba(255,255,255,0.05); color: white; text-align: center; margin-bottom: 12px; outline: none; }
         .input-field:focus { border-color: var(--cyan); }
+        .primary-btn { width: 100%; padding: 14px; font-size: 1.05em; font-family: 'Poppins', sans-serif; font-weight: 700; border: none; border-radius: 12px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; cursor: pointer; }
         
-        .primary-btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 1.05em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            color: white;
-            cursor: pointer;
-        }
-        
-        /* ==================== USER BAR ==================== */
-        .user-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
-        
-        .user-avatar {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            overflow: hidden;
-        }
-        
+        /* USER BAR */
+        .user-bar { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 12px; }
+        .user-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, var(--purple), var(--pink)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden; }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
         .user-info { flex: 1; }
         .user-info .name { font-weight: 700; font-size: 0.95em; }
-        
-        .user-status {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.7em;
-            font-weight: 600;
-            background: rgba(255,255,255,0.15);
-        }
-        
+        .user-status { padding: 5px 10px; border-radius: 15px; font-size: 0.7em; font-weight: 600; background: rgba(255,255,255,0.15); }
         .user-status.singing { background: linear-gradient(135deg, var(--cyan), var(--green)); color: var(--darker); }
         .user-status.queue { background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--darker); }
         
-        /* ==================== CURRENT SINGER ==================== */
-        .current-singer {
-            text-align: center;
-            padding: 18px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 12px;
-        }
-        
+        /* CURRENT SINGER */
+        .current-singer { text-align: center; padding: 18px; background: linear-gradient(135deg, var(--purple), var(--pink)); border-radius: 12px; }
         .current-singer .label { font-size: 0.75em; opacity: 0.9; text-transform: uppercase; }
         .current-singer .name { font-size: 1.3em; font-weight: 800; margin: 3px 0; }
         .current-singer .song { font-size: 0.85em; opacity: 0.9; }
-        
         .no-singer { text-align: center; padding: 20px; opacity: 0.5; }
         .no-singer .icon { font-size: 40px; margin-bottom: 8px; }
         
-        /* ==================== INTERACTION SECTION ==================== */
-        .interaction-section {
-            display: none;
-            margin-bottom: 12px;
-        }
-        
+        /* INTERACTION */
+        .interaction-section { display: none; margin-bottom: 12px; }
         .interaction-section.active { display: block; }
         
-        /* Applause Button */
-        .applause-section {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
-            border-radius: 15px;
-            border: 2px solid var(--yellow);
-            margin-bottom: 12px;
-        }
-        
-        .applause-btn {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(135deg, var(--yellow), var(--orange));
-            font-size: 50px;
-            cursor: pointer;
-            transition: transform 0.1s;
-            box-shadow: 0 10px 30px rgba(255,190,11,0.4);
-        }
-        
+        .applause-section { text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2)); border-radius: 15px; border: 2px solid var(--yellow); margin-bottom: 12px; }
+        .applause-btn { width: 120px; height: 120px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--yellow), var(--orange)); font-size: 50px; cursor: pointer; transition: transform 0.1s; box-shadow: 0 10px 30px rgba(255,190,11,0.4); }
         .applause-btn:active { transform: scale(0.9); }
-        
-        .applause-count {
-            margin-top: 12px;
-            font-size: 1.1em;
-            font-weight: 700;
-        }
-        
+        .applause-count { margin-top: 12px; font-size: 1.1em; font-weight: 700; }
         .applause-count span { color: var(--yellow); font-size: 1.3em; }
         
-        /* Emoji Grid */
-        .emoji-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        
-        .emoji-btn {
-            aspect-ratio: 1;
-            border: none;
-            border-radius: 15px;
-            background: rgba(255,255,255,0.1);
-            font-size: 30px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
+        .emoji-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+        .emoji-btn { aspect-ratio: 1; border: none; border-radius: 15px; background: rgba(255,255,255,0.1); font-size: 30px; cursor: pointer; }
         .emoji-btn:active { transform: scale(0.85); background: rgba(255,255,255,0.2); }
         
-        /* Phrase Buttons */
-        .phrase-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        
-        .phrase-btn {
-            padding: 12px 8px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(131,56,236,0.4), rgba(255,0,110,0.4));
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.85em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
+        .phrase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .phrase-btn { padding: 12px 8px; border: none; border-radius: 12px; background: linear-gradient(135deg, rgba(131,56,236,0.4), rgba(255,0,110,0.4)); color: white; font-family: 'Poppins', sans-serif; font-size: 0.85em; font-weight: 600; cursor: pointer; }
         .phrase-btn:active { transform: scale(0.95); }
         
-        /* ==================== MY TURN ==================== */
-        .my-turn-card {
-            text-align: center;
-            padding: 30px 18px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 15px;
-            margin-bottom: 12px;
-        }
+        /* PHOTO CAPTURE */
+        .photo-capture-btn { width: 100%; padding: 16px; font-size: 1.1em; font-family: 'Poppins', sans-serif; font-weight: 700; border: none; border-radius: 12px; background: linear-gradient(135deg, var(--blue), var(--purple)); color: white; cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .photo-capture-btn:active { transform: scale(0.98); }
         
+        .photo-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--darker); z-index: 2000; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .photo-modal.show { display: flex; }
+        .photo-modal-preview { width: 280px; height: 280px; background: #000; border-radius: 20px; overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .photo-modal-preview video, .photo-modal-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-modal-status { font-size: 1.1em; font-weight: 600; margin-bottom: 15px; text-align: center; }
+        .photo-modal-btns { display: flex; gap: 15px; }
+        .photo-modal-btns button { padding: 14px 30px; font-size: 1em; font-family: 'Poppins', sans-serif; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; }
+        .btn-capture { background: linear-gradient(135deg, var(--red), #c0392b); color: white; }
+        .btn-send-photo { background: linear-gradient(135deg, var(--green), var(--cyan)); color: var(--darker); }
+        .btn-cancel-photo { background: rgba(255,255,255,0.1); color: white; }
+        
+        /* MY TURN */
+        .my-turn-card { text-align: center; padding: 30px 18px; background: linear-gradient(135deg, var(--purple), var(--pink)); border-radius: 15px; margin-bottom: 12px; }
         .my-turn-card .big-icon { font-size: 60px; margin-bottom: 10px; animation: bounce 1s infinite; }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
         .my-turn-card h3 { font-size: 1.5em; font-weight: 800; margin-bottom: 8px; }
         .my-turn-card p { font-size: 0.9em; opacity: 0.9; }
-        .my-turn-card .tip { font-size: 0.8em; opacity: 0.7; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); }
         
-        /* ==================== RECORDING CLIP ==================== */
-        .record-btn {
-            width: 100%;
-            padding: 16px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--red), #c0392b);
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        
-        .record-btn:active { transform: scale(0.98); }
-        
-        .record-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--darker);
-            z-index: 2000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .record-modal.show { display: flex; }
-        
-        .record-preview {
-            width: 100%;
-            max-width: 350px;
-            aspect-ratio: 9/16;
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        .record-preview video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .record-timer {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 25px;
-            background: var(--red);
-            border-radius: 30px;
-            font-size: 1.5em;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .record-timer .dot {
-            width: 12px;
-            height: 12px;
-            background: white;
-            border-radius: 50%;
-            animation: blink 1s ease-in-out infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        .record-timer.hidden { display: none; }
-        
-        .record-controls {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 350px;
-        }
-        
-        .record-controls button {
-            flex: 1;
-            padding: 16px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .btn-start-record {
-            background: linear-gradient(135deg, var(--red), #c0392b);
-            color: white;
-        }
-        
-        .btn-cancel-record {
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-        
-        .btn-send-clip {
-            background: linear-gradient(135deg, var(--green), var(--cyan));
-            color: var(--darker);
-        }
-        
-        .record-status {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-        
-        /* ==================== VOTING ==================== */
-        .voting-card {
-            text-align: center;
-            padding: 25px 15px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
-            border: 3px solid var(--yellow);
-            margin-bottom: 12px;
-            animation: votingPulse 2s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        @keyframes votingPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255,190,11,0.3); }
-            50% { box-shadow: 0 0 40px rgba(255,190,11,0.6); }
-        }
-        
-        .voting-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
-            animation: shine 3s linear infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-        
-        .voting-card .vote-alert {
-            font-size: 1.1em;
-            font-weight: 800;
-            color: var(--yellow);
-            margin-bottom: 8px;
-            animation: alertBounce 0.6s ease-in-out infinite;
-        }
-        
-        @keyframes alertBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
+        /* VOTING */
+        .voting-card { text-align: center; padding: 25px 15px; background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2)); border: 3px solid var(--yellow); margin-bottom: 12px; animation: votingPulse 2s infinite; }
+        @keyframes votingPulse { 0%, 100% { box-shadow: 0 0 20px rgba(255,190,11,0.3); } 50% { box-shadow: 0 0 40px rgba(255,190,11,0.6); } }
+        .voting-card .vote-alert { font-size: 1.1em; font-weight: 800; color: var(--yellow); margin-bottom: 8px; animation: alertBounce 0.6s infinite; }
+        @keyframes alertBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .voting-card .singer-name { font-size: 1.6em; font-weight: 800; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 3px; }
         .voting-card .song-name { font-size: 0.8em; opacity: 0.7; margin-bottom: 12px; }
-        
-        /* Giant Timer Mobile */
-        .vote-timer-big {
-            font-size: 4em;
-            font-weight: 900;
-            line-height: 1;
-            margin: 10px 0 15px;
-            background: linear-gradient(180deg, var(--yellow), var(--orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .vote-timer-big.urgent {
-            background: linear-gradient(180deg, var(--orange), var(--red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: urgentShake 0.3s ease-in-out infinite;
-        }
-        
-        @keyframes urgentShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
-        }
-        
-        .vote-timer-label { font-size: 0.85em; opacity: 0.7; margin-bottom: 15px; }
-        
+        .vote-timer-big { font-size: 4em; font-weight: 900; line-height: 1; margin: 10px 0 15px; background: linear-gradient(180deg, var(--yellow), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .vote-timer-big.urgent { background: linear-gradient(180deg, var(--orange), var(--red)); -webkit-background-clip: text; animation: urgentShake 0.3s infinite; }
+        @keyframes urgentShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
         .stars { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
-        
-        .star {
-            font-size: 42px;
-            cursor: pointer;
-            filter: grayscale(100%) brightness(0.4);
-            transition: all 0.15s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .star.active { 
-            filter: grayscale(0%) brightness(1); 
-            transform: scale(1.2);
-            animation: starPop 0.3s ease;
-        }
-        
-        @keyframes starPop {
-            0% { transform: scale(0.5); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1.2); }
-        }
-        
-        .vote-btn {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.2em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            border: none;
-            border-radius: 15px;
-            background: linear-gradient(135deg, var(--yellow), var(--orange));
-            color: var(--darker);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
+        .star { font-size: 42px; cursor: pointer; filter: grayscale(100%) brightness(0.4); transition: all 0.15s; }
+        .star.active { filter: grayscale(0%) brightness(1); transform: scale(1.2); }
+        .vote-btn { width: 100%; padding: 16px; font-size: 1.2em; font-family: 'Poppins', sans-serif; font-weight: 800; border: none; border-radius: 15px; background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--darker); cursor: pointer; text-transform: uppercase; }
         .vote-btn:disabled { background: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+        .vote-btn.voted { background: linear-gradient(135deg, var(--green), var(--cyan)); }
         
-        .vote-btn:not(:disabled):active { transform: scale(0.95); }
+        /* SHARE CARD */
+        .share-card { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; align-items: center; justify-content: center; flex-direction: column; padding: 20px; }
+        .share-card.show { display: flex; }
+        .share-preview { width: 100%; max-width: 320px; aspect-ratio: 9/16; background: linear-gradient(180deg, var(--purple), var(--pink), var(--orange)); border-radius: 20px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+        .share-preview::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" opacity="0.1">🎤</text></svg>'); background-size: 100px; opacity: 0.1; }
+        .share-header { text-align: center; position: relative; z-index: 1; }
+        .share-header h3 { font-size: 0.9em; opacity: 0.8; }
+        .share-header h1 { font-size: 1.5em; font-weight: 900; }
+        .share-photo { width: 140px; height: 140px; border-radius: 50%; border: 5px solid white; overflow: hidden; position: relative; z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .share-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .share-photo .no-photo { width: 100%; height: 100%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 60px; }
+        .share-info { text-align: center; position: relative; z-index: 1; }
+        .share-info .name { font-size: 1.8em; font-weight: 900; margin-bottom: 5px; }
+        .share-info .song { font-size: 0.9em; opacity: 0.9; margin-bottom: 15px; }
+        .share-stats { display: flex; gap: 20px; }
+        .share-stat { text-align: center; }
+        .share-stat .value { font-size: 1.5em; font-weight: 900; }
+        .share-stat .label { font-size: 0.7em; opacity: 0.8; }
+        .share-score { text-align: center; position: relative; z-index: 1; }
+        .share-score .pts { font-size: 3em; font-weight: 900; line-height: 1; }
+        .share-score .label { font-size: 0.9em; opacity: 0.8; }
+        .share-btns { margin-top: 20px; display: flex; gap: 10px; }
+        .share-btns button { padding: 14px 25px; font-size: 1em; font-family: 'Poppins', sans-serif; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; }
+        .btn-download { background: linear-gradient(135deg, var(--green), var(--cyan)); color: var(--darker); }
+        .btn-close-share { background: rgba(255,255,255,0.2); color: white; }
         
-        .vote-btn.voted { 
-            background: linear-gradient(135deg, var(--green), var(--cyan)); 
-            animation: votedCelebrate 0.5s ease;
-        }
-        
-        @keyframes votedCelebrate {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        /* ==================== ACTION BUTTONS ==================== */
-        .action-btn {
-            width: 100%;
-            padding: 14px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        
+        /* ACTION BUTTONS */
+        .action-btn { width: 100%; padding: 14px; font-size: 1em; font-family: 'Poppins', sans-serif; font-weight: 700; border: none; border-radius: 12px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
         .btn-join { background: linear-gradient(135deg, var(--cyan), var(--green)); color: var(--darker); }
         .btn-leave { background: linear-gradient(135deg, var(--red), #c0392b); }
         .btn-secondary { background: rgba(255,255,255,0.1); font-weight: 600; font-size: 0.9em; }
         
-        /* ==================== SEARCH ==================== */
-        .back-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 0;
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.7);
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.8em;
-            cursor: pointer;
-            margin-bottom: 8px;
-        }
-        
+        /* SEARCH */
+        .back-btn { display: flex; align-items: center; gap: 5px; padding: 8px 0; background: none; border: none; color: rgba(255,255,255,0.7); font-family: 'Poppins', sans-serif; font-size: 0.8em; cursor: pointer; margin-bottom: 8px; }
         .search-box { display: flex; gap: 8px; margin-bottom: 12px; }
-        
-        .search-box input {
-            flex: 1;
-            padding: 12px 14px;
-            font-size: 0.9em;
-            font-family: 'Poppins', sans-serif;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.05);
-            color: white;
-            outline: none;
-        }
-        
-        .search-box button {
-            padding: 12px 16px;
-            font-size: 1em;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            color: white;
-            cursor: pointer;
-        }
-        
+        .search-box input { flex: 1; padding: 12px 14px; font-size: 0.9em; font-family: 'Poppins', sans-serif; border: 2px solid rgba(255,255,255,0.1); border-radius: 10px; background: rgba(255,255,255,0.05); color: white; outline: none; }
+        .search-box button { padding: 12px 16px; font-size: 1em; border: none; border-radius: 10px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; cursor: pointer; }
         .search-results { max-height: 320px; overflow-y: auto; }
-        
-        .result-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            margin-bottom: 8px;
-            cursor: pointer;
-        }
-        
+        .result-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
         .result-item:active { background: rgba(255,255,255,0.1); }
-        
         .result-item img { width: 65px; height: 48px; border-radius: 6px; object-fit: cover; }
         .result-item .title { flex: 1; font-size: 0.8em; line-height: 1.3; }
-        
         .search-status { text-align: center; padding: 20px; opacity: 0.6; font-size: 0.9em; }
-        .search-status.error { color: var(--red); opacity: 1; }
         
-        /* ==================== QUEUE ==================== */
+        /* QUEUE */
         .queue-list { max-height: 150px; overflow-y: auto; }
-        
-        .queue-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-        
+        .queue-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 5px; }
         .queue-item.me { background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3)); }
-        
         .queue-item .pos { width: 24px; height: 24px; background: rgba(0,0,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75em; }
         .queue-item.me .pos { background: var(--cyan); color: var(--darker); }
-        
         .queue-item .avatar { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 12px; }
         .queue-item .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
         .queue-item .info { flex: 1; overflow: hidden; }
         .queue-item .name { font-weight: 600; font-size: 0.8em; }
         .queue-item .song { font-size: 0.7em; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
         .empty-list { text-align: center; padding: 18px; opacity: 0.5; }
         .empty-list .icon { font-size: 28px; margin-bottom: 5px; }
-        .empty-list p { font-size: 0.8em; }
         
-        /* Scoreboard */
         .scoreboard { max-height: 140px; overflow-y: auto; }
-        
         .score-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 4px; }
         .score-item .medal { font-size: 1em; }
         .score-item .rank { width: 20px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65em; font-weight: 700; }
         .score-item .name { flex: 1; font-size: 0.8em; }
         .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.85em; }
         
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            padding: 10px 18px;
-            background: var(--dark);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            font-size: 0.8em;
-            z-index: 1000;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-        
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 10px 18px; background: var(--dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; font-size: 0.8em; z-index: 1000; opacity: 0; transition: all 0.4s; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast.success { border-color: var(--green); }
         .toast.error { border-color: var(--red); }
@@ -711,10 +189,7 @@
     <div class="container">
         <header class="header">
             <h1>🎤 Karaokê dos Veloso</h1>
-            <div class="status">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">Conectando...</span>
-            </div>
+            <div class="status"><div class="status-dot" id="statusDot"></div><span id="statusText">Conectando...</span></div>
         </header>
         
         <!-- LOGIN -->
@@ -722,11 +197,7 @@
             <div class="card login-card">
                 <h2>👋 Bem-vindo!</h2>
                 <div class="photo-section">
-                    <div class="photo-preview" id="photoPreview">
-                        <video id="cameraVideo" autoplay playsinline style="display:none;"></video>
-                        <img id="photoImg" style="display:none;">
-                        <span id="photoPlaceholder">📷</span>
-                    </div>
+                    <div class="photo-preview" id="photoPreview"><video id="cameraVideo" autoplay playsinline style="display:none;"></video><img id="photoImg" style="display:none;"><span id="photoPlaceholder">📷</span></div>
                     <button class="photo-btn" id="photoBtn" onclick="handlePhoto()">📸 Tirar Foto</button>
                 </div>
                 <input type="text" class="input-field" id="nameInput" placeholder="Seu nome" maxlength="20">
@@ -742,26 +213,20 @@
                 <div class="user-status" id="userStatus">Assistindo</div>
             </div>
             
-            <!-- Current Singer -->
             <div class="card" id="currentSingerCard">
                 <h2>🎙️ No palco</h2>
-                <div id="currentSinger">
-                    <div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>
-                </div>
+                <div id="currentSinger"><div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div></div>
             </div>
             
-            <!-- My Turn -->
             <div class="my-turn-card" id="myTurnCard" style="display: none;">
                 <div class="big-icon">🎤</div>
                 <h3>É SUA VEZ!</h3>
                 <p>Olhe para a TV e cante!</p>
-                <p class="tip">💡 Use o microfone da caixa de som</p>
             </div>
             
-            <!-- Interaction Section -->
             <div class="interaction-section" id="interactionSection">
                 <div class="applause-section">
-                    <button class="applause-btn" id="applauseBtn" onclick="sendApplause()">👏</button>
+                    <button class="applause-btn" onclick="sendApplause()">👏</button>
                     <div class="applause-count">Seus aplausos: <span id="myApplause">0</span></div>
                 </div>
                 
@@ -784,28 +249,19 @@
                     <div class="phrase-grid">
                         <button class="phrase-btn" onclick="sendPhrase('Uau!')">Uau! 🤩</button>
                         <button class="phrase-btn" onclick="sendPhrase('Arrasa!')">Arrasa! 💅</button>
-                        <button class="phrase-btn" onclick="sendPhrase('Canta muito!')">Canta muito! 🎤</button>
+                        <button class="phrase-btn" onclick="sendPhrase('Canta muito!')">Canta muito!</button>
                         <button class="phrase-btn" onclick="sendPhrase('Demais!')">Demais! 🔥</button>
-                        <button class="phrase-btn" onclick="sendPhrase('Nossa!')">Nossa! 😱</button>
-                        <button class="phrase-btn" onclick="sendPhrase('Top!')">Top! ⭐</button>
                     </div>
                 </div>
                 
-                <!-- Record Clip Button -->
-                <button class="record-btn" onclick="openRecordModal()">
-                    🎬 Gravar Clip (3s)
-                </button>
+                <button class="photo-capture-btn" onclick="openPhotoModal()">📸 Tirar Foto pro Telão</button>
             </div>
             
-            <!-- Voting -->
             <div class="card voting-card" id="votingCard" style="display: none;">
-                <div class="vote-alert">⭐ DÊ SUA NOTA AGORA! ⭐</div>
+                <div class="vote-alert">⭐ DÊ SUA NOTA! ⭐</div>
                 <div class="singer-name" id="votingFor">-</div>
                 <div class="song-name" id="votingSong">-</div>
-                
                 <div class="vote-timer-big" id="voteTimerBig">20</div>
-                <div class="vote-timer-label">segundos</div>
-                
                 <div class="stars">
                     <span class="star" onclick="selectStar(1)">⭐</span>
                     <span class="star" onclick="selectStar(2)">⭐</span>
@@ -813,28 +269,14 @@
                     <span class="star" onclick="selectStar(4)">⭐</span>
                     <span class="star" onclick="selectStar(5)">⭐</span>
                 </div>
-                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>Toque nas estrelas ⭐</button>
+                <button class="vote-btn" id="voteBtn" onclick="submitVote()" disabled>Toque nas estrelas</button>
             </div>
             
-            <!-- Actions -->
             <button class="action-btn btn-join" id="joinQueueBtn" onclick="showSearch()">🎤 Quero Cantar!</button>
             <button class="action-btn btn-leave" id="leaveQueueBtn" onclick="leaveQueue()" style="display: none;">❌ Sair da Fila</button>
             
-            <!-- Queue -->
-            <div class="card">
-                <h2>📋 Fila</h2>
-                <div class="queue-list" id="queueList">
-                    <div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>
-                </div>
-            </div>
-            
-            <!-- Scoreboard -->
-            <div class="card">
-                <h2>🏆 Placar</h2>
-                <div class="scoreboard" id="scoreboard">
-                    <div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>
-                </div>
-            </div>
+            <div class="card"><h2>📋 Fila</h2><div class="queue-list" id="queueList"><div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div></div></div>
+            <div class="card"><h2>🏆 Placar</h2><div class="scoreboard" id="scoreboard"><div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div></div></div>
             
             <button class="action-btn btn-secondary" onclick="resetUser()">🔄 Trocar Usuário</button>
         </div>
@@ -844,757 +286,262 @@
             <div class="card">
                 <button class="back-btn" onclick="hideSearch()">← Voltar</button>
                 <h2>🔍 Escolher Música</h2>
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Nome da música...">
-                    <button onclick="searchMusic()">🔍</button>
-                </div>
-                <div class="search-results" id="searchResults">
-                    <div class="search-status">Digite e toque 🔍</div>
-                </div>
+                <div class="search-box"><input type="text" id="searchInput" placeholder="Nome da música..."><button onclick="searchMusic()">🔍</button></div>
+                <div class="search-results" id="searchResults"><div class="search-status">Digite e toque 🔍</div></div>
             </div>
             <button class="action-btn btn-secondary" onclick="hideSearch()">← Cancelar</button>
         </div>
     </div>
     
-    <div class="toast" id="toast"></div>
-    
-    <!-- Record Modal -->
-    <div class="record-modal" id="recordModal">
-        <div class="record-status" id="recordStatus">📹 Aponte para quem está cantando</div>
-        <div class="record-preview">
-            <video id="recordVideo" autoplay playsinline muted></video>
-            <div class="record-timer hidden" id="recordTimer">
-                <div class="dot"></div>
-                <span id="recordCountdown">5</span>
-            </div>
-        </div>
-        <div class="record-controls" id="recordControls">
-            <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Cancelar</button>
-            <button class="btn-start-record" id="btnStartRecord" onclick="startRecording()">🔴 Gravar</button>
+    <!-- PHOTO MODAL -->
+    <div class="photo-modal" id="photoModal">
+        <div class="photo-modal-status" id="photoModalStatus">📸 Aponte para o cantor</div>
+        <div class="photo-modal-preview" id="photoModalPreview"><video id="modalVideo" autoplay playsinline></video></div>
+        <div class="photo-modal-btns" id="photoModalBtns">
+            <button class="btn-cancel-photo" onclick="closePhotoModal()">✕ Cancelar</button>
+            <button class="btn-capture" onclick="capturePhoto()">📸 Capturar</button>
         </div>
     </div>
     
+    <!-- SHARE CARD -->
+    <div class="share-card" id="shareCard">
+        <div class="share-preview" id="sharePreview">
+            <div class="share-header"><h3>🎤 Karaokê dos Veloso</h3><h1>Minha Performance</h1></div>
+            <div class="share-photo"><img id="sharePhotoImg" src=""><div class="no-photo" id="shareNoPhoto">🎤</div></div>
+            <div class="share-info">
+                <div class="name" id="shareName">-</div>
+                <div class="song" id="shareSong">-</div>
+                <div class="share-stats">
+                    <div class="share-stat"><div class="value" id="shareApplause">0</div><div class="label">👏 Aplausos</div></div>
+                    <div class="share-stat"><div class="value" id="shareStars">-</div><div class="label">⭐ Média</div></div>
+                </div>
+            </div>
+            <div class="share-score"><div class="pts" id="sharePoints">0</div><div class="label">pontos</div></div>
+        </div>
+        <div class="share-btns">
+            <button class="btn-download" onclick="downloadCard()">💾 Salvar Imagem</button>
+            <button class="btn-close-share" onclick="closeShareCard()">✕ Fechar</button>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast"></div>
     <canvas id="photoCanvas" style="display:none;"></canvas>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
     <script>
-        const CONFIG = {
-            firebase: {
-                apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
-                authDomain: "karaoke-46db0.firebaseapp.com",
-                databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
-                projectId: "karaoke-46db0"
-            },
-            youtubeApiKey: 'AIzaSyA3Qbdoyqg0EzUPrT0Qo_-HbygKLjTczoc'
-        };
+        const CONFIG = { firebase: { apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw", authDomain: "karaoke-46db0.firebaseapp.com", databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com", projectId: "karaoke-46db0" }, youtubeApiKey: 'AIzaSyA3Qbdoyqg0EzUPrT0Qo_-HbygKLjTczoc' };
         
-        let db, gameRef;
-        let player = { id: null, name: '', photo: null, queueId: null, inQueue: false, isMyTurn: false };
-        let voting = { id: null, selected: 0, voted: false };
-        let myApplause = 0;
-        let cameraStream = null;
-        let cameraActive = false;
-        let currentSingerId = null;
+        let db, gameRef, player = { id: null, name: '', photo: null, queueId: null, inQueue: false, isMyTurn: false };
+        let voting = { id: null, selected: 0, voted: false }, myApplause = 0, cameraStream = null, cameraActive = false, currentSingerId = null;
+        let modalStream = null, capturedPhoto = null, voteTimerInterval = null;
         
-        // Recording state
-        let recordStream = null;
-        let mediaRecorder = null;
-        let recordedChunks = [];
-        let recordedBlob = null;
-        
-        function init() {
-            initFirebase();
-            checkSession();
-            document.getElementById('nameInput').addEventListener('keypress', e => { if (e.key === 'Enter') joinGame(); });
-            document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') searchMusic(); });
-        }
+        function init() { initFirebase(); checkSession(); document.getElementById('nameInput').addEventListener('keypress', e => { if (e.key === 'Enter') joinGame(); }); document.getElementById('searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') searchMusic(); }); }
         
         function initFirebase() {
-            firebase.initializeApp(CONFIG.firebase);
-            db = firebase.database();
-            gameRef = db.ref('karaoke');
-            
-            db.ref('.info/connected').on('value', snap => {
-                const dot = document.getElementById('statusDot');
-                const text = document.getElementById('statusText');
-                dot.classList.toggle('online', snap.val());
-                text.textContent = snap.val() ? 'Conectado' : 'Offline';
-            });
+            firebase.initializeApp(CONFIG.firebase); db = firebase.database(); gameRef = db.ref('karaoke');
+            db.ref('.info/connected').on('value', snap => { document.getElementById('statusDot').classList.toggle('online', snap.val()); document.getElementById('statusText').textContent = snap.val() ? 'Conectado' : 'Offline'; });
         }
         
         function setupListeners() {
             gameRef.child('queue').on('value', snap => handleQueue(snap.val()));
             gameRef.child('scores').on('value', snap => updateScoreboard(snap.val()));
             gameRef.child('voting').on('value', snap => handleVoting(snap.val()));
-            
-            if (player.id) {
-                const ref = gameRef.child('participants/' + player.id);
-                ref.set({ name: player.name, timestamp: Date.now() });
-                ref.onDisconnect().remove();
-            }
+            gameRef.child('lastResult').on('value', snap => checkMyResult(snap.val()));
+            if (player.id) { const ref = gameRef.child('participants/' + player.id); ref.set({ name: player.name, timestamp: Date.now() }); ref.onDisconnect().remove(); }
         }
         
-        // ==================== PHOTO ====================
+        // PHOTO LOGIN
         async function handlePhoto() {
-            const video = document.getElementById('cameraVideo');
-            const img = document.getElementById('photoImg');
-            const placeholder = document.getElementById('photoPlaceholder');
-            const btn = document.getElementById('photoBtn');
-            
+            const video = document.getElementById('cameraVideo'), img = document.getElementById('photoImg'), placeholder = document.getElementById('photoPlaceholder'), btn = document.getElementById('photoBtn');
             if (!cameraActive) {
-                try {
-                    cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 300, height: 300 } });
-                    video.srcObject = cameraStream;
-                    video.style.display = 'block';
-                    img.style.display = 'none';
-                    placeholder.style.display = 'none';
-                    btn.textContent = '📸 Capturar';
-                    btn.classList.add('capturing');
-                    cameraActive = true;
-                } catch (e) { showToast('Câmera indisponível', 'error'); }
+                try { cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 300, height: 300 } }); video.srcObject = cameraStream; video.style.display = 'block'; img.style.display = 'none'; placeholder.style.display = 'none'; btn.textContent = '📸 Capturar'; btn.classList.add('capturing'); cameraActive = true; }
+                catch (e) { showToast('Câmera indisponível', 'error'); }
             } else {
-                const canvas = document.getElementById('photoCanvas');
-                canvas.width = 200; canvas.height = 200;
-                const ctx = canvas.getContext('2d');
-                const size = Math.min(video.videoWidth, video.videoHeight);
-                const x = (video.videoWidth - size) / 2;
-                const y = (video.videoHeight - size) / 2;
+                const canvas = document.getElementById('photoCanvas'); canvas.width = 200; canvas.height = 200; const ctx = canvas.getContext('2d');
+                const size = Math.min(video.videoWidth, video.videoHeight), x = (video.videoWidth - size) / 2, y = (video.videoHeight - size) / 2;
                 ctx.drawImage(video, x, y, size, size, 0, 0, 200, 200);
-                
-                player.photo = canvas.toDataURL('image/jpeg', 0.7);
-                img.src = player.photo;
-                img.style.display = 'block';
-                video.style.display = 'none';
-                
-                cameraStream.getTracks().forEach(t => t.stop());
-                cameraActive = false;
-                btn.textContent = '🔄 Trocar Foto';
-                btn.classList.remove('capturing');
-                showToast('Foto capturada!', 'success');
+                player.photo = canvas.toDataURL('image/jpeg', 0.7); img.src = player.photo; img.style.display = 'block'; video.style.display = 'none';
+                cameraStream.getTracks().forEach(t => t.stop()); cameraActive = false; btn.textContent = '🔄 Trocar Foto'; btn.classList.remove('capturing');
             }
         }
         
-        // ==================== SESSION ====================
-        function checkSession() {
-            const id = localStorage.getItem('karaoke_id');
-            const name = localStorage.getItem('karaoke_name');
-            const photo = localStorage.getItem('karaoke_photo');
-            if (id && name) {
-                player.id = id;
-                player.name = name;
-                player.photo = photo;
-                enterMain();
-            }
-        }
+        function checkSession() { const id = localStorage.getItem('karaoke_id'), name = localStorage.getItem('karaoke_name'), photo = localStorage.getItem('karaoke_photo'); if (id && name) { player.id = id; player.name = name; player.photo = photo; enterMain(); } }
         
         function joinGame() {
-            const name = document.getElementById('nameInput').value.trim();
-            if (!name) return showToast('Digite seu nome!', 'error');
-            
+            const name = document.getElementById('nameInput').value.trim(); if (!name) return showToast('Digite seu nome!', 'error');
             if (cameraStream) cameraStream.getTracks().forEach(t => t.stop());
-            
-            player.id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
-            player.name = name;
-            
-            localStorage.setItem('karaoke_id', player.id);
-            localStorage.setItem('karaoke_name', player.name);
-            if (player.photo) localStorage.setItem('karaoke_photo', player.photo);
-            
+            player.id = 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4); player.name = name;
+            localStorage.setItem('karaoke_id', player.id); localStorage.setItem('karaoke_name', player.name); if (player.photo) localStorage.setItem('karaoke_photo', player.photo);
             enterMain();
         }
         
-        function enterMain() {
-            document.getElementById('userName').textContent = player.name;
-            const avatar = document.getElementById('userAvatar');
-            avatar.innerHTML = player.photo ? `<img src="${player.photo}">` : '🎤';
-            showScreen('main');
-            setupListeners();
-            showToast('Bem-vindo!', 'success');
-        }
-        
-        function resetUser() {
-            if (confirm('Sair e recadastrar?')) {
-                if (player.queueId) gameRef.child('queue/' + player.queueId).remove();
-                if (player.id) gameRef.child('participants/' + player.id).remove();
-                localStorage.clear();
-                location.reload();
-            }
-        }
-        
-        // ==================== SCREENS ====================
-        function showScreen(name) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(name + 'Screen').classList.add('active');
-        }
-        
+        function enterMain() { document.getElementById('userName').textContent = player.name; document.getElementById('userAvatar').innerHTML = player.photo ? `<img src="${player.photo}">` : '🎤'; showScreen('main'); setupListeners(); }
+        function resetUser() { if (confirm('Sair?')) { if (player.queueId) gameRef.child('queue/' + player.queueId).remove(); if (player.id) gameRef.child('participants/' + player.id).remove(); localStorage.clear(); location.reload(); } }
+        function showScreen(name) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(name + 'Screen').classList.add('active'); }
         function showSearch() { showScreen('search'); document.getElementById('searchInput').focus(); }
         function hideSearch() { showScreen('main'); document.getElementById('searchResults').innerHTML = '<div class="search-status">Digite e toque 🔍</div>'; document.getElementById('searchInput').value = ''; }
         
-        // ==================== INTERACTIONS ====================
-        function sendApplause() {
-            if (!currentSingerId || player.isMyTurn) return;
-            
-            gameRef.child('applause').transaction(c => (c || 0) + 1);
-            gameRef.child('reactions').push({ type: 'clap', name: player.name, photo: player.photo });
-            
-            myApplause++;
-            document.getElementById('myApplause').textContent = myApplause;
-            
-            if (navigator.vibrate) navigator.vibrate(30);
+        // PHOTO CAPTURE
+        async function openPhotoModal() {
+            if (!currentSingerId || player.isMyTurn) return showToast('Aguarde alguém cantar!', 'error');
+            document.getElementById('photoModal').classList.add('show');
+            document.getElementById('photoModalStatus').textContent = '📸 Aponte para o cantor';
+            document.getElementById('photoModalBtns').innerHTML = '<button class="btn-cancel-photo" onclick="closePhotoModal()">✕ Cancelar</button><button class="btn-capture" onclick="capturePhoto()">📸 Capturar</button>';
+            try { modalStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: 640, height: 640 } }); document.getElementById('modalVideo').srcObject = modalStream; }
+            catch (e) { showToast('Câmera indisponível', 'error'); closePhotoModal(); }
         }
         
-        function sendEmoji(emoji) {
-            if (!currentSingerId || player.isMyTurn) return;
-            
-            gameRef.child('reactions').push({
-                type: 'emoji',
-                value: emoji,
-                name: player.name,
-                photo: player.photo
-            });
-            
-            if (navigator.vibrate) navigator.vibrate(30);
-            showToast(emoji + ' enviado!', 'success');
+        function closePhotoModal() { document.getElementById('photoModal').classList.remove('show'); if (modalStream) { modalStream.getTracks().forEach(t => t.stop()); modalStream = null; } capturedPhoto = null; }
+        
+        function capturePhoto() {
+            const video = document.getElementById('modalVideo'), canvas = document.getElementById('photoCanvas');
+            canvas.width = 400; canvas.height = 400; const ctx = canvas.getContext('2d');
+            const size = Math.min(video.videoWidth, video.videoHeight), x = (video.videoWidth - size) / 2, y = (video.videoHeight - size) / 2;
+            ctx.drawImage(video, x, y, size, size, 0, 0, 400, 400);
+            capturedPhoto = canvas.toDataURL('image/jpeg', 0.6);
+            if (modalStream) { modalStream.getTracks().forEach(t => t.stop()); modalStream = null; }
+            document.getElementById('photoModalPreview').innerHTML = `<img src="${capturedPhoto}">`;
+            document.getElementById('photoModalStatus').textContent = '✅ Foto capturada!';
+            document.getElementById('photoModalBtns').innerHTML = '<button class="btn-cancel-photo" onclick="closePhotoModal()">✕ Descartar</button><button class="btn-send-photo" onclick="sendPhoto()">📤 Enviar</button>';
+            if (navigator.vibrate) navigator.vibrate(50);
         }
         
-        function sendPhrase(phrase) {
-            if (!currentSingerId || player.isMyTurn) return;
-            
-            gameRef.child('reactions').push({
-                type: 'phrase',
-                value: phrase,
-                name: player.name,
-                photo: player.photo
-            });
-            
-            if (navigator.vibrate) navigator.vibrate(30);
-            showToast('"' + phrase + '" enviado!', 'success');
+        function sendPhoto() {
+            if (!capturedPhoto) return;
+            gameRef.child('photos').push({ image: capturedPhoto, senderName: player.name, senderPhoto: player.photo, timestamp: Date.now() });
+            showToast('Foto enviada! 📸', 'success');
+            if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            closePhotoModal();
         }
         
-        // ==================== SEARCH ====================
+        // INTERACTIONS
+        function sendApplause() { if (!currentSingerId || player.isMyTurn) return; gameRef.child('applause').transaction(c => (c || 0) + 1); gameRef.child('reactions').push({ type: 'clap', name: player.name, photo: player.photo }); myApplause++; document.getElementById('myApplause').textContent = myApplause; if (navigator.vibrate) navigator.vibrate(30); }
+        function sendEmoji(emoji) { if (!currentSingerId || player.isMyTurn) return; gameRef.child('reactions').push({ type: 'emoji', value: emoji, name: player.name, photo: player.photo }); if (navigator.vibrate) navigator.vibrate(30); showToast(emoji + ' enviado!', 'success'); }
+        function sendPhrase(phrase) { if (!currentSingerId || player.isMyTurn) return; gameRef.child('reactions').push({ type: 'phrase', value: phrase, name: player.name, photo: player.photo }); if (navigator.vibrate) navigator.vibrate(30); showToast('"' + phrase + '"', 'success'); }
+        
+        // SEARCH
         async function searchMusic() {
-            const query = document.getElementById('searchInput').value.trim();
-            if (!query) return showToast('Digite algo', 'error');
-            
-            const container = document.getElementById('searchResults');
-            container.innerHTML = '<div class="search-status">🔄 Buscando...</div>';
-            
+            const query = document.getElementById('searchInput').value.trim(); if (!query) return;
+            document.getElementById('searchResults').innerHTML = '<div class="search-status">🔄 Buscando...</div>';
             try {
-                const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&q=${encodeURIComponent(query + ' karaoke')}&type=video&key=${CONFIG.youtubeApiKey}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.error) throw new Error(data.error.message);
-                if (!data.items?.length) { container.innerHTML = '<div class="search-status">Nenhum resultado</div>'; return; }
-                
-                container.innerHTML = data.items.map(item => {
-                    const title = item.snippet.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                    return `<div class="result-item" onclick="selectMusic('${item.id.videoId}', '${title}')">
-                        <img src="${item.snippet.thumbnails.medium.url}">
-                        <div class="title">${item.snippet.title}</div>
-                    </div>`;
-                }).join('');
-            } catch (e) { container.innerHTML = `<div class="search-status error">❌ ${e.message}</div>`; }
+                const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&q=${encodeURIComponent(query + ' karaoke')}&type=video&key=${CONFIG.youtubeApiKey}`);
+                const data = await res.json();
+                if (!data.items?.length) { document.getElementById('searchResults').innerHTML = '<div class="search-status">Nenhum resultado</div>'; return; }
+                document.getElementById('searchResults').innerHTML = data.items.map(item => `<div class="result-item" onclick="selectMusic('${item.id.videoId}', '${item.snippet.title.replace(/'/g, "\\'")}')"><img src="${item.snippet.thumbnails.medium.url}"><div class="title">${item.snippet.title}</div></div>`).join('');
+            } catch (e) { document.getElementById('searchResults').innerHTML = '<div class="search-status">Erro na busca</div>'; }
         }
         
         function selectMusic(videoId, title) {
-            const ref = gameRef.child('queue').push();
-            player.queueId = ref.key;
-            
-            ref.set({
-                odPlayerId: player.id,
-                name: player.name,
-                photo: player.photo || null,
-                song: title.replace(/&quot;/g, '"').replace(/&#39;/g, "'"),
-                videoId: videoId,
-                timestamp: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                player.inQueue = true;
-                hideSearch();
-                showToast('Entrou na fila!', 'success');
-                updateButtons();
-            });
+            const ref = gameRef.child('queue').push(); player.queueId = ref.key;
+            ref.set({ odPlayerId: player.id, name: player.name, photo: player.photo || null, song: title, videoId, timestamp: firebase.database.ServerValue.TIMESTAMP }).then(() => { player.inQueue = true; hideSearch(); showToast('Entrou na fila!', 'success'); updateButtons(); });
         }
         
-        // ==================== QUEUE ====================
-        function leaveQueue() {
-            if (player.queueId) {
-                gameRef.child('queue/' + player.queueId).remove().then(() => {
-                    player.queueId = null;
-                    player.inQueue = false;
-                    player.isMyTurn = false;
-                    showToast('Saiu da fila', 'success');
-                    updateButtons();
-                    document.getElementById('myTurnCard').style.display = 'none';
-                    document.getElementById('currentSingerCard').style.display = 'block';
-                });
-            }
-        }
+        function leaveQueue() { if (player.queueId) { gameRef.child('queue/' + player.queueId).remove().then(() => { player.queueId = null; player.inQueue = false; player.isMyTurn = false; showToast('Saiu da fila', 'success'); updateButtons(); document.getElementById('myTurnCard').style.display = 'none'; document.getElementById('currentSingerCard').style.display = 'block'; }); } }
         
-        function handleQueue(queue) {
-            updateQueueList(queue);
-            updateCurrentSinger(queue);
-            checkMyPosition(queue);
-        }
+        function handleQueue(queue) { updateQueueList(queue); updateCurrentSinger(queue); checkMyPosition(queue); }
         
         function updateQueueList(queue) {
             const el = document.getElementById('queueList');
-            if (!queue || !Object.keys(queue).length) {
-                el.innerHTML = '<div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>';
-                return;
-            }
-            
+            if (!queue || !Object.keys(queue).length) { el.innerHTML = '<div class="empty-list"><div class="icon">🎵</div><p>Fila vazia</p></div>'; return; }
             const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
-            el.innerHTML = items.map((item, i) => `
-                <div class="queue-item ${item.odPlayerId === player.id ? 'me' : ''}">
-                    <div class="pos">${i + 1}</div>
-                    <div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div>
-                    <div class="info">
-                        <div class="name">${item.name}${item.odPlayerId === player.id ? ' (você)' : ''}</div>
-                        <div class="song">${item.song || 'Escolhendo...'}</div>
-                    </div>
-                </div>
-            `).join('');
+            el.innerHTML = items.map((item, i) => `<div class="queue-item ${item.odPlayerId === player.id ? 'me' : ''}"><div class="pos">${i + 1}</div><div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div><div class="info"><div class="name">${item.name}${item.odPlayerId === player.id ? ' (você)' : ''}</div><div class="song">${item.song || ''}</div></div></div>`).join('');
         }
         
         function updateCurrentSinger(queue) {
-            const el = document.getElementById('currentSinger');
-            const interactionSection = document.getElementById('interactionSection');
-            
-            if (!queue || !Object.keys(queue).length) {
-                el.innerHTML = '<div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>';
-                interactionSection.classList.remove('active');
-                currentSingerId = null;
-                return;
-            }
-            
-            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
-            const first = items[0];
-            
-            // Reset applause counter when singer changes
-            if (currentSingerId !== first.id) {
-                myApplause = 0;
-                document.getElementById('myApplause').textContent = '0';
-            }
-            
+            const el = document.getElementById('currentSinger'), interactionSection = document.getElementById('interactionSection');
+            if (!queue || !Object.keys(queue).length) { el.innerHTML = '<div class="no-singer"><div class="icon">🎤</div><p>Ninguém cantando</p></div>'; interactionSection.classList.remove('active'); currentSingerId = null; return; }
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp), first = items[0];
+            if (currentSingerId !== first.id) { myApplause = 0; document.getElementById('myApplause').textContent = '0'; }
             currentSingerId = first.id;
-            
-            el.innerHTML = `<div class="current-singer">
-                <div class="label">🎙️ No palco</div>
-                <div class="name">${first.name}</div>
-                <div class="song">${first.song || 'Escolhendo...'}</div>
-            </div>`;
-            
-            // Show interaction section if someone is singing and it's not me
-            if (first.odPlayerId !== player.id) {
-                interactionSection.classList.add('active');
-            } else {
-                interactionSection.classList.remove('active');
-            }
+            el.innerHTML = `<div class="current-singer"><div class="label">🎙️ No palco</div><div class="name">${first.name}</div><div class="song">${first.song || ''}</div></div>`;
+            interactionSection.classList.toggle('active', first.odPlayerId !== player.id);
         }
         
         function checkMyPosition(queue) {
-            const statusEl = document.getElementById('userStatus');
-            const myTurnCard = document.getElementById('myTurnCard');
-            const singerCard = document.getElementById('currentSingerCard');
-            
-            player.inQueue = false;
-            player.isMyTurn = false;
-            
-            if (!queue) {
-                statusEl.textContent = 'Assistindo';
-                statusEl.className = 'user-status';
-                myTurnCard.style.display = 'none';
-                singerCard.style.display = 'block';
-                updateButtons();
-                return;
-            }
-            
-            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
-            const myIndex = items.findIndex(i => i.odPlayerId === player.id);
-            
-            if (myIndex === 0) {
-                player.inQueue = true;
-                player.isMyTurn = true;
-                player.queueId = items[0].id;
-                statusEl.textContent = '🎤 Sua vez!';
-                statusEl.className = 'user-status singing';
-                myTurnCard.style.display = 'block';
-                singerCard.style.display = 'none';
-                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
-            } else if (myIndex > 0) {
-                player.inQueue = true;
-                player.queueId = items[myIndex].id;
-                statusEl.textContent = `#${myIndex + 1} na fila`;
-                statusEl.className = 'user-status queue';
-                myTurnCard.style.display = 'none';
-                singerCard.style.display = 'block';
-            } else {
-                statusEl.textContent = 'Assistindo';
-                statusEl.className = 'user-status';
-                myTurnCard.style.display = 'none';
-                singerCard.style.display = 'block';
-            }
-            
+            const statusEl = document.getElementById('userStatus'), myTurnCard = document.getElementById('myTurnCard'), singerCard = document.getElementById('currentSingerCard');
+            player.inQueue = false; player.isMyTurn = false;
+            if (!queue) { statusEl.textContent = 'Assistindo'; statusEl.className = 'user-status'; myTurnCard.style.display = 'none'; singerCard.style.display = 'block'; updateButtons(); return; }
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp), myIndex = items.findIndex(i => i.odPlayerId === player.id);
+            if (myIndex === 0) { player.inQueue = true; player.isMyTurn = true; player.queueId = items[0].id; statusEl.textContent = '🎤 Sua vez!'; statusEl.className = 'user-status singing'; myTurnCard.style.display = 'block'; singerCard.style.display = 'none'; if (navigator.vibrate) navigator.vibrate([200, 100, 200]); }
+            else if (myIndex > 0) { player.inQueue = true; player.queueId = items[myIndex].id; statusEl.textContent = `#${myIndex + 1} na fila`; statusEl.className = 'user-status queue'; myTurnCard.style.display = 'none'; singerCard.style.display = 'block'; }
+            else { statusEl.textContent = 'Assistindo'; statusEl.className = 'user-status'; myTurnCard.style.display = 'none'; singerCard.style.display = 'block'; }
             updateButtons();
         }
         
-        function updateButtons() {
-            const joinBtn = document.getElementById('joinQueueBtn');
-            const leaveBtn = document.getElementById('leaveQueueBtn');
-            
-            if (player.isMyTurn) {
-                joinBtn.style.display = 'none';
-                leaveBtn.style.display = 'none';
-            } else if (player.inQueue) {
-                joinBtn.style.display = 'none';
-                leaveBtn.style.display = 'flex';
-            } else {
-                joinBtn.style.display = 'flex';
-                leaveBtn.style.display = 'none';
-            }
-        }
+        function updateButtons() { const joinBtn = document.getElementById('joinQueueBtn'), leaveBtn = document.getElementById('leaveQueueBtn'); if (player.isMyTurn) { joinBtn.style.display = 'none'; leaveBtn.style.display = 'none'; } else if (player.inQueue) { joinBtn.style.display = 'none'; leaveBtn.style.display = 'flex'; } else { joinBtn.style.display = 'flex'; leaveBtn.style.display = 'none'; } }
         
-        // ==================== VOTING ====================
-        let voteTimerInterval = null;
-        
+        // VOTING
         function handleVoting(data) {
-            const card = document.getElementById('votingCard');
-            const interactionSection = document.getElementById('interactionSection');
-            
-            if (!data || !data.active) {
-                card.style.display = 'none';
-                resetVoting();
-                if (voteTimerInterval) clearInterval(voteTimerInterval);
-                return;
-            }
-            
-            // Hide interactions during voting
+            const card = document.getElementById('votingCard'), interactionSection = document.getElementById('interactionSection');
+            if (!data || !data.active) { card.style.display = 'none'; resetVoting(); if (voteTimerInterval) clearInterval(voteTimerInterval); return; }
             interactionSection.classList.remove('active');
-            
             if (data.singerId === player.queueId) { card.style.display = 'none'; return; }
-            
-            if (data.singerId !== voting.id) {
-                resetVoting();
-                voting.id = data.singerId;
-                
-                // Vibrate and scroll to voting
-                if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 200]);
-                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // Start local timer
-                startVoteTimer(data.startTime);
-            }
-            
-            card.style.display = 'block';
-            document.getElementById('votingFor').textContent = data.singerName;
-            document.getElementById('votingSong').textContent = data.singerSong || '';
+            if (data.singerId !== voting.id) { resetVoting(); voting.id = data.singerId; if (navigator.vibrate) navigator.vibrate([200, 100, 200]); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); startVoteTimer(data.startTime); }
+            card.style.display = 'block'; document.getElementById('votingFor').textContent = data.singerName; document.getElementById('votingSong').textContent = data.singerSong || '';
         }
         
         function startVoteTimer(startTime) {
             const timerEl = document.getElementById('voteTimerBig');
-            
             if (voteTimerInterval) clearInterval(voteTimerInterval);
+            function update() { const remaining = Math.max(0, 20 - Math.floor((Date.now() - startTime) / 1000)); timerEl.textContent = remaining; timerEl.classList.toggle('urgent', remaining <= 5); if (remaining <= 5 && remaining > 0 && !voting.voted && navigator.vibrate) navigator.vibrate(100); if (remaining <= 0) clearInterval(voteTimerInterval); }
+            update(); voteTimerInterval = setInterval(update, 1000);
+        }
+        
+        function selectStar(value) { if (voting.voted) return; voting.selected = value; document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < value)); const btn = document.getElementById('voteBtn'); btn.disabled = false; const labels = ['', 'Fraco 😕', 'Regular 😐', 'Bom! 🙂', 'Ótimo! 😄', 'INCRÍVEL! 🤩']; btn.textContent = `VOTAR ${value}⭐ - ${labels[value]}`; if (navigator.vibrate) navigator.vibrate(30); }
+        
+        function submitVote() { if (!voting.selected || voting.voted) return; gameRef.child('voting/votes/' + player.id).set(voting.selected).then(() => { voting.voted = true; const btn = document.getElementById('voteBtn'); btn.disabled = true; btn.textContent = '✓ ENVIADO!'; btn.classList.add('voted'); if (navigator.vibrate) navigator.vibrate([100, 50, 100]); showToast('Voto enviado! 🎉', 'success'); }); }
+        
+        function resetVoting() { voting = { id: null, selected: 0, voted: false }; document.querySelectorAll('.star').forEach(s => s.classList.remove('active')); const btn = document.getElementById('voteBtn'); btn.disabled = true; btn.textContent = 'Toque nas estrelas'; btn.classList.remove('voted'); document.getElementById('voteTimerBig').textContent = '20'; document.getElementById('voteTimerBig').classList.remove('urgent'); }
+        
+        // SHARE CARD
+        function checkMyResult(result) {
+            if (!result || !result.singerName) return;
+            // Verificar se é meu resultado (pelo nome)
+            if (result.singerName === player.name) { showShareCard(result); }
+        }
+        
+        function showShareCard(result) {
+            document.getElementById('shareName').textContent = result.singerName;
+            document.getElementById('shareSong').textContent = result.singerSong || '';
+            document.getElementById('shareApplause').textContent = result.applause || 0;
+            document.getElementById('shareStars').textContent = result.voteAvg || '-';
+            document.getElementById('sharePoints').textContent = result.totalScore || 0;
             
-            function updateTimer() {
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                const remaining = Math.max(0, 20 - elapsed);
-                
-                timerEl.textContent = remaining;
-                
-                if (remaining <= 5) {
-                    timerEl.classList.add('urgent');
-                    if (remaining > 0 && !voting.voted && navigator.vibrate) {
-                        navigator.vibrate(100);
-                    }
-                } else {
-                    timerEl.classList.remove('urgent');
-                }
-                
-                if (remaining <= 0) {
-                    clearInterval(voteTimerInterval);
-                }
+            if (result.singerPhoto) { document.getElementById('sharePhotoImg').src = result.singerPhoto; document.getElementById('sharePhotoImg').style.display = 'block'; document.getElementById('shareNoPhoto').style.display = 'none'; }
+            else { document.getElementById('sharePhotoImg').style.display = 'none'; document.getElementById('shareNoPhoto').style.display = 'flex'; }
+            
+            document.getElementById('shareCard').classList.add('show');
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 100]);
+        }
+        
+        function closeShareCard() { document.getElementById('shareCard').classList.remove('show'); }
+        
+        async function downloadCard() {
+            try {
+                const preview = document.getElementById('sharePreview');
+                const canvas = await html2canvas(preview, { backgroundColor: null, scale: 2 });
+                const link = document.createElement('a');
+                link.download = `karaoke-${player.name}-${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('Imagem salva! 💾', 'success');
+            } catch (e) {
+                console.error(e);
+                showToast('Erro ao salvar', 'error');
             }
-            
-            updateTimer();
-            voteTimerInterval = setInterval(updateTimer, 1000);
         }
         
-        function selectStar(value) {
-            if (voting.voted) return;
-            voting.selected = value;
-            document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('active', i < value));
-            
-            const btn = document.getElementById('voteBtn');
-            btn.disabled = false;
-            
-            const labels = ['', 'Fraco 😕', 'Regular 😐', 'Bom! 🙂', 'Ótimo! 😄', 'INCRÍVEL! 🤩'];
-            btn.textContent = `VOTAR ${value} ⭐ - ${labels[value]}`;
-            
-            if (navigator.vibrate) navigator.vibrate(30);
-        }
-        
-        function submitVote() {
-            if (!voting.selected || voting.voted) return;
-            gameRef.child('voting/votes/' + player.id).set(voting.selected).then(() => {
-                voting.voted = true;
-                const btn = document.getElementById('voteBtn');
-                btn.disabled = true;
-                btn.textContent = '✓ VOTO ENVIADO!';
-                btn.classList.add('voted');
-                
-                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-                
-                const messages = ['Valeu!', 'Show!', 'Votou!', 'Feito!', 'Top!'];
-                showToast(messages[Math.floor(Math.random() * messages.length)] + ' 🎉', 'success');
-            });
-        }
-        
-        function resetVoting() {
-            voting = { id: null, selected: 0, voted: false };
-            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
-            const btn = document.getElementById('voteBtn');
-            btn.disabled = true;
-            btn.textContent = 'Toque nas estrelas ⭐';
-            btn.classList.remove('voted');
-            
-            const timerEl = document.getElementById('voteTimerBig');
-            timerEl.textContent = '20';
-            timerEl.classList.remove('urgent');
-        }
-        
-        // ==================== SCOREBOARD ====================
         function updateScoreboard(scores) {
             const el = document.getElementById('scoreboard');
-            if (!scores || !Object.keys(scores).length) {
-                el.innerHTML = '<div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
-                return;
-            }
-            
-            const medals = ['🥇', '🥈', '🥉'];
-            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-            el.innerHTML = sorted.map(([name, pts], i) => `
-                <div class="score-item">
-                    ${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i + 1}</div>`}
-                    <div class="name">${name}</div>
-                    <div class="pts">${pts} pts</div>
-                </div>
-            `).join('');
+            if (!scores || !Object.keys(scores).length) { el.innerHTML = '<div class="empty-list"><div class="icon">⭐</div><p>Sem pontuações</p></div>'; return; }
+            const medals = ['🥇', '🥈', '🥉'], sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            el.innerHTML = sorted.map(([name, pts], i) => `<div class="score-item">${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i + 1}</div>`}<div class="name">${name}</div><div class="pts">${pts} pts</div></div>`).join('');
         }
         
-        function showToast(msg, type = '') {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.className = 'toast ' + type + ' show';
-            setTimeout(() => toast.classList.remove('show'), 2500);
-        }
-        
-        // ==================== CLIP RECORDING ====================
-        async function openRecordModal() {
-            if (!currentSingerId || player.isMyTurn) {
-                showToast('Aguarde alguém cantar!', 'error');
-                return;
-            }
-            
-            const modal = document.getElementById('recordModal');
-            const video = document.getElementById('recordVideo');
-            const status = document.getElementById('recordStatus');
-            const timer = document.getElementById('recordTimer');
-            const controls = document.getElementById('recordControls');
-            
-            modal.classList.add('show');
-            status.textContent = '📹 Aponte para quem está cantando';
-            timer.classList.add('hidden');
-            
-            // Reset controls
-            controls.innerHTML = `
-                <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Cancelar</button>
-                <button class="btn-start-record" onclick="startRecording()">🔴 Gravar</button>
-            `;
-            
-            try {
-                // Resolução BAIXA para funcionar bem
-                recordStream = await navigator.mediaDevices.getUserMedia({
-                    video: { 
-                        facingMode: 'environment',
-                        width: { ideal: 240 },
-                        height: { ideal: 320 },
-                        frameRate: { ideal: 15 }
-                    },
-                    audio: false
-                });
-                video.srcObject = recordStream;
-                
-                // Notify TV that someone is about to record
-                gameRef.child('recording').transaction(c => (c || 0) + 1);
-                
-            } catch (e) {
-                showToast('Câmera indisponível', 'error');
-                closeRecordModal();
-            }
-        }
-        
-        function closeRecordModal() {
-            const modal = document.getElementById('recordModal');
-            modal.classList.remove('show');
-            
-            if (recordStream) {
-                recordStream.getTracks().forEach(t => t.stop());
-                recordStream = null;
-            }
-            
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                mediaRecorder.stop();
-            }
-            
-            // Decrease recording count
-            gameRef.child('recording').transaction(c => Math.max(0, (c || 1) - 1));
-            
-            recordedChunks = [];
-            recordedBlob = null;
-        }
-        
-        function startRecording() {
-            if (!recordStream) return;
-            
-            const status = document.getElementById('recordStatus');
-            const timer = document.getElementById('recordTimer');
-            const countdown = document.getElementById('recordCountdown');
-            const controls = document.getElementById('recordControls');
-            
-            recordedChunks = [];
-            
-            // Setup MediaRecorder com BAIXA qualidade
-            const options = { 
-                mimeType: 'video/webm;codecs=vp8',
-                videoBitsPerSecond: 100000 // 100kbps - bem baixo
-            };
-            
-            try {
-                mediaRecorder = new MediaRecorder(recordStream, options);
-            } catch (e) {
-                // Fallback sem especificar codec
-                try {
-                    mediaRecorder = new MediaRecorder(recordStream, { videoBitsPerSecond: 100000 });
-                } catch (e2) {
-                    mediaRecorder = new MediaRecorder(recordStream);
-                }
-            }
-            
-            mediaRecorder.ondataavailable = (e) => {
-                if (e.data.size > 0) {
-                    recordedChunks.push(e.data);
-                }
-            };
-            
-            mediaRecorder.onstop = () => {
-                recordedBlob = new Blob(recordedChunks, { type: 'video/webm' });
-                showRecordedPreview();
-            };
-            
-            // Start recording
-            mediaRecorder.start();
-            
-            status.textContent = '🔴 Gravando...';
-            timer.classList.remove('hidden');
-            controls.innerHTML = '';
-            
-            // Vibrate
-            if (navigator.vibrate) navigator.vibrate(100);
-            
-            // Countdown - 3 segundos para arquivo menor
-            let seconds = 3;
-            countdown.textContent = seconds;
-            
-            const interval = setInterval(() => {
-                seconds--;
-                countdown.textContent = seconds;
-                
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    mediaRecorder.stop();
-                }
-            }, 1000);
-        }
-        
-        function showRecordedPreview() {
-            const status = document.getElementById('recordStatus');
-            const timer = document.getElementById('recordTimer');
-            const controls = document.getElementById('recordControls');
-            const video = document.getElementById('recordVideo');
-            
-            timer.classList.add('hidden');
-            status.textContent = '✅ Clip gravado! Enviar?';
-            
-            // Stop live preview
-            if (recordStream) {
-                recordStream.getTracks().forEach(t => t.stop());
-                recordStream = null;
-            }
-            
-            // Show recorded video
-            const url = URL.createObjectURL(recordedBlob);
-            video.srcObject = null;
-            video.src = url;
-            video.loop = true;
-            video.muted = true;
-            video.play().catch(e => console.log('Preview play error:', e));
-            
-            console.log('Blob size:', Math.round(recordedBlob.size / 1024), 'KB');
-            console.log('Blob type:', recordedBlob.type);
-            
-            // Show send/cancel buttons
-            controls.innerHTML = `
-                <button class="btn-cancel-record" onclick="closeRecordModal()">✕ Descartar</button>
-                <button class="btn-send-clip" onclick="sendClip()">📤 Enviar</button>
-            `;
-        }
-        
-        async function sendClip() {
-            if (!recordedBlob) return;
-            
-            const status = document.getElementById('recordStatus');
-            const controls = document.getElementById('recordControls');
-            
-            status.textContent = '📤 Enviando...';
-            controls.innerHTML = '';
-            
-            try {
-                // Convert blob to base64
-                const base64 = await blobToBase64(recordedBlob);
-                
-                console.log('Clip size:', Math.round(base64.length / 1024), 'KB');
-                console.log('Clip type:', base64.substring(0, 50));
-                
-                // Send to Firebase
-                await gameRef.child('clips').push({
-                    video: base64,
-                    name: player.name,
-                    photo: player.photo || null,
-                    timestamp: Date.now()
-                });
-                
-                showToast('Clip enviado! 🎬', 'success');
-                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-                closeRecordModal();
-                
-            } catch (e) {
-                console.error('Erro ao enviar clip:', e);
-                showToast('Erro ao enviar', 'error');
-                closeRecordModal();
-            }
-        }
-        
-        function blobToBase64(blob) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-        }
+        function showToast(msg, type = '') { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast ' + type + ' show'; setTimeout(() => t.classList.remove('show'), 2500); }
         
         document.addEventListener('DOMContentLoaded', init);
     </script>

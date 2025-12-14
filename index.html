@@ -29,803 +29,220 @@
             min-height: 100vh;
         }
         
-        /* ==================== TUTORIAL ==================== */
         .tutorial-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            background: linear-gradient(135deg, var(--darker), var(--dark));
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-y: auto;
             padding: 20px;
         }
         
         .tutorial-overlay.hidden { display: none; }
         
-        .tutorial-box {
-            max-width: 700px;
-            padding: 40px;
-            text-align: center;
-        }
+        .tutorial-box { max-width: 700px; padding: 40px; text-align: center; }
         
         .tutorial-box h1 {
             font-size: 2.5em;
             font-weight: 900;
             margin-bottom: 10px;
-            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink), var(--purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .tutorial-box .subtitle {
-            font-size: 1.2em;
-            opacity: 0.8;
-            margin-bottom: 35px;
-        }
-        
-        .tutorial-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-bottom: 35px;
-            text-align: left;
-        }
-        
-        .tutorial-step {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 18px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            border-left: 4px solid var(--cyan);
-        }
-        
-        .tutorial-step .icon { font-size: 2em; min-width: 45px; text-align: center; }
-        .tutorial-step .text h3 { font-size: 1em; font-weight: 700; margin-bottom: 4px; }
-        .tutorial-step .text p { font-size: 0.85em; opacity: 0.8; line-height: 1.4; }
-        
-        .tutorial-start-btn {
-            padding: 18px 50px;
-            font-size: 1.2em;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, var(--cyan), var(--green));
-            color: var(--darker);
-            cursor: pointer;
-        }
-        
-        /* ==================== APP ==================== */
-        .app {
-            display: none;
-            padding: 15px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        
-        .app.active { display: block; }
-        
-        /* Header */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
-            border-radius: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .header h1 {
-            font-size: 1.5em;
-            font-weight: 800;
             background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .header-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .tutorial-box .subtitle { font-size: 1.2em; opacity: 0.8; margin-bottom: 35px; }
+        .tutorial-steps { display: flex; flex-direction: column; gap: 18px; margin-bottom: 35px; text-align: left; }
+        
+        .tutorial-step {
+            display: flex; align-items: center; gap: 18px; padding: 18px;
+            background: rgba(255,255,255,0.05); border-radius: 15px; border-left: 4px solid var(--cyan);
         }
         
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            font-size: 0.8em;
+        .tutorial-step .icon { font-size: 2em; min-width: 45px; text-align: center; }
+        .tutorial-step .text h3 { font-size: 1em; font-weight: 700; margin-bottom: 4px; }
+        .tutorial-step .text p { font-size: 0.85em; opacity: 0.8; }
+        
+        .tutorial-start-btn {
+            padding: 18px 50px; font-size: 1.2em; font-family: 'Poppins', sans-serif; font-weight: 700;
+            border: none; border-radius: 50px; background: linear-gradient(135deg, var(--cyan), var(--green));
+            color: var(--darker); cursor: pointer;
         }
         
-        .status-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--red);
+        .app { display: none; padding: 15px; max-width: 1600px; margin: 0 auto; }
+        .app.active { display: block; }
+        
+        .header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 20px; background: linear-gradient(135deg, rgba(131,56,236,0.2), rgba(255,0,110,0.2));
+            border-radius: 15px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;
         }
         
+        .header h1 {
+            font-size: 1.5em; font-weight: 800;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        .header-status { display: flex; align-items: center; gap: 12px; }
+        .status-badge { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(0,0,0,0.3); border-radius: 20px; font-size: 0.8em; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
         .status-dot.online { background: var(--green); }
+        .participants-count { padding: 6px 14px; background: linear-gradient(135deg, var(--purple), var(--pink)); border-radius: 20px; font-size: 0.8em; font-weight: 600; }
         
-        .participants-count {
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
+        .main-grid { display: grid; grid-template-columns: 1fr 300px; gap: 15px; margin-bottom: 15px; }
+        @media (max-width: 900px) { .main-grid { grid-template-columns: 1fr; } }
         
-        /* Main Grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        @media (max-width: 900px) {
-            .main-grid { grid-template-columns: 1fr; }
-        }
-        
-        /* Video Container */
-        .video-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            aspect-ratio: 16/9;
-            background: #000;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .video-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        .video-container { display: flex; flex-direction: column; gap: 12px; }
+        .video-wrapper { position: relative; aspect-ratio: 16/9; background: #000; border-radius: 15px; overflow: hidden; }
+        .video-wrapper iframe { width: 100%; height: 100%; border: none; }
         
         .video-placeholder {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
         }
-        
         .video-placeholder.hidden { display: none; }
         .video-placeholder .waiting-icon { font-size: 70px; margin-bottom: 15px; animation: float 3s ease-in-out infinite; }
-        .video-placeholder h2 { font-size: 1.2em; opacity: 0.9; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Reactions Overlay */
-        .reactions-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
+        .reactions-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
         
         .floating-reaction {
-            position: absolute;
-            bottom: -100px;
-            animation: floatUp 4s ease-out forwards;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            position: absolute; bottom: -100px; animation: floatUp 4s ease-out forwards;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
         }
+        .floating-reaction .emoji { font-size: 50px; }
+        .floating-reaction .phrase { background: linear-gradient(135deg, var(--purple), var(--pink)); padding: 8px 16px; border-radius: 20px; font-size: 1.1em; font-weight: 700; }
+        .floating-reaction .sender { display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 15px; font-size: 0.75em; }
+        .floating-reaction .sender img { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+        @keyframes floatUp { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 10% { transform: translateY(-50px) scale(1); opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-600px) scale(0.8); opacity: 0; } }
         
-        .floating-reaction .emoji {
-            font-size: 50px;
-            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
-        }
+        .clap-burst { position: absolute; font-size: 40px; animation: clapBurst 0.8s ease-out forwards; }
+        @keyframes clapBurst { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
         
-        .floating-reaction .phrase {
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 1.1em;
-            font-weight: 700;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-        
-        .floating-reaction .sender {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0,0,0,0.7);
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.75em;
-        }
-        
-        .floating-reaction .sender img {
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        /* Fixed Video Clip Area - GRANDE */
-        .clip-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px;
-            z-index: 100;
-            display: none;
-        }
-        
-        .clip-container.show { 
-            display: block; 
-            animation: clipZoom 0.4s ease;
-        }
-        
-        @keyframes clipZoom {
-            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-        
-        .clip-box {
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-            border: 4px solid var(--cyan);
-        }
-        
-        .clip-box video {
-            width: 100%;
-            height: 280px;
-            display: block;
-            background: #000;
-            object-fit: cover;
-        }
-        
-        .clip-video-wrapper {
-            width: 100%;
-            height: 280px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .clip-video-wrapper video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .clip-box .clip-header {
-            padding: 12px 15px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .clip-box .clip-header img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.3);
-            flex-shrink: 0;
-        }
-        
-        .clip-box .clip-header img[style*="display: none"] + .sender-info {
-            margin-left: 0;
-        }
-        
-        .clip-box .clip-header .sender-info {
-            flex: 1;
-        }
-        
-        .clip-box .clip-header .sender-name {
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        
-        .clip-box .clip-header .clip-label {
-            font-size: 0.8em;
-            opacity: 0.8;
-        }
-        
-        .clip-box .clip-header .live-badge {
-            padding: 5px 12px;
-            background: var(--red);
-            border-radius: 15px;
-            font-size: 0.75em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            animation: livePulse 1s infinite;
-        }
-        
-        @keyframes livePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .clip-box .clip-header .live-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        /* Recording indicator on TV */
-        .recording-indicator {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 8px 15px;
-            background: var(--red);
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            animation: recordBlink 1s ease-in-out infinite;
-            z-index: 10;
-        }
-        
-        .recording-indicator.hidden { display: none; }
-        
-        .recording-indicator .dot {
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-        }
-        
-        @keyframes recordBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.5); opacity: 0; }
-            10% { transform: translateY(-50px) scale(1); opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-600px) scale(0.8); opacity: 0; }
-        }
-        
-        /* Applause Claps Animation */
-        .clap-burst {
-            position: absolute;
-            font-size: 40px;
-            animation: clapBurst 0.8s ease-out forwards;
-            pointer-events: none;
-        }
-        
-        @keyframes clapBurst {
-            0% { transform: scale(0.5); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
-        }
-        
-        /* Applause Meter */
-        .applause-meter {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2));
-            border-radius: 15px;
-            border: 2px solid var(--yellow);
-        }
-        
+        .applause-meter { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: linear-gradient(135deg, rgba(255,190,11,0.2), rgba(251,86,7,0.2)); border-radius: 15px; border: 2px solid var(--yellow); }
         .applause-meter .icon { font-size: 2em; }
+        .applause-meter .meter-bar { flex: 1; height: 25px; background: rgba(0,0,0,0.3); border-radius: 12px; overflow: hidden; }
+        .applause-meter .meter-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red)); border-radius: 12px; transition: width 0.3s; }
+        .applause-meter .count { font-size: 2em; font-weight: 900; color: var(--yellow); min-width: 80px; text-align: right; }
         
-        .applause-meter .meter-bar {
-            flex: 1;
-            height: 25px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .applause-meter .meter-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
-            border-radius: 12px;
-            transition: width 0.3s ease;
-        }
-        
-        .applause-meter .count {
-            font-size: 2em;
-            font-weight: 900;
-            color: var(--yellow);
-            min-width: 80px;
-            text-align: right;
-        }
-        
-        /* Singer Card */
-        .singer-card {
-            padding: 18px 20px;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .singer-card.empty {
-            background: rgba(255,255,255,0.05);
-            justify-content: center;
-            border: 2px dashed rgba(255,255,255,0.2);
-        }
-        
-        .singer-avatar {
-            width: 55px; height: 55px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 25px;
-            overflow: hidden;
-        }
-        
+        .singer-card { padding: 18px 20px; background: linear-gradient(135deg, var(--purple), var(--pink)); border-radius: 15px; display: flex; align-items: center; gap: 15px; }
+        .singer-card.empty { background: rgba(255,255,255,0.05); justify-content: center; border: 2px dashed rgba(255,255,255,0.2); }
+        .singer-avatar { width: 55px; height: 55px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; overflow: hidden; }
         .singer-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
         .singer-info { flex: 1; }
-        .singer-info .label { font-size: 0.75em; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .singer-info .label { font-size: 0.75em; opacity: 0.8; text-transform: uppercase; }
         .singer-info .name { font-size: 1.4em; font-weight: 800; }
         .singer-info .song { font-size: 0.85em; opacity: 0.9; }
         
-        /* Sidebar */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 15px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
+        .sidebar { display: flex; flex-direction: column; gap: 12px; }
+        .card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; border: 1px solid rgba(255,255,255,0.08); }
+        .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .card-header h3 { font-size: 0.9em; font-weight: 600; }
+        .card-header .badge { padding: 3px 10px; background: var(--purple); border-radius: 15px; font-size: 0.7em; font-weight: 600; }
         
-        .card-header .badge {
-            padding: 3px 10px;
-            background: var(--purple);
-            border-radius: 15px;
-            font-size: 0.7em;
-            font-weight: 600;
-        }
-        
-        /* QR */
         .qr-section { text-align: center; }
         .qr-wrapper { background: white; padding: 10px; border-radius: 10px; display: inline-block; margin-bottom: 8px; }
         .qr-wrapper img { display: block; width: 120px; height: 120px; }
-        .qr-instruction { font-size: 0.75em; opacity: 0.7; margin-bottom: 5px; }
-        .qr-url { font-size: 0.6em; padding: 5px 8px; background: rgba(0,0,0,0.3); border-radius: 5px; word-break: break-all; opacity: 0.6; }
+        .qr-instruction { font-size: 0.75em; opacity: 0.7; }
+        .qr-url { font-size: 0.6em; padding: 5px 8px; background: rgba(0,0,0,0.3); border-radius: 5px; opacity: 0.6; margin-top: 5px; }
         
-        /* Queue */
         .queue-list { max-height: 160px; overflow-y: auto; }
-        
-        .queue-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 8px;
-            margin-bottom: 5px;
-        }
-        
+        .queue-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 5px; }
         .queue-item:first-child { background: linear-gradient(135deg, rgba(131,56,236,0.3), rgba(255,0,110,0.3)); }
-        
-        .queue-item .position {
-            width: 24px; height: 24px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.75em;
-        }
-        
+        .queue-item .position { width: 24px; height: 24px; background: rgba(0,0,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75em; }
         .queue-item:first-child .position { background: var(--cyan); color: var(--darker); }
-        
-        .queue-item .avatar {
-            width: 28px; height: 28px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-        
+        .queue-item .avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 12px; }
         .queue-item .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
         .queue-item .info { flex: 1; overflow: hidden; }
         .queue-item .name { font-weight: 600; font-size: 0.8em; }
         .queue-item .song { font-size: 0.7em; opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        .queue-item .remove-btn {
-            width: 22px; height: 22px;
-            background: rgba(239,71,111,0.2);
-            border: none;
-            border-radius: 50%;
-            color: var(--red);
-            cursor: pointer;
-            font-size: 0.7em;
-            opacity: 0;
-        }
-        
+        .queue-item .remove-btn { width: 22px; height: 22px; background: rgba(239,71,111,0.2); border: none; border-radius: 50%; color: var(--red); cursor: pointer; font-size: 0.7em; opacity: 0; }
         .queue-item:hover .remove-btn { opacity: 1; }
         
         .empty-state { text-align: center; padding: 20px; opacity: 0.5; }
         .empty-state .icon { font-size: 30px; margin-bottom: 5px; }
-        .empty-state p { font-size: 0.8em; }
         
-        /* Scoreboard */
         .scoreboard { max-height: 130px; overflow-y: auto; }
-        
-        .score-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            margin-bottom: 4px;
-        }
-        
+        .score-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 4px; }
         .score-item .medal { font-size: 1em; }
         .score-item .rank { width: 20px; height: 20px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: 700; }
         .score-item .name { flex: 1; font-size: 0.8em; }
         .score-item .pts { font-weight: 700; color: var(--yellow); font-size: 0.85em; }
         
-        /* Controls */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .ctrl-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
+        .controls { display: flex; justify-content: center; gap: 10px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 15px; flex-wrap: wrap; }
+        .ctrl-btn { padding: 10px 20px; border: none; border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 0.9em; font-weight: 600; cursor: pointer; color: white; display: flex; align-items: center; gap: 6px; }
         .btn-vote { background: linear-gradient(135deg, var(--yellow), var(--orange)); color: var(--darker); }
         .btn-skip { background: linear-gradient(135deg, var(--blue), var(--purple)); }
         .btn-reset { background: rgba(255,255,255,0.1); }
         
-        /* ==================== VOTING OVERLAY ==================== */
-        .voting-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--darker);
-            z-index: 1500;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
+        /* VOTING */
+        .voting-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--darker); z-index: 1500; }
         .voting-overlay.show { display: flex; }
         
-        .voting-content { text-align: center; animation: zoomIn 0.5s ease; }
+        .voting-layout { display: flex; width: 100%; height: 100%; }
         
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .voting-clips { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; position: relative; }
+        .clip-display { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .clip-display img { max-width: 100%; max-height: 100%; object-fit: contain; animation: clipFade 0.5s ease; }
+        @keyframes clipFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
-        .voting-alert {
-            font-size: 1.8em;
-            font-weight: 800;
-            color: var(--yellow);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: pulseAlert 1s ease-in-out infinite;
-        }
+        .clip-sender-tag { position: absolute; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: rgba(0,0,0,0.8); border-radius: 30px; }
+        .clip-sender-tag img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+        .no-clips { color: rgba(255,255,255,0.3); font-size: 1.5em; text-align: center; }
+        .no-clips .icon { font-size: 3em; margin-bottom: 10px; }
         
-        @keyframes pulseAlert {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
-        }
+        .voting-panel { width: 450px; padding: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(180deg, var(--dark), var(--darker)); }
+        .voting-alert { font-size: 1.3em; font-weight: 800; color: var(--yellow); margin-bottom: 15px; text-transform: uppercase; animation: pulseAlert 1s infinite; }
+        @keyframes pulseAlert { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         
-        .voting-content .vote-label { font-size: 1em; color: rgba(255,255,255,0.7); margin-bottom: 5px; }
-        .voting-singer-name { font-size: 3.5em; font-weight: 900; background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
-        .voting-song-name { font-size: 1.1em; opacity: 0.6; margin-bottom: 25px; }
+        .voting-singer-name { font-size: 2.5em; font-weight: 900; background: linear-gradient(90deg, var(--pink), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; text-align: center; }
+        .voting-song-name { font-size: 1em; opacity: 0.6; margin-bottom: 30px; text-align: center; }
         
-        /* Giant Timer */
-        .voting-timer-giant {
-            font-size: 12em;
-            font-weight: 900;
-            line-height: 1;
-            margin: 20px 0 30px;
-            background: linear-gradient(180deg, var(--yellow), var(--orange), var(--red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255,190,11,0.5));
-            animation: timerPulse 1s ease-in-out infinite;
-        }
+        .voting-timer-giant { font-size: 10em; font-weight: 900; line-height: 1; background: linear-gradient(180deg, var(--yellow), var(--orange), var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .voting-timer-giant.urgent { animation: timerUrgent 0.5s infinite; }
+        @keyframes timerUrgent { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         
-        @keyframes timerPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
+        .voting-timer-label { font-size: 1.2em; opacity: 0.7; margin-bottom: 30px; }
+        .voting-stats { display: flex; gap: 30px; margin-bottom: 30px; }
+        .vote-stat { text-align: center; padding: 15px 25px; background: rgba(255,255,255,0.1); border-radius: 15px; }
+        .vote-stat .value { font-size: 2.5em; font-weight: 900; color: var(--yellow); line-height: 1; }
+        .vote-stat .label { font-size: 0.8em; opacity: 0.7; margin-top: 5px; }
+        .voting-phone-reminder { padding: 12px 25px; background: linear-gradient(135deg, var(--cyan), var(--green)); border-radius: 50px; font-weight: 700; color: var(--darker); animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         
-        .voting-timer-giant.urgent {
-            animation: timerUrgent 0.5s ease-in-out infinite;
-            filter: drop-shadow(0 0 50px rgba(239,71,111,0.8));
-        }
-        
-        @keyframes timerUrgent {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
-        
-        .voting-timer-label {
-            font-size: 1.5em;
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
-        
-        .voting-stats { display: flex; justify-content: center; gap: 60px; margin-bottom: 20px; }
-        .vote-stat { background: rgba(255,255,255,0.1); padding: 20px 35px; border-radius: 20px; }
-        .vote-stat .value { font-size: 3em; font-weight: 900; color: var(--yellow); line-height: 1; }
-        .vote-stat .label { font-size: 0.9em; opacity: 0.7; margin-top: 8px; }
-        
-        .voting-phone-reminder {
-            margin-top: 25px;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--cyan), var(--green));
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--darker);
-            animation: bounce 1s ease-in-out infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            padding: 10px 20px;
-            background: var(--dark);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            font-size: 0.85em;
-            z-index: 1600;
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-        
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 10px 20px; background: var(--dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; font-size: 0.85em; z-index: 1600; opacity: 0; transition: all 0.4s; }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast.success { border-color: var(--green); }
-        .toast.error { border-color: var(--red); }
         
         ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
     </style>
 </head>
 <body>
-    <!-- TUTORIAL -->
     <div class="tutorial-overlay" id="tutorial">
         <div class="tutorial-box">
             <h1>🎤 Karaokê dos Veloso</h1>
             <p class="subtitle">Diversão interativa para toda família!</p>
-            
             <div class="tutorial-steps">
-                <div class="tutorial-step">
-                    <div class="icon">🔊</div>
-                    <div class="text">
-                        <h3>Conecte o som</h3>
-                        <p>Ligue um <strong>microfone na caixa de som</strong> para o cantor usar.</p>
-                    </div>
-                </div>
-                <div class="tutorial-step">
-                    <div class="icon">📱</div>
-                    <div class="text">
-                        <h3>Participantes escaneiam o QR Code</h3>
-                        <p>Todos entram pelo celular para escolher músicas e interagir!</p>
-                    </div>
-                </div>
-                <div class="tutorial-step">
-                    <div class="icon">👏</div>
-                    <div class="text">
-                        <h3>Interação durante a música</h3>
-                        <p>Aplausos, emojis e frases aparecem na tela em tempo real!</p>
-                    </div>
-                </div>
-                <div class="tutorial-step">
-                    <div class="icon">⭐</div>
-                    <div class="text">
-                        <h3>Votação no final</h3>
-                        <p>Todos votam de 1-5 estrelas. Aplausos + votos = pontuação!</p>
-                    </div>
-                </div>
+                <div class="tutorial-step"><div class="icon">🔊</div><div class="text"><h3>Conecte o som</h3><p>Microfone na caixa de som para o cantor.</p></div></div>
+                <div class="tutorial-step"><div class="icon">📱</div><div class="text"><h3>Escaneiem o QR</h3><p>Todos entram pelo celular!</p></div></div>
+                <div class="tutorial-step"><div class="icon">📸</div><div class="text"><h3>Tirem fotos!</h3><p>As fotos aparecem na votação!</p></div></div>
+                <div class="tutorial-step"><div class="icon">⭐</div><div class="text"><h3>Votem</h3><p>Aplausos + votos = pontuação!</p></div></div>
             </div>
-            
             <button class="tutorial-start-btn" onclick="startApp()">Começar! 🎉</button>
         </div>
     </div>
     
-    <!-- APP -->
     <div class="app" id="app">
         <header class="header">
             <h1>🎤 Karaokê dos Veloso</h1>
             <div class="header-status">
-                <div class="status-badge">
-                    <div class="status-dot" id="statusDot"></div>
-                    <span id="statusText">Conectando...</span>
-                </div>
+                <div class="status-badge"><div class="status-dot" id="statusDot"></div><span id="statusText">Conectando...</span></div>
                 <div class="participants-count" id="participantsCount">👥 0</div>
             </div>
         </header>
@@ -833,73 +250,31 @@
         <div class="main-grid">
             <div class="video-container">
                 <div class="video-wrapper" id="videoWrapper">
-                    <div class="video-placeholder" id="placeholder">
-                        <div class="waiting-icon">🎤</div>
-                        <h2>Aguardando cantor...</h2>
-                    </div>
-                    <div class="recording-indicator hidden" id="recordingIndicator">
-                        <div class="dot"></div>
-                        <span>GRAVANDO</span>
-                    </div>
+                    <div class="video-placeholder" id="placeholder"><div class="waiting-icon">🎤</div><h2>Aguardando cantor...</h2></div>
                     <div class="reactions-overlay" id="reactionsOverlay"></div>
-                    
-                    <!-- Fixed Clip Container -->
-                    <div class="clip-container" id="clipContainer">
-                        <div class="clip-box">
-                            <div class="clip-header">
-                                <img id="clipSenderPhoto" src="" alt="" onerror="this.style.display='none'">
-                                <div class="sender-info">
-                                    <div class="sender-name" id="clipSenderName">-</div>
-                                    <div class="clip-label">📹 enviou um clip</div>
-                                </div>
-                                <div class="live-badge">
-                                    <div class="dot"></div>
-                                    AO VIVO
-                                </div>
-                            </div>
-                            <div class="clip-video-wrapper" id="clipVideoWrapper"></div>
-                        </div>
-                    </div>
                 </div>
-                
                 <div class="applause-meter" id="applauseMeter" style="display: none;">
                     <div class="icon">👏</div>
-                    <div class="meter-bar">
-                        <div class="meter-fill" id="applauseFill"></div>
-                    </div>
+                    <div class="meter-bar"><div class="meter-fill" id="applauseFill"></div></div>
                     <div class="count" id="applauseCount">0</div>
                 </div>
-                
-                <div class="singer-card empty" id="singerCard">
-                    <span style="font-size: 0.95em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>
-                </div>
+                <div class="singer-card empty" id="singerCard"><span style="opacity: 0.7;">🎤 Nenhum cantor</span></div>
             </div>
             
             <aside class="sidebar">
                 <div class="card qr-section">
                     <div class="card-header"><h3>📱 Entrar</h3></div>
-                    <div class="qr-wrapper">
-                        <img id="qrcode" src="" alt="QR Code">
-                    </div>
+                    <div class="qr-wrapper"><img id="qrcode" src=""></div>
                     <p class="qr-instruction">Escaneie com a câmera</p>
                     <div class="qr-url" id="qrUrl"></div>
                 </div>
-                
                 <div class="card">
-                    <div class="card-header">
-                        <h3>📋 Fila</h3>
-                        <span class="badge" id="queueCount">0</span>
-                    </div>
-                    <div class="queue-list" id="queueList">
-                        <div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>
-                    </div>
+                    <div class="card-header"><h3>📋 Fila</h3><span class="badge" id="queueCount">0</span></div>
+                    <div class="queue-list" id="queueList"><div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div></div>
                 </div>
-                
                 <div class="card">
                     <div class="card-header"><h3>🏆 Placar</h3></div>
-                    <div class="scoreboard" id="scoreboard">
-                        <div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div>
-                    </div>
+                    <div class="scoreboard" id="scoreboard"><div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div></div>
                 </div>
             </aside>
         </div>
@@ -911,33 +286,25 @@
         </div>
     </div>
     
-    <!-- VOTING -->
     <div class="voting-overlay" id="votingOverlay">
-        <div class="voting-content">
-            <div class="voting-alert">📱 VOTE AGORA NO CELULAR! 📱</div>
-            <div class="vote-label">Avalie a performance de</div>
-            <div class="voting-singer-name" id="votingSinger">-</div>
-            <div class="voting-song-name" id="votingSong">-</div>
-            
-            <div class="voting-timer-giant" id="votingTimer">20</div>
-            <div class="voting-timer-label">segundos restantes</div>
-            
-            <div class="voting-stats">
-                <div class="vote-stat">
-                    <div class="value" id="statApplause">0</div>
-                    <div class="label">👏 Aplausos</div>
-                </div>
-                <div class="vote-stat">
-                    <div class="value" id="statVotes">0</div>
-                    <div class="label">🗳️ Votos</div>
-                </div>
-                <div class="vote-stat">
-                    <div class="value" id="statAvg">-</div>
-                    <div class="label">⭐ Média</div>
-                </div>
+        <div class="voting-layout">
+            <div class="voting-clips">
+                <div class="clip-display" id="clipDisplay"><div class="no-clips"><div class="icon">📸</div><p>Aguardando fotos...</p></div></div>
+                <div class="clip-sender-tag" id="clipSenderTag" style="display: none;"><img id="clipSenderPhoto" src=""><span id="clipSenderName">-</span></div>
             </div>
-            
-            <div class="voting-phone-reminder">📱 Pegue o celular e dê sua nota! ⭐</div>
+            <div class="voting-panel">
+                <div class="voting-alert">📱 VOTE NO CELULAR!</div>
+                <div class="voting-singer-name" id="votingSinger">-</div>
+                <div class="voting-song-name" id="votingSong">-</div>
+                <div class="voting-timer-giant" id="votingTimer">20</div>
+                <div class="voting-timer-label">segundos</div>
+                <div class="voting-stats">
+                    <div class="vote-stat"><div class="value" id="statApplause">0</div><div class="label">👏 Aplausos</div></div>
+                    <div class="vote-stat"><div class="value" id="statVotes">0</div><div class="label">🗳️ Votos</div></div>
+                    <div class="vote-stat"><div class="value" id="statAvg">-</div><div class="label">⭐ Média</div></div>
+                </div>
+                <div class="voting-phone-reminder">📱 Dê sua nota! ⭐</div>
+            </div>
         </div>
     </div>
     
@@ -947,53 +314,18 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <script>
-        // ==================== CONFIG ====================
         const PLAYER_URL = 'https://bavkiq-hugby8-cittet.github.io/karaoke/jogador.html';
         
-        // ==================== STATE ====================
-        let db, gameRef;
-        let currentSinger = null;
-        let currentVideoId = null;
-        let votingInterval = null;
-        let applauseTotal = 0;
-        let clipQueue = [];
-        let clipPlaying = false;
+        let db, gameRef, currentSinger = null, currentVideoId = null, votingInterval = null, applauseTotal = 0;
+        let pendingPhotos = [], clipSlideInterval = null, currentPhotoIndex = 0;
         
-        // ==================== INIT ====================
-        function init() {
-            initFirebase();
-        }
+        function init() { initFirebase(); }
+        function startApp() { document.getElementById('tutorial').classList.add('hidden'); document.getElementById('app').classList.add('active'); generateQR(); }
         
-        function startApp() {
-            document.getElementById('tutorial').classList.add('hidden');
-            document.getElementById('app').classList.add('active');
-            generateQR();
-        }
-        
-        // ==================== FIREBASE ====================
         function initFirebase() {
-            firebase.initializeApp({
-                apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw",
-                authDomain: "karaoke-46db0.firebaseapp.com",
-                databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com",
-                projectId: "karaoke-46db0"
-            });
-            
-            db = firebase.database();
-            gameRef = db.ref('karaoke');
-            
-            db.ref('.info/connected').on('value', snap => {
-                const dot = document.getElementById('statusDot');
-                const text = document.getElementById('statusText');
-                if (snap.val()) {
-                    dot.classList.add('online');
-                    text.textContent = 'Conectado';
-                } else {
-                    dot.classList.remove('online');
-                    text.textContent = 'Offline';
-                }
-            });
-            
+            firebase.initializeApp({ apiKey: "AIzaSyBkmz4IlYeqip-u_0MCO4Hlb--MsZtTspw", authDomain: "karaoke-46db0.firebaseapp.com", databaseURL: "https://karaoke-46db0-default-rtdb.firebaseio.com", projectId: "karaoke-46db0" });
+            db = firebase.database(); gameRef = db.ref('karaoke');
+            db.ref('.info/connected').on('value', snap => { document.getElementById('statusDot').classList.toggle('online', snap.val()); document.getElementById('statusText').textContent = snap.val() ? 'Conectado' : 'Offline'; });
             setupListeners();
         }
         
@@ -1001,315 +333,58 @@
             gameRef.child('queue').on('value', snap => updateQueue(snap.val()));
             gameRef.child('scores').on('value', snap => updateScoreboard(snap.val()));
             gameRef.child('voting').on('value', snap => handleVoting(snap.val()));
-            gameRef.child('participants').on('value', snap => {
-                const count = snap.val() ? Object.keys(snap.val()).length : 0;
-                document.getElementById('participantsCount').textContent = `👥 ${count}`;
-            });
-            
-            // Reactions listener
-            gameRef.child('reactions').on('child_added', snap => {
-                const reaction = snap.val();
-                showReaction(reaction);
-                snap.ref.remove(); // Remove after showing
-            });
-            
-            // Applause listener
-            gameRef.child('applause').on('value', snap => {
-                applauseTotal = snap.val() || 0;
-                updateApplauseMeter(applauseTotal);
-            });
-            
-            // Video clips listener
-            gameRef.child('clips').on('child_added', snap => {
-                const clip = snap.val();
-                console.log('Clip recebido:', clip.name, 'video length:', clip.video?.length);
-                showVideoClip(clip);
-                // Remove after 10 seconds
-                setTimeout(() => snap.ref.remove(), 10000);
-            });
-            
-            // Recording indicator listener
-            gameRef.child('recording').on('value', snap => {
-                const count = snap.val() || 0;
-                const indicator = document.getElementById('recordingIndicator');
-                if (count > 0) {
-                    indicator.classList.remove('hidden');
-                    indicator.querySelector('span').textContent = `GRAVANDO (${count})`;
-                } else {
-                    indicator.classList.add('hidden');
-                }
-            });
+            gameRef.child('participants').on('value', snap => { document.getElementById('participantsCount').textContent = `👥 ${snap.val() ? Object.keys(snap.val()).length : 0}`; });
+            gameRef.child('reactions').on('child_added', snap => { showReaction(snap.val()); snap.ref.remove(); });
+            gameRef.child('applause').on('value', snap => { applauseTotal = snap.val() || 0; updateApplauseMeter(applauseTotal); });
+            gameRef.child('photos').on('child_added', snap => { pendingPhotos.push(snap.val()); console.log('Foto recebida - Total:', pendingPhotos.length); });
         }
         
-        // ==================== QR CODE ====================
-        function generateQR() {
-            document.getElementById('qrUrl').textContent = PLAYER_URL;
-            document.getElementById('qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(PLAYER_URL)}`;
-        }
+        function generateQR() { document.getElementById('qrUrl').textContent = PLAYER_URL; document.getElementById('qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(PLAYER_URL)}`; }
         
-        // ==================== REACTIONS ====================
-        function showReaction(reaction) {
+        function showReaction(r) {
             const overlay = document.getElementById('reactionsOverlay');
-            const div = document.createElement('div');
-            div.className = 'floating-reaction';
-            div.style.left = Math.random() * 80 + 10 + '%';
-            
-            let content = '';
-            
-            if (reaction.type === 'emoji') {
-                content = `<span class="emoji">${reaction.value}</span>`;
-            } else if (reaction.type === 'phrase') {
-                content = `<span class="phrase">${reaction.value}</span>`;
-            } else if (reaction.type === 'clap') {
-                // Show clap burst instead
-                showClapBurst();
-                return;
-            }
-            
-            if (reaction.photo || reaction.name) {
-                content += `<span class="sender">`;
-                if (reaction.photo) {
-                    content += `<img src="${reaction.photo}" alt="">`;
-                }
-                content += `${reaction.name || ''}</span>`;
-            }
-            
-            div.innerHTML = content;
-            overlay.appendChild(div);
-            
-            setTimeout(() => div.remove(), 4000);
-        }
-        
-        function showClapBurst() {
-            const overlay = document.getElementById('reactionsOverlay');
-            const clap = document.createElement('div');
-            clap.className = 'clap-burst';
-            clap.textContent = '👏';
-            clap.style.left = Math.random() * 80 + 10 + '%';
-            clap.style.top = Math.random() * 60 + 20 + '%';
-            overlay.appendChild(clap);
-            setTimeout(() => clap.remove(), 800);
-        }
-        
-        function showVideoClip(clip) {
-            // Add to queue
-            clipQueue.push(clip);
-            
-            // Process queue if not already playing
-            if (!clipPlaying) {
-                processClipQueue();
-            }
-        }
-        
-        function processClipQueue() {
-            if (clipQueue.length === 0) {
-                clipPlaying = false;
-                return;
-            }
-            
-            clipPlaying = true;
-            const clip = clipQueue.shift();
-            
-            const container = document.getElementById('clipContainer');
-            const videoWrapper = document.getElementById('clipVideoWrapper');
-            const senderPhoto = document.getElementById('clipSenderPhoto');
-            const senderName = document.getElementById('clipSenderName');
-            
-            console.log('Processando clip de:', clip.name);
-            console.log('Video data length:', clip.video?.length);
-            
-            // Set sender info
-            if (clip.photo) {
-                senderPhoto.src = clip.photo;
-                senderPhoto.style.display = 'block';
-            } else {
-                senderPhoto.style.display = 'none';
-            }
-            senderName.textContent = clip.name || 'Anônimo';
-            
-            // Clear previous video
-            videoWrapper.innerHTML = '';
-            
-            // Create fresh video element
-            const video = document.createElement('video');
-            video.autoplay = true;
-            video.muted = true;
-            video.loop = true;
-            video.playsInline = true;
-            video.setAttribute('playsinline', '');
-            
-            video.oncanplaythrough = () => {
-                console.log('Video ready, playing...');
-                video.play().catch(e => console.log('Play blocked:', e));
-            };
-            
-            video.onerror = (e) => {
-                console.error('Video error:', video.error?.message);
-                videoWrapper.innerHTML = '<div style="color:white;padding:20px;text-align:center;">⚠️ Erro ao carregar vídeo</div>';
-            };
-            
-            // Add to wrapper
-            videoWrapper.appendChild(video);
-            
-            // Set source AFTER adding to DOM
-            video.src = clip.video;
-            
-            // Show container
-            container.classList.add('show');
-            
-            // Hide after 6 seconds
-            setTimeout(() => {
-                container.classList.remove('show');
-                video.pause();
-                videoWrapper.innerHTML = '';
-                
-                setTimeout(() => processClipQueue(), 500);
-            }, 6000);
+            if (r.type === 'clap') { const c = document.createElement('div'); c.className = 'clap-burst'; c.textContent = '👏'; c.style.left = Math.random()*80+10+'%'; c.style.top = Math.random()*60+20+'%'; overlay.appendChild(c); setTimeout(() => c.remove(), 800); return; }
+            const div = document.createElement('div'); div.className = 'floating-reaction'; div.style.left = Math.random()*80+10+'%';
+            div.innerHTML = r.type === 'emoji' ? `<span class="emoji">${r.value}</span>` : `<span class="phrase">${r.value}</span>`;
+            if (r.name) div.innerHTML += `<span class="sender">${r.photo ? `<img src="${r.photo}">` : ''}${r.name}</span>`;
+            overlay.appendChild(div); setTimeout(() => div.remove(), 4000);
         }
         
         function updateApplauseMeter(count) {
             const meter = document.getElementById('applauseMeter');
-            const fill = document.getElementById('applauseFill');
-            const countEl = document.getElementById('applauseCount');
-            
-            if (currentSinger) {
-                meter.style.display = 'flex';
-                countEl.textContent = count;
-                // Max around 500 claps for full bar
-                const pct = Math.min(100, (count / 500) * 100);
-                fill.style.width = pct + '%';
-            } else {
-                meter.style.display = 'none';
-            }
+            if (currentSinger) { meter.style.display = 'flex'; document.getElementById('applauseCount').textContent = count; document.getElementById('applauseFill').style.width = Math.min(100, count/5) + '%'; }
+            else meter.style.display = 'none';
         }
         
-        // ==================== QUEUE ====================
         function updateQueue(queue) {
-            const listEl = document.getElementById('queueList');
-            const countEl = document.getElementById('queueCount');
-            const singerCard = document.getElementById('singerCard');
-            const placeholder = document.getElementById('placeholder');
-            const meter = document.getElementById('applauseMeter');
-            
-            if (!queue || Object.keys(queue).length === 0) {
-                countEl.textContent = '0';
-                listEl.innerHTML = '<div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>';
-                singerCard.className = 'singer-card empty';
-                singerCard.innerHTML = '<span style="font-size: 0.95em; opacity: 0.7;">🎤 Nenhum cantor na fila</span>';
-                currentSinger = null;
-                currentVideoId = null;
-                placeholder.classList.remove('hidden');
-                meter.style.display = 'none';
-                removeVideo();
-                return;
-            }
-            
-            const items = Object.entries(queue)
-                .map(([id, data]) => ({ id, ...data }))
-                .sort((a, b) => a.timestamp - b.timestamp);
-            
+            const listEl = document.getElementById('queueList'), countEl = document.getElementById('queueCount'), singerCard = document.getElementById('singerCard'), placeholder = document.getElementById('placeholder'), meter = document.getElementById('applauseMeter');
+            if (!queue || !Object.keys(queue).length) { countEl.textContent = '0'; listEl.innerHTML = '<div class="empty-state"><div class="icon">🎵</div><p>Fila vazia</p></div>'; singerCard.className = 'singer-card empty'; singerCard.innerHTML = '<span style="opacity:0.7">🎤 Nenhum cantor</span>'; currentSinger = null; currentVideoId = null; placeholder.classList.remove('hidden'); meter.style.display = 'none'; removeVideo(); return; }
+            const items = Object.entries(queue).map(([id, data]) => ({ id, ...data })).sort((a, b) => a.timestamp - b.timestamp);
             countEl.textContent = items.length;
-            
-            listEl.innerHTML = items.map((item, i) => `
-                <div class="queue-item">
-                    <div class="position">${i + 1}</div>
-                    <div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div>
-                    <div class="info">
-                        <div class="name">${item.name}</div>
-                        <div class="song">${item.song || 'Escolhendo...'}</div>
-                    </div>
-                    <button class="remove-btn" onclick="removeFromQueue('${item.id}')">✕</button>
-                </div>
-            `).join('');
-            
+            listEl.innerHTML = items.map((item, i) => `<div class="queue-item"><div class="position">${i+1}</div><div class="avatar">${item.photo ? `<img src="${item.photo}">` : '🎤'}</div><div class="info"><div class="name">${item.name}</div><div class="song">${item.song || 'Escolhendo...'}</div></div><button class="remove-btn" onclick="removeFromQueue('${item.id}')">✕</button></div>`).join('');
             const first = items[0];
-            
-            // New singer? Reset applause
-            if (!currentSinger || currentSinger.id !== first.id) {
-                gameRef.child('applause').set(0);
-            }
-            
+            if (!currentSinger || currentSinger.id !== first.id) { gameRef.child('applause').set(0); pendingPhotos = []; gameRef.child('photos').remove(); }
             currentSinger = first;
-            
             singerCard.className = 'singer-card';
-            singerCard.innerHTML = `
-                <div class="singer-avatar">${first.photo ? `<img src="${first.photo}">` : '🎤'}</div>
-                <div class="singer-info">
-                    <div class="label">Cantando agora</div>
-                    <div class="name">${first.name}</div>
-                    <div class="song">${first.song || 'Escolhendo...'}</div>
-                </div>
-            `;
-            
+            singerCard.innerHTML = `<div class="singer-avatar">${first.photo ? `<img src="${first.photo}">` : '🎤'}</div><div class="singer-info"><div class="label">Cantando</div><div class="name">${first.name}</div><div class="song">${first.song || ''}</div></div>`;
             meter.style.display = 'flex';
-            
-            if (first.videoId && first.videoId !== currentVideoId) {
-                currentVideoId = first.videoId;
-                loadVideo(first.videoId);
-            }
+            if (first.videoId && first.videoId !== currentVideoId) { currentVideoId = first.videoId; loadVideo(first.videoId); }
         }
         
-        function removeFromQueue(id) {
-            if (confirm('Remover?')) {
-                gameRef.child('queue/' + id).remove();
-            }
-        }
+        function removeFromQueue(id) { if (confirm('Remover?')) gameRef.child('queue/' + id).remove(); }
+        function loadVideo(id) { document.getElementById('placeholder').classList.add('hidden'); const old = document.querySelector('#videoWrapper iframe'); if (old) old.remove(); const iframe = document.createElement('iframe'); iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`; iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen'; document.getElementById('videoWrapper').insertBefore(iframe, document.getElementById('videoWrapper').firstChild); }
+        function removeVideo() { const iframe = document.querySelector('#videoWrapper iframe'); if (iframe) iframe.remove(); }
         
-        // ==================== VIDEO ====================
-        function loadVideo(videoId) {
-            document.getElementById('placeholder').classList.add('hidden');
-            const old = document.querySelector('#videoWrapper iframe');
-            if (old) old.remove();
-            
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';
-            iframe.allowFullscreen = true;
-            
-            const wrapper = document.getElementById('videoWrapper');
-            wrapper.insertBefore(iframe, wrapper.firstChild);
-        }
-        
-        function removeVideo() {
-            const iframe = document.querySelector('#videoWrapper iframe');
-            if (iframe) iframe.remove();
-        }
-        
-        // ==================== SCOREBOARD ====================
         function updateScoreboard(scores) {
             const el = document.getElementById('scoreboard');
-            
-            if (!scores || Object.keys(scores).length === 0) {
-                el.innerHTML = '<div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div>';
-                return;
-            }
-            
-            const medals = ['🥇', '🥈', '🥉'];
-            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-            
-            el.innerHTML = sorted.map(([name, pts], i) => `
-                <div class="score-item">
-                    ${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i + 1}</div>`}
-                    <div class="name">${name}</div>
-                    <div class="pts">${pts} pts</div>
-                </div>
-            `).join('');
+            if (!scores || !Object.keys(scores).length) { el.innerHTML = '<div class="empty-state"><div class="icon">⭐</div><p>Sem pontuações</p></div>'; return; }
+            const medals = ['🥇', '🥈', '🥉'], sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            el.innerHTML = sorted.map(([name, pts], i) => `<div class="score-item">${i < 3 ? `<span class="medal">${medals[i]}</span>` : `<div class="rank">${i+1}</div>`}<div class="name">${name}</div><div class="pts">${pts} pts</div></div>`).join('');
         }
         
-        // ==================== VOTING ====================
         function startVoting() {
             if (!currentSinger) return showToast('Ninguém na fila!', 'error');
-            
-            gameRef.child('voting').set({
-                singerId: currentSinger.id,
-                singerName: currentSinger.name,
-                singerSong: currentSinger.song || '',
-                applause: applauseTotal,
-                votes: {},
-                active: true,
-                startTime: Date.now()
-            });
-            
+            gameRef.child('voting').set({ singerId: currentSinger.id, singerName: currentSinger.name, singerPhoto: currentSinger.photo || null, singerSong: currentSinger.song || '', applause: applauseTotal, votes: {}, active: true, startTime: Date.now() });
             showVotingOverlay();
         }
         
@@ -1320,93 +395,52 @@
             document.getElementById('statApplause').textContent = applauseTotal;
             document.getElementById('statVotes').textContent = '0';
             document.getElementById('statAvg').textContent = '-';
-            
             const timerEl = document.getElementById('votingTimer');
-            let time = 20;
-            timerEl.textContent = time;
-            timerEl.classList.remove('urgent');
-            
+            let time = 20; timerEl.textContent = time; timerEl.classList.remove('urgent');
+            startPhotoSlideshow();
             if (votingInterval) clearInterval(votingInterval);
-            votingInterval = setInterval(() => {
-                time--;
-                timerEl.textContent = time;
-                
-                // Urgency effect when <= 5 seconds
-                if (time <= 5) {
-                    timerEl.classList.add('urgent');
-                }
-                
-                if (time <= 0) endVoting();
-            }, 1000);
+            votingInterval = setInterval(() => { time--; timerEl.textContent = time; if (time <= 5) timerEl.classList.add('urgent'); if (time <= 0) endVoting(); }, 1000);
+        }
+        
+        function startPhotoSlideshow() {
+            const display = document.getElementById('clipDisplay'), tag = document.getElementById('clipSenderTag');
+            currentPhotoIndex = 0;
+            if (!pendingPhotos.length) { display.innerHTML = '<div class="no-clips"><div class="icon">📸</div><p>Nenhuma foto</p></div>'; tag.style.display = 'none'; return; }
+            function showNext() {
+                if (!pendingPhotos.length) return;
+                const p = pendingPhotos[currentPhotoIndex % pendingPhotos.length];
+                display.innerHTML = `<img src="${p.image}" alt="Foto">`;
+                if (p.senderName) { tag.style.display = 'flex'; document.getElementById('clipSenderPhoto').src = p.senderPhoto || ''; document.getElementById('clipSenderPhoto').style.display = p.senderPhoto ? 'block' : 'none'; document.getElementById('clipSenderName').textContent = p.senderName; }
+                else tag.style.display = 'none';
+                currentPhotoIndex++;
+            }
+            showNext();
+            clipSlideInterval = setInterval(showNext, 2500);
         }
         
         function handleVoting(voting) {
             if (!voting || !voting.active) return;
-            
-            const votes = voting.votes || {};
-            const values = Object.values(votes);
-            const count = values.length;
-            const avg = count > 0 ? (values.reduce((a,b) => a+b, 0) / count).toFixed(1) : '-';
-            
+            const votes = voting.votes || {}, values = Object.values(votes), count = values.length;
             document.getElementById('statVotes').textContent = count;
-            document.getElementById('statAvg').textContent = avg;
+            document.getElementById('statAvg').textContent = count > 0 ? (values.reduce((a,b) => a+b, 0) / count).toFixed(1) : '-';
         }
         
         function endVoting() {
-            clearInterval(votingInterval);
-            
+            clearInterval(votingInterval); clearInterval(clipSlideInterval);
             gameRef.child('voting').once('value', snap => {
-                const voting = snap.val();
-                if (!voting) return;
-                
-                const votes = voting.votes || {};
-                const values = Object.values(votes);
-                const voteCount = values.length;
-                const voteAvg = voteCount > 0 ? values.reduce((a,b) => a+b, 0) / voteCount : 0;
-                
-                // Score: 50% applause (max 50pts) + 50% votes (max 50pts)
-                const applauseScore = Math.min(50, Math.round((voting.applause || 0) / 10));
-                const voteScore = Math.round(voteAvg * 10);
-                const totalScore = applauseScore + voteScore;
-                
-                if (totalScore > 0) {
-                    gameRef.child('scores/' + voting.singerName).transaction(c => (c || 0) + totalScore);
-                    showToast(`${voting.singerName}: ${totalScore} pts!`, 'success');
-                }
-                
-                gameRef.child('queue/' + voting.singerId).remove();
-                gameRef.child('voting').set({ active: false });
-                gameRef.child('applause').set(0);
-                currentVideoId = null;
-                
-                setTimeout(() => {
-                    document.getElementById('votingOverlay').classList.remove('show');
-                }, 2000);
+                const v = snap.val(); if (!v) return;
+                const votes = v.votes || {}, values = Object.values(votes), voteCount = values.length, voteAvg = voteCount > 0 ? values.reduce((a,b) => a+b, 0) / voteCount : 0;
+                const applauseScore = Math.min(50, Math.round((v.applause || 0) / 10)), voteScore = Math.round(voteAvg * 10), totalScore = applauseScore + voteScore;
+                gameRef.child('lastResult').set({ singerName: v.singerName, singerPhoto: v.singerPhoto, singerSong: v.singerSong, applause: v.applause, voteAvg: voteAvg.toFixed(1), voteCount, totalScore, photos: pendingPhotos.slice(0, 5) });
+                if (totalScore > 0) { gameRef.child('scores/' + v.singerName).transaction(c => (c || 0) + totalScore); showToast(`${v.singerName}: ${totalScore} pts!`, 'success'); }
+                gameRef.child('queue/' + v.singerId).remove(); gameRef.child('voting').set({ active: false }); gameRef.child('applause').set(0); gameRef.child('photos').remove(); pendingPhotos = []; currentVideoId = null;
+                setTimeout(() => document.getElementById('votingOverlay').classList.remove('show'), 2000);
             });
         }
         
-        // ==================== ACTIONS ====================
-        function skipSinger() {
-            if (!currentSinger) return showToast('Ninguém!', 'error');
-            if (confirm(`Pular ${currentSinger.name}?`)) {
-                gameRef.child('queue/' + currentSinger.id).remove();
-                gameRef.child('applause').set(0);
-                currentVideoId = null;
-            }
-        }
-        
-        function resetAll() {
-            if (confirm('Resetar TUDO?')) {
-                gameRef.set(null).then(() => location.reload());
-            }
-        }
-        
-        function showToast(msg, type = '') {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.className = 'toast ' + type + ' show';
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
+        function skipSinger() { if (!currentSinger) return; if (confirm(`Pular ${currentSinger.name}?`)) { gameRef.child('queue/' + currentSinger.id).remove(); gameRef.child('applause').set(0); gameRef.child('photos').remove(); pendingPhotos = []; currentVideoId = null; } }
+        function resetAll() { if (confirm('Resetar TUDO?')) gameRef.set(null).then(() => location.reload()); }
+        function showToast(msg, type = '') { const t = document.getElementById('toast'); t.textContent = msg; t.className = 'toast ' + type + ' show'; setTimeout(() => t.classList.remove('show'), 3000); }
         
         document.addEventListener('DOMContentLoaded', init);
     </script>
