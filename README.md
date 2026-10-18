@@ -1,27 +1,87 @@
 # 🎤 Karaokê dos Veloso
 
-Sistema completo de karaokê digital para festas em família!
+Karaokê da família para a TV e para o celular. A TV mostra o vídeo, a fila e o placar. Cada pessoa entra pelo celular, pede uma música, aplaude, manda reação e vota.
+
+Não havia data fixa de 2025 no projeto. Esta versão é a mesma brincadeira, pronta para usar de novo no Natal de 2026.
 
 ---
 
-## 📁 Arquivos
+## Arquivos
 
-| Arquivo | Descrição |
-|---------|-----------|
-| `index.html` | Tela da TV/Projetor (operador) |
-| `jogador.html` | Tela do celular (todos os participantes) |
+| Arquivo | Função |
+|---------|--------|
+| `index.html` | Tela da TV / projetor |
+| `jogador.html` | Tela do celular |
+| `teste.html` | Diagnóstico antes da festa |
+| `js/` | Lógica compartilhada |
+| `css/` | Visual |
+| `vendor/` | QR Code e cartão para salvar, guardados no próprio site |
 
 ---
 
-## 🔥 CONFIGURAÇÃO DO FIREBASE (OBRIGATÓRIO!)
+## Publicar no GitHub Pages
 
-### Passo 1: Acessar as Regras do Realtime Database
+1. Envie a branch para o `main` (o pull request precisa ser aceito).
+2. Em **Settings → Pages**, a fonte deve ser a branch `main` e a pasta raiz (`/`).
+3. O endereço continua `https://bavkiq-hugby8-cittet.github.io/karaoke/`.
 
-1. Abra: https://console.firebase.google.com/project/karaoke-46db0/database/karaoke-46db0-default-rtdb/rules
+Dá para abrir os HTML direto no computador, mas a câmera e o celular da plateia precisam do site em HTTPS. Na festa, use o GitHub Pages.
 
-### Passo 2: Configurar as Regras
+---
 
-**Apague tudo** que está lá e cole isso:
+## Como jogar
+
+### Na TV
+
+1. Abra `index.html`.
+2. Toque em **Começar**.
+3. Espere **Conectado** no topo.
+4. Aponte o QR Code (ou copie o link) para todo mundo entrar.
+5. Quando a música entrar, toque em **Tocar** se o vídeo não começar sozinho. O navegador só libera o som depois de um toque na TV.
+6. **Pausar**, **Votar**, **Pular** e **Reset** ficam na barra de baixo.
+7. A votação também abre sozinha quando o vídeo termina. Dura 20 segundos.
+
+O **✕** ao lado de cada nome tira a pessoa da fila.
+
+**Reset** apaga a fila, o placar, as fotos e a votação da sala. Não use no meio da festa sem querer.
+
+### No celular
+
+1. Escaneie o QR Code ou abra `jogador.html`.
+2. A foto é opcional. Digite o nome e toque em **Entrar**.
+3. **Quero cantar**, busque a música (a busca já procura versão de karaokê) ou cole um link do YouTube.
+4. Quando for a sua vez, olhe para a TV. O celular avisa e vibra uma vez.
+5. Quem está assistindo aplaude, manda emoji, frase e foto para o telão.
+6. Na votação, escolha as estrelas e confirme. Quem cantou não vota em si.
+7. No fim, o cantor pode salvar um cartão da performance.
+
+---
+
+## Pontuação
+
+| Parte | Como entra |
+|-------|------------|
+| Aplausos | 1 ponto a cada 10 aplausos, no máximo 50 |
+| Estrelas | média de 1 a 5, multiplicada por 10 (no máximo 50) |
+
+O total vai para o placar, somando se a mesma pessoa cantar de novo. A nota mede a energia da plateia, não a afinação.
+
+O site não usa o microfone do celular. O microfone de verdade continua na caixa de som, do lado de fora do navegador.
+
+---
+
+## Sala de ensaio
+
+Abra a TV com `index.html?sala=ensaio`. O QR Code já leva o celular para a mesma sala. Serve para testar sem mexer na fila e no placar da festa. Sem `sala` na URL, todo mundo cai na sala principal.
+
+---
+
+## Firebase
+
+O jogo só sincroniza se o Realtime Database estiver aberto para a família.
+
+1. Abra as [regras do projeto karaoke-46db0](https://console.firebase.google.com/project/karaoke-46db0/database/karaoke-46db0-default-rtdb/rules).
+2. Publique:
 
 ```json
 {
@@ -32,163 +92,34 @@ Sistema completo de karaokê digital para festas em família!
 }
 ```
 
-### Passo 3: Publicar
+Isso é o que faz a festa funcionar sem login. Também deixa qualquer pessoa que descubra o endereço ler e apagar a fila, o placar e as fotos. Não coloque senha, endereço ou dado sensível nesse banco. Antes da festa, confira em `teste.html` se a escrita passa.
 
-Clique no botão **"Publicar"**
+| Item | Valor |
+|------|--------|
+| Projeto | `karaoke-46db0` |
+| Banco | `https://karaoke-46db0-default-rtdb.firebaseio.com` |
+| Chave do YouTube | está em `js/config.js` (visível para quem abre o site) |
 
-> ⚠️ **IMPORTANTE:** Sem essa configuração, o sistema NÃO funciona! O Firebase bloqueia todas as operações de leitura e escrita por padrão.
-
----
-
-## 🚀 Deploy no GitHub Pages
-
-1. Acesse seu repositório no GitHub
-2. Faça upload/atualize os 2 arquivos HTML
-3. Vá em **Settings** → **Pages**
-4. Certifique-se que está configurado para **main** / **root**
-5. Aguarde o deploy (geralmente 1-2 minutos)
-
-Seu site estará em: `https://bavkiq-hugby8-cittet.github.io/karaoke/`
+A chave do YouTube gasta a cota de busca de quem copiar o arquivo. No Google Cloud, o ideal é restringir essa chave ao endereço `https://bavkiq-hugby8-cittet.github.io/*`. Se a cota acabar no dia, o celular ainda aceita colar o link do vídeo.
 
 ---
 
-## 🎮 Como Funciona
+## Se algo falhar
 
-### Na TV/Projetor (Operador)
-
-1. Abra `index.html` no navegador
-2. Aguarde aparecer "🟢 Conectado" no topo
-3. O QR Code aparece automaticamente
-4. Controles disponíveis:
-   - ▶️ **Tocar** - Inicia o vídeo
-   - ⏭️ **Próximo** - Pula para votação
-   - ⏹️ **Parar** - Para o vídeo
-   - 🔄 **Resetar** - Limpa tudo (fila + placar)
-
-5. **Opção de Microfone:**
-   - 📱 No celular do cantor (padrão)
-   - 🖥️ No computador (microfone físico no PC)
-
-### No Celular (Jogadores)
-
-1. Escaneie o QR Code ou acesse: `https://bavkiq-hugby8-cittet.github.io/karaoke/jogador.html`
-2. Digite seu nome e clique em "Entrar"
-3. Aguarde aparecer "🟢 Conectado"
-
-**Para cantar:**
-1. Clique em "🎤 Quero Cantar!"
-2. Busque uma música (digite e clique 🔍)
-3. Toque na música desejada
-4. Aguarde sua vez na fila
-5. Quando for sua vez:
-   - Se microfone no celular: ative o microfone e cante
-   - Se microfone no operador: pegue o microfone e cante
-6. Sempre olhe para a TV onde passa o vídeo!
-
-**Para votar:**
-1. Quando alguém terminar de cantar, aparece a votação
-2. Toque nas estrelas (1 a 5)
-3. Clique em "Votar"
-4. Você tem 15 segundos!
+| Sintoma | O que fazer |
+|---------|-------------|
+| **Reconectando...** ou **Sem permissão** | Internet, e as regras do Firebase acima |
+| QR Code não aparece | O link embaixo do QR continua valendo. Atualize a página |
+| Vídeo mudo ou parado | Toque em **Tocar** na TV |
+| "não deixa tocar fora do YouTube" | Essa versão bloqueia embed. Escolha outra, ou cole outro link |
+| Busca sem resultado | Cole o link do YouTube |
+| Câmera negada | Permita a câmera e use o site em HTTPS |
+| Votação não aparece para quem cantou | É de propósito: a pessoa não vota na própria música |
 
 ---
 
-## ⭐ Sistema de Pontuação
+## Antes de projetar
 
-A pontuação final combina:
+Abra `teste.html` na TV e no celular. Firebase, QR Code e busca precisam estar verdes. A câmera só é obrigatória para quem for tirar foto.
 
-| Componente | Peso |
-|------------|------|
-| 🔥 Energia vocal | 40% |
-| ⭐ Média dos votos | 60% |
-
-**Energia vocal:** Medida pelo volume do microfone durante a música.
-**Votos:** Média das estrelas dadas pela plateia (1-5).
-
----
-
-## 🎯 Fluxo Visual
-
-```
-┌─────────────────────────────────────────────────┐
-│                📺 TV (index.html)                │
-│                                                  │
-│  ┌──────────────────┐  ┌──────────────────────┐ │
-│  │   Vídeo YouTube  │  │  📱 QR Code          │ │
-│  │   (Karaokê)      │  │  📋 Fila             │ │
-│  └──────────────────┘  │  🏆 Placar           │ │
-│                        │  🎤 Opção Microfone  │ │
-│  ┌──────────────────┐  └──────────────────────┘ │
-│  │ 🎙️ Cantor Atual  │                          │
-│  │ Nome + Música    │                          │
-│  │ 🔥 Energia       │                          │
-│  └──────────────────┘                          │
-│                                                  │
-│  [▶️ Tocar] [⏭️ Próximo] [⏹️ Parar] [🔄 Reset] │
-└─────────────────────────────────────────────────┘
-                       ▲
-                       │ Firebase (sincroniza tudo)
-                       ▼
-┌─────────────────────────────────────────────────┐
-│         📱 📱 📱 Celulares (jogador.html)        │
-│                                                  │
-│  • Entrar com nome                              │
-│  • Ver quem está cantando                       │
-│  • Pedir música e entrar na fila                │
-│  • Ativar microfone quando for a vez            │
-│  • Votar quando alguém terminar                 │
-│  • Ver fila e placar                            │
-└─────────────────────────────────────────────────┘
-```
-
----
-
-## 🔧 Credenciais (já configuradas)
-
-| Serviço | Valor |
-|---------|-------|
-| Firebase Project | karaoke-46db0 |
-| Database URL | https://karaoke-46db0-default-rtdb.firebaseio.com |
-| YouTube API Key | AIzaSyA3Qbdoyqg0EzUPrT0Qo_-HbygKLjTczoc |
-| GitHub Pages URL | https://bavkiq-hugby8-cittet.github.io/karaoke |
-
----
-
-## 🐛 Troubleshooting
-
-### "🔴 Desconectado" no status
-- Verifique sua conexão com a internet
-- Verifique se as regras do Firebase foram configuradas
-
-### QR Code não aparece
-- Atualize a página (F5)
-- Verifique se o JavaScript está habilitado
-
-### Música não carrega na TV
-- O vídeo precisa existir no YouTube
-- Alguns vídeos podem estar bloqueados
-
-### Votação não aparece
-- O cantor atual não vê a própria votação
-- Certifique-se de que a música terminou ou clicou em "Próximo"
-
-### Microfone não funciona
-- Permita o acesso ao microfone quando solicitado
-- Use HTTPS (GitHub Pages já usa)
-- Alguns navegadores bloqueiam microfone em HTTP
-
----
-
-## 💡 Dicas
-
-- Busque músicas com "karaoke" no nome para vídeos com letra
-- O celular vibra quando é a vez de cantar!
-- O cantor não vota em si mesmo
-- A energia vocal mede volume, não afinação (é mais divertido!)
-- Use "Próximo" para pular se alguém desistir
-
----
-
-## 🎉 Divirta-se!
-
-Feito com ❤️ para a família Veloso!
+Na sala principal ainda pode existir um pedido antigo (Jessica, "Oceano", de fevereiro de 2026). Se ele aparecer na fila, use **Reset** uma vez antes da festa, ou toque no **✕**. Esse pedido não foi apagado daqui.
