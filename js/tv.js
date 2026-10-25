@@ -608,16 +608,21 @@
         if (votingActive || endingVote) return;
         votingActive = true;
         var singer = currentSinger;
-        gameRef.child('voting').set({
-            singerId: singer.id,
-            playerId: U.playerKey(singer) || null,
-            singerName: singer.name || 'Cantor',
-            singerPhoto: U.safeDataImage(singer.photo) || null,
-            singerSong: U.decodeHtml(singer.song || ''),
-            applause: applauseTotal,
-            votes: {},
-            active: true,
-            startTime: firebase.database.ServerValue.TIMESTAMP
+        var round = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        // Transação: se outra TV já abriu a votação, não sobrescreve os votos dela.
+        gameRef.child('voting').transaction(function (current) {
+            if (current && current.active) return;
+            return {
+                round: round,
+                singerId: singer.id,
+                playerId: U.playerKey(singer) || null,
+                singerName: singer.name || 'Cantor',
+                singerPhoto: U.safeDataImage(singer.photo) || null,
+                singerSong: U.decodeHtml(singer.song || ''),
+                applause: applauseTotal,
+                active: true,
+                startTime: firebase.database.ServerValue.TIMESTAMP
+            };
         }).catch(function (err) {
             votingActive = false;
             console.error(err);
@@ -713,9 +718,15 @@
         clearInterval(votingTimer);
         clearInterval(slideTimer);
 
-        gameRef.child('voting').once('value').then(function (snap) {
-            var voting = snap.val();
-            if (!voting) return null;
+        // Transação: só UMA TV fecha a votação e soma os pontos, mesmo com várias abertas.
+        var closed = null;
+        gameRef.child('voting').transaction(function (current) {
+            if (!current || !current.active) return;
+            closed = current;
+            return { active: false, round: current.round || null, closedAt: firebase.database.ServerValue.TIMESTAMP };
+        }).then(function (res) {
+            if (!res.committed || !closed) return null;
+            var voting = closed;
             var values = Object.keys(voting.votes || {}).map(function (key) {
                 return Number(voting.votes[key]);
             }).filter(function (n) { return !isNaN(n); });
@@ -737,7 +748,6 @@
                 totalScore: totalScore,
                 finishedAt: Date.now()
             };
-            updates.voting = { active: false };
             updates.applause = 0;
             updates.photos = null;
             if (voting.singerId) updates['queue/' + voting.singerId] = null;
