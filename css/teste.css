@@ -1,0 +1,81 @@
+:root {
+    --dark: #10002b;
+    --darker: #0a0015;
+    --cyan: #00f5d4;
+    --yellow: #ffbe0b;
+    --green: #06d6a0;
+    --red: #ef476f;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--darker);
+    color: white;
+    padding: 20px;
+    line-height: 1.45;
+}
+
+main { max-width: 860px; margin: 0 auto; }
+
+h1 { font-size: 1.6rem; margin-bottom: 8px; }
+.intro { opacity: 0.85; margin-bottom: 18px; }
+
+.links { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.links a {
+    color: #04231f;
+    background: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 999px;
+}
+
+.test {
+    background: #16122a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+}
+
+.test h2 { margin: 0 0 8px; font-size: 1.05rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.status { padding: 3px 10px; border-radius: 999px; font-size: 0.8rem; background: #8a6a12; }
+.status.ok { background: #0e7a4b; }
+.status.error { background: #a32045; }
+
+.log {
+    background: #0c0818;
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 48px;
+    max-height: 160px;
+    overflow: auto;
+    font-family: ui-monospace, monospace;
+    font-size: 0.82rem;
+}
+
+.log .ok { color: var(--green); }
+.log .bad { color: #ff8fa8; }
+
+button, .links a { font: inherit; }
+button {
+    margin: 8px 8px 0 0;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #3a86ff;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#qrImg { width: 150px; height: 150px; background: white; border-radius: 8px; margin-top: 10px; }
+#youtubeTest { width: 100%; height: 220px; background: black; border-radius: 8px; margin-top: 10px; }
+
+code { background: rgba(255, 255, 255, 0.08); padding: 1px 6px; border-radius: 6px; }
