@@ -95,8 +95,10 @@
                     <div class="card-header"><h2>📱 Entrar</h2></div>
                     <div class="qr-wrapper"><img id="qrcode" alt="QR Code para entrar no karaokê" width="160" height="160"></div>
                     <p class="qr-instruction">Escaneie com a câmera do celular</p>
-                    <a class="qr-url" id="qrUrl" href="jogador.html">jogador.html</a>
-                    <button class="copy-btn" id="copyLink" type="button">Copiar link</button>
+                    <div class="qr-link">
+                        <a class="qr-url" id="qrUrl" href="jogador.html" target="_blank" rel="noopener">jogador.html</a>
+                        <button class="copy-btn" id="copyLink" type="button" aria-label="Copiar link de entrada">📋 Copiar</button>
+                    </div>
                 </section>
                 <section class="card">
                     <div class="card-header"><h2>📋 Fila</h2><span class="badge" id="queueCount">0</span></div>
@@ -109,13 +111,31 @@
             </aside>
         </div>
 
-        <div class="controls" role="toolbar" aria-label="Controles da TV">
-            <button class="ctrl-btn btn-play" id="btnPlay" type="button">▶ Tocar</button>
-            <button class="ctrl-btn btn-pause" id="btnPause" type="button">⏸ Pausar</button>
-            <button class="ctrl-btn btn-vote" id="btnVote" type="button">⭐ Votar</button>
-            <button class="ctrl-btn btn-skip" id="btnSkip" type="button">⏭ Pular</button>
-            <button class="ctrl-btn btn-reset" id="btnReset" type="button">🔄 Reset</button>
+        <div class="controls" id="controls" role="toolbar" aria-label="Controles da TV">
+            <div class="ctrl-group">
+                <button class="ctrl-btn btn-play" id="btnPlay" type="button" aria-pressed="false" title="Tocar / pausar (Espaço)"><span class="ic" aria-hidden="true">▶</span><span class="lbl">Tocar</span></button>
+                <button class="ctrl-btn btn-vote" id="btnVote" type="button" title="Abrir votação (V)"><span class="ic" aria-hidden="true">⭐</span><span class="lbl">Votar</span></button>
+                <button class="ctrl-btn btn-skip" id="btnSkip" type="button" title="Pular cantor (N)"><span class="ic" aria-hidden="true">⏭</span><span class="lbl">Pular</span></button>
+            </div>
+            <p class="ctrl-hint" aria-hidden="true"><kbd>Espaço</kbd> tocar/pausar · <kbd>V</kbd> votar · <kbd>N</kbd> pular · <kbd>F</kbd> tela cheia</p>
+            <div class="ctrl-group">
+                <button class="ctrl-btn btn-fs" id="btnFullscreen" type="button" aria-pressed="false" title="Tela cheia (F)"><span class="ic" aria-hidden="true">⛶</span><span class="lbl">Tela cheia</span></button>
+                <button class="ctrl-btn btn-reset" id="btnReset" type="button" title="Apaga fila, placar e votação desta sala"><span class="ic" aria-hidden="true">🗑</span><span class="lbl">Reset</span></button>
+            </div>
         </div>
+    </div>
+
+    <div class="confirm-overlay" id="resetDialog" role="alertdialog" aria-modal="true" aria-labelledby="resetTitle" hidden>
+        <form class="confirm-box" id="resetForm">
+            <h2 id="resetTitle">⚠️ Apagar tudo desta sala?</h2>
+            <p>A fila, o placar e a votação serão apagados para todos. Não dá para desfazer.</p>
+            <label for="resetInput">Digite <strong>APAGAR</strong> para confirmar</label>
+            <input id="resetInput" autocomplete="off" spellcheck="false">
+            <div class="confirm-actions">
+                <button type="button" class="ctrl-btn btn-cancel" id="resetCancel">Cancelar</button>
+                <button type="submit" class="ctrl-btn btn-danger" id="resetConfirm" disabled>Apagar tudo</button>
+            </div>
+        </form>
     </div>
 
     <div class="voting-overlay" id="votingOverlay" role="dialog" aria-modal="true" aria-labelledby="votingSinger">

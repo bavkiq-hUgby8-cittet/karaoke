@@ -29,8 +29,9 @@
 
     function init() {
         document.getElementById('startBtn').addEventListener('click', startApp);
-        document.getElementById('btnPlay').addEventListener('click', playVideo);
-        document.getElementById('btnPause').addEventListener('click', pauseVideo);
+        document.getElementById('btnPlay').addEventListener('click', togglePlay);
+        document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+        initUx();
         document.getElementById('btnVote').addEventListener('click', startVoting);
         document.getElementById('btnSkip').addEventListener('click', skipSinger);
         document.getElementById('btnReset').addEventListener('click', resetAll);
@@ -58,6 +59,125 @@
         document.getElementById('tutorial').classList.add('hidden');
         document.getElementById('app').classList.add('active');
         generateQR();
+        try { if (localStorage.getItem('karaoke_fs') === '1') enterFullscreen(); } catch (e) {}
+    }
+
+    // ---- UX da TV: tocar/pausar, atalhos, tela cheia, cursor, confirmações ----
+    var isPlaying = false;
+    var skipArmed = null;
+    var idleTimer = null;
+
+    function setPlaying(on) {
+        isPlaying = !!on;
+        var b = document.getElementById('btnPlay');
+        b.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+        b.classList.toggle('playing', isPlaying);
+        b.querySelector('.ic').textContent = isPlaying ? '⏸' : '▶';
+        b.querySelector('.lbl').textContent = isPlaying ? 'Pausar' : 'Tocar';
+    }
+
+    function setVoteAttention(on) {
+        document.getElementById('btnVote').classList.toggle('attention', !!on);
+    }
+
+    function togglePlay() {
+        if (isPlaying) pauseVideo(); else playVideo();
+    }
+
+    function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement; }
+
+    function enterFullscreen() {
+        var el = document.documentElement;
+        var fn = el.requestFullscreen || el.webkitRequestFullscreen;
+        if (!fn) return;
+        try { var r = fn.call(el); if (r && r.catch) r.catch(function () {}); } catch (e) {}
+    }
+
+    function toggleFullscreen() {
+        if (fsElement()) {
+            var ex = document.exitFullscreen || document.webkitExitFullscreen;
+            if (ex) ex.call(document);
+            try { localStorage.setItem('karaoke_fs', '0'); } catch (e) {}
+        } else {
+            enterFullscreen();
+            try { localStorage.setItem('karaoke_fs', '1'); } catch (e) {}
+        }
+    }
+
+    function onFsChange() {
+        var on = !!fsElement();
+        var b = document.getElementById('btnFullscreen');
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        b.querySelector('.lbl').textContent = on ? 'Sair da tela cheia' : 'Tela cheia';
+        setTimeout(resizePlayer, 150);
+    }
+
+    function wake() {
+        document.body.classList.remove('idle');
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () { document.body.classList.add('idle'); }, 3000);
+    }
+
+    function disarmSkip() {
+        if (!skipArmed) return;
+        clearTimeout(skipArmed);
+        skipArmed = null;
+        var b = document.getElementById('btnSkip');
+        b.classList.remove('armed');
+        b.querySelector('.lbl').textContent = 'Pular';
+    }
+
+    function openReset() {
+        var d = document.getElementById('resetDialog');
+        var input = document.getElementById('resetInput');
+        input.value = '';
+        document.getElementById('resetConfirm').disabled = true;
+        d.hidden = false;
+        input.focus();
+    }
+
+    function closeReset() {
+        document.getElementById('resetDialog').hidden = true;
+        document.getElementById('btnReset').focus();
+    }
+
+    function initUx() {
+        setPlaying(false);
+        document.addEventListener('fullscreenchange', onFsChange);
+        document.addEventListener('webkitfullscreenchange', onFsChange);
+        ['mousemove', 'mousedown', 'touchstart', 'keydown'].forEach(function (ev) {
+            document.addEventListener(ev, wake, { passive: true });
+        });
+        wake();
+        var input = document.getElementById('resetInput');
+        input.addEventListener('input', function () {
+            document.getElementById('resetConfirm').disabled = input.value.trim().toUpperCase() !== 'APAGAR';
+        });
+        document.getElementById('resetCancel').addEventListener('click', closeReset);
+        document.getElementById('resetForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value.trim().toUpperCase() !== 'APAGAR') return;
+            document.getElementById('resetDialog').hidden = true;
+            doReset();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (!document.getElementById('resetDialog').hidden) {
+                if (e.key === 'Escape') closeReset();
+                return;
+            }
+            if (!document.getElementById('app').classList.contains('active')) return;
+            var t = e.target;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+            var k = e.key.toLowerCase();
+            if (k === 'f') { e.preventDefault(); toggleFullscreen(); }
+            else if (k === ' ' || k === 'k') {
+                if (t && t.tagName === 'BUTTON' && k === ' ') return;
+                e.preventDefault(); togglePlay();
+            }
+            else if (k === 'v') { e.preventDefault(); startVoting(); }
+            else if (k === 'n') { e.preventDefault(); skipSinger(); }
+        });
     }
 
     function initFirebase() {
@@ -119,8 +239,11 @@
     function generateQR() {
         var url = U.playerPageUrl();
         var link = document.getElementById('qrUrl');
-        link.textContent = url;
         link.href = url;
+        link.title = url;
+        link.textContent = url.replace(/^https?:\/\//, '').replace(/^([^/]+)\/.*?([^/]+\/[^/?]+(\?.*)?)$/, function (m, host, tail) {
+            return host.split('.')[0] + '…/' + tail;
+        });
         var img = document.getElementById('qrcode');
         if (typeof QRCode === 'undefined' || !QRCode.toDataURL) {
             img.alt = 'QR Code indisponível. Use o link abaixo.';
@@ -143,7 +266,7 @@
     }
 
     function copyLink() {
-        var url = document.getElementById('qrUrl').textContent;
+        var url = document.getElementById('qrUrl').href;
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(url).then(function () {
                 showToast('Link copiado', 'success');
@@ -509,15 +632,23 @@
         wantedVideoId = null;
         destroyVideo();
         hidePlayOverlay();
+        setPlaying(false);
+        setVoteAttention(false);
     }
 
     function onPlayerState(event) {
         if (!window.YT || !YT.PlayerState) return;
         if (event.data === YT.PlayerState.PLAYING) {
             hasPlayed = true;
+            setPlaying(true);
+            setVoteAttention(false);
             hidePlayOverlay();
             hideVideoError();
+        } else if (event.data === YT.PlayerState.PAUSED) {
+            setPlaying(false);
         } else if (event.data === YT.PlayerState.ENDED) {
+            setPlaying(false);
+            if (currentSinger) setVoteAttention(true);
             hidePlayOverlay();
             if (currentSinger && !votingActive && !endingVote) startVoting();
         }
@@ -606,6 +737,7 @@
             return;
         }
         if (votingActive || endingVote) return;
+        setVoteAttention(false);
         votingActive = true;
         var singer = currentSinger;
         var round = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -784,7 +916,15 @@
     function skipSinger() {
         if (!currentSinger) return;
         var name = currentSinger.name || 'esta pessoa';
-        if (!confirm('Pular ' + name + '?')) return;
+        var btn = document.getElementById('btnSkip');
+        if (!skipArmed) {
+            btn.classList.add('armed');
+            btn.querySelector('.lbl').textContent = 'Pular ' + name + '? Toque de novo';
+            skipArmed = setTimeout(disarmSkip, 3500);
+            return;
+        }
+        disarmSkip();
+        setVoteAttention(false);
         var updates = {};
         updates['queue/' + currentSinger.id] = null;
         updates.applause = 0;
@@ -797,7 +937,10 @@
     }
 
     function resetAll() {
-        if (!confirm('Resetar a fila, o placar e a votação desta sala?')) return;
+        openReset();
+    }
+
+    function doReset() {
         clearInterval(votingTimer);
         clearInterval(slideTimer);
         gameRef.set(null).then(function () {
